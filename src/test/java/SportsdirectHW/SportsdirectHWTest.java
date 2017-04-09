@@ -21,8 +21,8 @@ public class SportsdirectHWTest {
     private final String baseURL = "http://www.sportsdirect.com/swimming/ladies-swimwear/swimsuits";
     private final String unisexSwimsuitLocator = "//*['@id=filterlist']/div[2]/a/span";
     private final String girlsSwimsuitLocator = "//*['@id=filterlist']/div[3]/a/span";
-    private final String unisexSwimsuitItemAmountLocator = "//*[@id=\"dnn_ctr29181414_ViewTemplate_ctl00_ctl07_lstFilters_productFilterList_0\"]/div[2]";
-    private final String girlsSwimsuitItemAmountLocator = "//*[@id=\"dnn_ctr29181414_ViewTemplate_ctl00_ctl07_lstFilters_productFilterList_0\"]/div[3]";
+    private final String unisexSwimsuitItemAmountLocator = "//*[@id=\"dnn_ctr29807864_ViewTemplate_ctl00_ctl07_lstFilters_productFilterList_0\"]/div[2]";
+    private final String girlsSwimsuitItemAmountLocator = "//*[@id=\"dnn_ctr29807864_ViewTemplate_ctl00_ctl07_lstFilters_productFilterList_0\"]/div[3]";
 
 
 
