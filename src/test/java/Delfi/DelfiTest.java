@@ -20,7 +20,7 @@ public class DelfiTest {
     FirefoxDriver driver;
     private final String baseURL = "http://www.rus.delfi.lv";
     private static final Logger LOGGER = Logger.getLogger(DelfiTest.class);
-    private static final By COUNTER =  By.className("comment-count");
+    private static final By COMMENTcounter =  By.className("comment-count");
     private static final By REGISTREDuserCOMMENTS = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
     private static final By ANONYMUSuserCOMMENTS = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
 
@@ -47,7 +47,7 @@ public class DelfiTest {
         driver.get(baseURL);
 
         LOGGER.info("Get amount of comments under article on main page");
-        int mainPageCommentsNumber = getAmountOfComments(COUNTER);
+        int mainPageCommentsNumber = getAmountOfComments(COMMENTcounter);
 
         LOGGER.info("Clicking on first link");
         driver.findElementByClassName("top2012-big").click();
@@ -55,12 +55,13 @@ public class DelfiTest {
         Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
 
         LOGGER.info("Getting amount of comments on article page");
-        int articlePageCommentsNumber = getAmountOfComments(COUNTER);
+        int articlePageCommentsNumber = getAmountOfComments(COMMENTcounter);
 
         Assert.assertEquals("Wrong comment number on main page and article page",mainPageCommentsNumber,articlePageCommentsNumber,0);
+        LOGGER.info("Comments number on main page and article page is correct! ");
 
         LOGGER.info("Opening comment section");
-        driver.findElement(By.cssSelector(".article-title .comment-count")).click();
+        driver.findElement(COMMENTcounter).click();
 
         Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
 
