@@ -75,6 +75,7 @@ public class DelfiTest {
         LOGGER.info("Total amount of comments is:"+totalAmountOfComments);
 
         Assert.assertEquals("Wrong comments number ",totalAmountOfComments,articlePageCommentsNumber,0);
+        LOGGER.info("Comments number is correct!");
     }
 
     private int getAmountOfComments (By byWhat){
