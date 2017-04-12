@@ -1,6 +1,5 @@
 package Delfi;
 
-import com.google.common.util.concurrent.Uninterruptibles;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
@@ -18,17 +17,16 @@ import java.util.concurrent.TimeUnit;
 public class DelfiTest {
 
     FirefoxDriver driver;
-    private final String baseURL = "http://www.rus.delfi.lv";
-    private static final Logger LOGGER = Logger.getLogger(DelfiTest.class);
-    private static final By COMMENTcounter =  By.className("comment-count");
-    private static final By REGISTREDuserCOMMENTS = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
-    private static final By ANONYMUSuserCOMMENTS = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
+
+    public static final Logger logger = Logger.getLogger(DelfiTest.class);
+    private static final By commentCounter =  By.className("comment-count");
+    private static final By registeredUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
+    private static final By anonymousUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
 
     @Before
     public void setUp() {
-        LOGGER.info("Setting up Web driver");
+        logger.info("Opening FF browser");
         System.setProperty("webdriver.gecko.driver", "/Users/antons/Downloads/WebDrivers/geckodriver");
-        LOGGER.info("Opening FF browser");
         driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -36,54 +34,85 @@ public class DelfiTest {
 
     @After
     public void tearDown() {
-        LOGGER.info("Closing browser");
+        logger.info("Closing browser");
         driver.quit();
     }
 
     @Test
     public void delfiCommentTest (){
 
-        LOGGER.info("Opening base URL");
-        driver.get(baseURL);
+        openHomePage();
 
-        LOGGER.info("Get amount of comments under article on main page");
-        int mainPageCommentsNumber = getAmountOfComments(COMMENTcounter);
+        int mainPageCommentsNumber = getMainPageCommentsNumber();
 
-        LOGGER.info("Clicking on first link");
-        driver.findElementByClassName("top2012-big").click();
+        clickOnFirstArticle();
 
-        Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
+        int articlePageCommentsNumber = getArticlePageCommentsNumber();
 
-        LOGGER.info("Getting amount of comments on article page");
-        int articlePageCommentsNumber = getAmountOfComments(COMMENTcounter);
+        commentAmountAssertion(mainPageCommentsNumber,articlePageCommentsNumber);
 
-        Assert.assertEquals("Wrong comment number on main page and article page",mainPageCommentsNumber,articlePageCommentsNumber,0);
-        LOGGER.info("Comments number on main page and article page is correct! ");
+        openCommentSection();
 
-        LOGGER.info("Opening comment section");
-        driver.findElement(COMMENTcounter).click();
+        int totalAmountOfComments = getTotalAmountOfComments();
 
-        Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
-
-        LOGGER.info("Getting amount of registred user comments");
-        int registredCommentsNumber = getAmountOfComments(REGISTREDuserCOMMENTS);
-        LOGGER.info("Getting amount of anonymus user comments");
-        int anonymusCommentsNumber = getAmountOfComments(ANONYMUSuserCOMMENTS);
-        
-
-        LOGGER.info("Getting total amount of comments");
-        int totalAmountOfComments = anonymusCommentsNumber+registredCommentsNumber;
-        LOGGER.info("Total amount of comments is:"+totalAmountOfComments);
-
-        Assert.assertEquals("Wrong comments number ",totalAmountOfComments,articlePageCommentsNumber,0);
-        LOGGER.info("Comments number is correct!");
+        commentAmountAssertion(articlePageCommentsNumber,totalAmountOfComments);
     }
 
-    private int getAmountOfComments (By byWhat){
+    protected int getArticlePageCommentsNumber() {
+        logger.info("Getting amount of comments on article page");
+        return getAmountOfComments(commentCounter);
+    }
+
+    protected void clickOnFirstArticle() {
+        logger.info("Clicking on first link");
+        driver.findElementByClassName("top2012-title").click();
+    }
+
+    protected int getMainPageCommentsNumber() {
+        logger.info("Get amount of comments under article on main page");
+        return getAmountOfComments(commentCounter);
+    }
+
+    protected void openCommentSection() {
+        logger.info("Opening comment section");
+        driver.findElement(commentCounter).click();
+    }
+
+    protected void openHomePage() {
+        logger.info("Opening home page");
+        driver.get("http://www.rus.delfi.lv");
+    }
+
+    protected int getTotalAmountOfComments() {
+        int registeredCommentsNumber = getRegisteredCommentsNumber();
+        int anonymousCommentsNumber = getAnonymousCommentsNumber();
+
+        logger.info("Getting total amount of comments");
+        int totalAmountOfComments = anonymousCommentsNumber+registeredCommentsNumber;
+        logger.info("Total amount of comments is:"+totalAmountOfComments);
+        return totalAmountOfComments;
+    }
+
+    private int getAnonymousCommentsNumber() {
+        logger.info("Getting amount of anonymous user comments");
+        return getAmountOfComments(anonymousUserComments);
+    }
+
+    private int getRegisteredCommentsNumber() {
+        logger.info("Getting amount of registered user comments");
+        return getAmountOfComments(registeredUserComments);
+    }
+
+    protected void commentAmountAssertion(int firstCommentNumber, int secondCommentNumber) {
+        Assert.assertEquals( "Comment amount is not equal!", firstCommentNumber, secondCommentNumber, 0);
+        logger.info("Comments number is correct!");
+    }
+
+    protected int getAmountOfComments (By byWhat){
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
-        LOGGER.info("Number of comments is: "+pageCommentsNumber);
+        logger.info("Number of comments is: "+pageCommentsNumber);
         return pageCommentsNumber;
     }
 
