@@ -1,42 +1,21 @@
 package Delfi;
 
-import org.apache.log4j.Logger;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.concurrent.TimeUnit;
 
 /**
  * Testing amount of comments on first article comment on main page / article page / comment page for rus.delfi.lv website
  */
-public class DelfiTest {
+public class DelfiTest extends TestBase {
 
-    FirefoxDriver driver;
-
-    public static final Logger logger = Logger.getLogger(DelfiTest.class);
+    private final String baseURL = "http://rus.delfi.lv";
     private static final By commentCounter =  By.className("comment-count");
     private static final By registeredUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
     private static final By anonymousUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
 
-    @Before
-    public void setUp() {
-        logger.info("Opening FF browser");
-        System.setProperty("webdriver.gecko.driver", "/Users/antons/Downloads/WebDrivers/geckodriver");
-        driver = new FirefoxDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-
-    @After
-    public void tearDown() {
-        logger.info("Closing browser");
-        driver.quit();
-    }
 
     @Test
     public void delfiCommentTest (){
@@ -80,7 +59,7 @@ public class DelfiTest {
 
     protected void openHomePage() {
         logger.info("Opening home page");
-        driver.get("http://www.rus.delfi.lv");
+        driver.get(baseURL);
     }
 
     protected int getTotalAmountOfComments() {
