@@ -1,5 +1,7 @@
 package Delfi;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -7,25 +9,40 @@ import org.junit.Test;
  */
 public class DelfiTest extends TestBase {
 
+    NavigationManager navigationManager = new NavigationManager();
+    DriverManager driverManager = new DriverManager();
+
+    @Before
+    public void setup (){
+        driverManager.setUp();
+    }
+
+    @After
+    public void teardown(){
+        driverManager.tearDown();
+    }
+
+
 
     @Test
     public void delfiCommentTest (){
 
-        openHomePage();
+        navigationManager.openHomePage();
 
         int mainPageCommentsNumber = getMainPageCommentsNumber();
 
-        clickOnFirstArticle();
+        navigationManager.clickOnFirstArticle();
 
         int articlePageCommentsNumber = getArticlePageCommentsNumber();
 
         commentAmountAssertion(mainPageCommentsNumber,articlePageCommentsNumber);
 
-        openCommentSection();
+        navigationManager.openCommentSection();
 
         int totalAmountOfComments = getTotalAmountOfComments();
 
         commentAmountAssertion(articlePageCommentsNumber,totalAmountOfComments);
+
     }
 
 
