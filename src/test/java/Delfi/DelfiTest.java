@@ -1,7 +1,5 @@
 package Delfi;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,38 +10,46 @@ public class DelfiTest extends TestBase {
     NavigationManager navigationManager = new NavigationManager();
     DriverManager driverManager = new DriverManager();
 
-    @Before
-    public void setup (){
-        driverManager.setUp();
-    }
-
-    @After
-    public void teardown(){
-        driverManager.tearDown();
-    }
-
-
 
     @Test
     public void delfiCommentTest (){
 
-        navigationManager.openHomePage();
+        driverManager.setUpFFDesktop();
 
-        int mainPageCommentsNumber = getMainPageCommentsNumber();
+        navigationManager.openHomePage(DriverManager.desktopDriver);
 
-        navigationManager.clickOnFirstArticle();
+        int mainPageCommentsNumber = getMainPageCommentsNumber(DriverManager.desktopDriver);
 
-        int articlePageCommentsNumber = getArticlePageCommentsNumber();
+        navigationManager.clickOnFirstArticle(DriverManager.desktopDriver);
+
+        int articlePageCommentsNumber = getArticlePageCommentsNumber(DriverManager.desktopDriver);
 
         commentAmountAssertion(mainPageCommentsNumber,articlePageCommentsNumber);
 
-        navigationManager.openCommentSection();
+        navigationManager.openCommentSection(DriverManager.desktopDriver);
 
-        int totalAmountOfComments = getTotalAmountOfComments();
+        int totalAmountOfComments = getTotalAmountOfComments(DriverManager.desktopDriver);
 
         commentAmountAssertion(articlePageCommentsNumber,totalAmountOfComments);
 
+        driverManager.tearDown(DriverManager.desktopDriver);
+
     }
+
+    @Test
+    public void desktopAndMobileComparisonTest(){
+
+        driverManager.setUpFFDesktop();
+
+        navigationManager.openHomePage(DriverManager.desktopDriver);
+
+
+
+
+    }
+
+
+
 
 
 

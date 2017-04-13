@@ -1,14 +1,16 @@
 package Delfi;
 
+import com.sun.tools.internal.xjc.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Created by antons on 13/04/2017.
  */
 public class NavigationManager {
-    private final String baseURL = "http://rus.delfi.lv";
-    private final By commentCounter =  By.className("comment-count");
-    private final By firstArticle = By.className("top2012-title");
+    private static String baseURL = "http://rus.delfi.lv";
+    private static By commentCounter =  By.className("comment-count");
+    private static By firstArticle = By.className("top2012-title");
 
     DriverManager driverManager = new DriverManager();
 
@@ -18,21 +20,24 @@ public class NavigationManager {
     }
 
 
-    protected void clickOnFirstArticle() {
+    protected void clickOnFirstArticle(WebDriver driver) {
         TestBase.logger.info("Clicking on first link");
-        driverManager.driver.findElement(firstArticle).click();
+        driver.findElement(firstArticle).click();
+
 
     }
 
-    protected void openCommentSection() {
+    protected void openCommentSection(WebDriver driver) {
         TestBase.logger.info("Opening comment section");
-        driverManager.driver.findElement(commentCounter).click();
+        driver.findElement(commentCounter).click();
     }
 
-    protected void openHomePage() {
+    protected void openHomePage(WebDriver driver) {
         TestBase.logger.info("Opening home page");
-        driverManager.driver.get(baseURL);
+        driver.get(baseURL);
     }
+
+
 
 
 
