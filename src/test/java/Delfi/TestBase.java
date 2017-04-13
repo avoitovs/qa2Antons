@@ -52,8 +52,8 @@ public class TestBase {
     }
 
     protected void commentAmountAssertion(int firstCommentNumber, int secondCommentNumber) {
-        Assert.assertEquals( "Comment amount is not equal!", firstCommentNumber, secondCommentNumber, 0);
-        logger.info("Comments number is correct!");
+        Assert.assertEquals( "Comments amount are not equal!", firstCommentNumber, secondCommentNumber, 0);
+        logger.info("Comments amount is correct!");
     }
 
     protected int getAmountOfComments (By byWhat){
