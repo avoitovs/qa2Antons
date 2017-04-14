@@ -12,8 +12,6 @@ public class NavigationManager {
     private static By commentCounter =  By.className("comment-count");
     private static By firstArticle = By.className("top2012-title");
 
-    DriverManager driverManager = new DriverManager();
-
 
     public By getCommentCounter() {
         return commentCounter;

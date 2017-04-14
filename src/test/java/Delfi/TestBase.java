@@ -50,18 +50,16 @@ public class TestBase {
         return getAmountOfComments(registeredUserComments,driver);
     }
 
-    protected void commentAmountAssertion(int firstCommentNumber, int secondCommentNumber) {
-        Assert.assertEquals( "Comments amount are not equal!", firstCommentNumber, secondCommentNumber, 0);
-        logger.info("Comments amount is correct!");
-    }
-
-    protected int getAmountOfComments (By byWhat,WebDriver driver){
+    protected static int getAmountOfComments (By byWhat,WebDriver driver){
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
         logger.info("Number of comments is: "+pageCommentsNumber);
         return pageCommentsNumber;
     }
+
+
+
 
 
 
