@@ -15,7 +15,6 @@ public class DriverManager {
     public static FirefoxDriver desktopDriver;
     public static WebDriver mobileDriver;
 
-
     public void setUpFFDesktop() {
         TestBase.logger.info("Preparing FF desktop browser");
         System.setProperty("webdriver.gecko.driver", "/Users/antons/Downloads/WebDrivers/geckodriver");

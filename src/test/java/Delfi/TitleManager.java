@@ -12,6 +12,9 @@ import java.util.List;
  */
 public class TitleManager {
 
+    public TitleManager() {
+    }
+
     public static By firstArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[1]/h3/a[1]");
     public static By secondArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[2]/h3/a[1]");
     public static By thirdArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[1]/h3/a[1]");

@@ -2,12 +2,15 @@ package Delfi;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  * Created by antons on 14/04/2017.
  */
-public class CommentManager extends TestBase {
 
+public class CommentManager {
+
+    NavigationManager navigationManager = new NavigationManager();
 
 
     public static By firstArticleCommentDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[1]/h3/a[2]");
@@ -22,6 +25,11 @@ public class CommentManager extends TestBase {
     public static By thirdArticleCommentMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[4]/div/a[2]");
     public static By fourthArticleCommentMobile =By.xpath("//*[@id='wrapper']/div[2]/div/div[6]/div/a[2]");
     public static By fifthArticleCommentMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[7]/div/a[2]");
+
+
+    private final By registeredUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
+    private final By anonymousUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
+
 
 
     public static By[] getDesktopCommentSelectors(){
@@ -67,4 +75,46 @@ public class CommentManager extends TestBase {
 
         return arrayOfComments;
     }
+
+
+    protected int getArticlePageCommentsNumber(WebDriver driver) {
+        TestBase.logger.info("Getting amount of comments on article page");
+        return getAmountOfComments(navigationManager.getCommentCounter(),driver);
+    }
+
+    protected int getMainPageCommentsNumber(WebDriver driver) {
+        TestBase.logger.info("Get amount of comments under article on main page");
+        return getAmountOfComments(navigationManager.getCommentCounter(),driver);
+    }
+
+    protected int getTotalAmountOfComments(WebDriver driver) {
+        int registeredCommentsNumber = getRegisteredCommentsNumber(driver);
+        int anonymousCommentsNumber = getAnonymousCommentsNumber(driver);
+
+        TestBase.logger.info("Getting total amount of comments");
+        int totalAmountOfComments = anonymousCommentsNumber+registeredCommentsNumber;
+        TestBase.logger.info("Total amount of comments is:"+totalAmountOfComments);
+        return totalAmountOfComments;
+    }
+
+    private int getAnonymousCommentsNumber(WebDriver driver) {
+        TestBase.logger.info("Getting amount of anonymous user comments");
+        return getAmountOfComments(anonymousUserComments,driver);
+    }
+
+    private int getRegisteredCommentsNumber(WebDriver driver) {
+        TestBase.logger.info("Getting amount of registered user comments");
+        return getAmountOfComments(registeredUserComments,driver);
+    }
+
+    protected static int getAmountOfComments (By byWhat,WebDriver driver){
+        WebElement pageComments = driver.findElement(byWhat);
+        String commentsNumber = pageComments.getText();
+        int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
+        TestBase.logger.info("Number of comments is: "+pageCommentsNumber);
+        return pageCommentsNumber;
+    }
+
+
+
 }
