@@ -1,4 +1,4 @@
-package Delfi;
+package Delfi.tests.managers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -77,17 +77,17 @@ public class CommentManager {
     }
 
 
-    protected int getArticlePageCommentsNumber(WebDriver driver) {
+    public int getArticlePageCommentsNumber(WebDriver driver) {
         TestBase.logger.info("Getting amount of comments on article page");
         return getAmountOfComments(navigationManager.getCommentCounter(),driver);
     }
 
-    protected int getMainPageCommentsNumber(WebDriver driver) {
+    public int getMainPageCommentsNumber(WebDriver driver) {
         TestBase.logger.info("Get amount of comments under article on main page");
         return getAmountOfComments(navigationManager.getCommentCounter(),driver);
     }
 
-    protected int getTotalAmountOfComments(WebDriver driver) {
+    public int getTotalAmountOfComments(WebDriver driver) {
         int registeredCommentsNumber = getRegisteredCommentsNumber(driver);
         int anonymousCommentsNumber = getAnonymousCommentsNumber(driver);
 
@@ -107,7 +107,7 @@ public class CommentManager {
         return getAmountOfComments(registeredUserComments,driver);
     }
 
-    protected static int getAmountOfComments (By byWhat,WebDriver driver){
+    public static int getAmountOfComments (By byWhat,WebDriver driver){
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));

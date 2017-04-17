@@ -1,5 +1,9 @@
-package Delfi;
+package Delfi.tests.tests;
 
+import Delfi.tests.managers.CommentManager;
+import Delfi.tests.managers.DriverManager;
+import Delfi.tests.managers.TestBase;
+import Delfi.tests.managers.TitleManager;
 import org.junit.Test;
 
 import java.util.List;

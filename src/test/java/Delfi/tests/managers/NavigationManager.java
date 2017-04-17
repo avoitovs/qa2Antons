@@ -1,4 +1,4 @@
-package Delfi;
+package Delfi.tests.managers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,19 +19,19 @@ public class NavigationManager {
     }
 
 
-    protected void clickOnFirstArticle(WebDriver driver) {
+    public void clickOnFirstArticle(WebDriver driver) {
         TestBase.logger.info("Clicking on first link");
         driver.findElement(firstArticle).click();
 
 
     }
 
-    protected void openCommentSection(WebDriver driver) {
+    public void openCommentSection(WebDriver driver) {
         TestBase.logger.info("Opening comment section");
         driver.findElement(commentCounter).click();
     }
 
-    protected void openHomePage(WebDriver driver) {
+    public void openHomePage(WebDriver driver) {
         TestBase.logger.info("Opening home page");
         driver.get(baseURL);
     }

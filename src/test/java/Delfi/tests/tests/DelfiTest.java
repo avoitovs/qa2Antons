@@ -1,5 +1,7 @@
-package Delfi;
+package Delfi.tests.tests;
 
+import Delfi.tests.managers.DriverManager;
+import Delfi.tests.managers.TestBase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +9,7 @@ import org.junit.Test;
 /**
  * Testing amount of comments on first article comment on main page / article page / comment page for rus.delfi.lv website
  */
-public class DelfiTest extends TestBase{
+public class DelfiTest extends TestBase {
 
     @Before
     public void setup(){
@@ -22,8 +24,6 @@ public class DelfiTest extends TestBase{
 
     @Test
     public void delfiCommentTest() {
-
-        driverManager.setUpFFDesktop();
 
         navigationManager.openHomePage(DriverManager.desktopDriver);
 
@@ -40,8 +40,6 @@ public class DelfiTest extends TestBase{
         int totalAmountOfComments = commentManager.getTotalAmountOfComments(DriverManager.desktopDriver);
 
         assertionManager.commentAmountAssertion(articlePageCommentsNumber, totalAmountOfComments);
-
-        driverManager.tearDown(DriverManager.desktopDriver);
 
     }
 

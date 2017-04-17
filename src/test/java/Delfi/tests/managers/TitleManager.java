@@ -1,4 +1,4 @@
-package Delfi;
+package Delfi.tests.managers;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
