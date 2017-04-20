@@ -23,7 +23,6 @@ public class NavigationManager {
         TestBase.logger.info("Clicking on first link");
         driver.findElement(firstArticle).click();
 
-
     }
 
     public void openCommentSection(WebDriver driver) {
@@ -34,6 +33,11 @@ public class NavigationManager {
     public void openHomePage(WebDriver driver) {
         TestBase.logger.info("Opening home page");
         driver.get(baseURL);
+    }
+
+    public void openArticleByTitle (String title){
+        TestBase.logger.info("Opening article with title: "+title);
+        DriverManager.desktopDriver.findElementByPartialLinkText(title).click();
     }
 
 

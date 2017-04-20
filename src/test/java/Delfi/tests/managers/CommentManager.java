@@ -1,8 +1,13 @@
 package Delfi.tests.managers;
 
+import com.google.common.util.concurrent.Uninterruptibles;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by antons on 14/04/2017.
@@ -107,12 +112,59 @@ public class CommentManager {
         return getAmountOfComments(registeredUserComments,driver);
     }
 
-    public static int getAmountOfComments (By byWhat,WebDriver driver){
+    public int getAmountOfComments (By byWhat,WebDriver driver){
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
         TestBase.logger.info("Number of comments is: "+pageCommentsNumber);
         return pageCommentsNumber;
+    }
+
+
+
+    public int compareRealComments(WebDriver driver){
+
+        TestBase.logger.info("Getting amount of comments by anonymous users");
+        int anonymousComments = getAmountOfRealComments(driver,anonymousUserComments);
+        TestBase.logger.info("Getting amount of comments by registered users");
+        int registeredComments = getAmountOfRealComments(driver,registeredUserComments);
+
+        int total = anonymousComments+registeredComments;
+        TestBase.logger.info("Total amount of comments is: "+total);
+        return total;
+
+    }
+
+
+    public int getAmountOfRealComments (WebDriver driver, By userType){
+
+
+        driver.findElement(userType).click();
+        Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
+        openHiddenComments(driver);
+        Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
+
+        List<WebElement> commentAmount = driver.findElements(By.className("comment-date"));
+        int commentAmountNumber = commentAmount.size();
+        TestBase.logger.info("The amount is: "+commentAmountNumber);
+
+        return commentAmountNumber;
+    }
+
+    private void openHiddenComments (WebDriver driver){
+
+        try{
+            WebElement hiddenComments = driver.findElement(By.cssSelector(".comments-list-replies .load-more-comments-btn"));
+            while( hiddenComments.isDisplayed()){
+                TestBase.logger.info("Found hidden comments. Opening...");
+                hiddenComments.click();
+                Uninterruptibles.sleepUninterruptibly(2,TimeUnit.SECONDS);
+            }
+
+        } catch (NoSuchElementException e) {
+            TestBase.logger.info("No hidden comments!");
+        }
+
     }
 
 
