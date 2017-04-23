@@ -37,7 +37,7 @@ public class DelfiTest extends TestBase {
 
         navigationManager.openCommentSection(DriverManager.desktopDriver);
 
-        int totalAmountOfComments = commentManager.getTotalAmountOfComments(DriverManager.desktopDriver);
+        int totalAmountOfComments = commentManager.getTotalAmountOfCommentsFromCounter(DriverManager.desktopDriver);
 
         assertionManager.commentAmountAssertion(articlePageCommentsNumber, totalAmountOfComments);
 

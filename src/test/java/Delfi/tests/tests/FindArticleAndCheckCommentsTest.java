@@ -37,7 +37,7 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
 
         Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
 
-        navigationManager.openArticleByTitle("Декларации руководства Rīgas namu pārvaldnieks: зарплаты до 70 000 евро");
+        navigationManager.openArticleByTitle("TV3: После муниципальных выборов Винькеле и Чигане могут создать");
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 
@@ -49,36 +49,9 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 
-        assertionManager.commentAmountAssertion(articleCommentsAmount,commentManager.compareRealComments(DriverManager.desktopDriver));
+        assertionManager.commentAmountAssertion(articleCommentsAmount,commentManager.getTotalAmountOfRealComments(DriverManager.desktopDriver));
 
     }
-
-    @Test
-    public void te () {
-
-        navigationManager.openHomePage(DriverManager.desktopDriver);
-
-        Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
-
-        navigationManager.openArticleByTitle("Декларации руководства Rīgas namu pārvaldnieks: зарплаты до 70 000 евро в год и накопления");
-
-        Uninterruptibles.sleepUninterruptibly(2, TimeUnit.SECONDS); // fcking advertisment popup
-
-        navigationManager.openCommentSection(DriverManager.desktopDriver);
-
-        Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
-
-
-
-       int qwe = commentManager.getAmountOfRealCommentsPerUserType(DriverManager.desktopDriver,commentManager.anonymousUserComments);
-
-        System.out.println(qwe);
-
-    }
-
-
-
-
 
 
 }
