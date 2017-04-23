@@ -32,8 +32,8 @@ public class CommentManager {
     public static By fifthArticleCommentMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[7]/div/a[2]");
 
 
-    private final By registeredUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
-    private final By anonymousUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
+    public final By registeredUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
+    public final By anonymousUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
 
 
 
@@ -124,10 +124,8 @@ public class CommentManager {
 
     public int compareRealComments(WebDriver driver){
 
-        TestBase.logger.info("Getting amount of comments by anonymous users");
-        int anonymousComments = getAmountOfRealComments(driver,anonymousUserComments);
-        TestBase.logger.info("Getting amount of comments by registered users");
-        int registeredComments = getAmountOfRealComments(driver,registeredUserComments);
+        int anonymousComments = getAmountOfRealCommentsPerUserType(driver,anonymousUserComments);
+        int registeredComments = getAmountOfRealCommentsPerUserType(driver,registeredUserComments);
 
         int total = anonymousComments+registeredComments;
         TestBase.logger.info("Total amount of comments is: "+total);
@@ -135,12 +133,32 @@ public class CommentManager {
 
     }
 
+    public int getAmountOfRealCommentsPerUserType (WebDriver driver, By userType){
 
-    public int getAmountOfRealComments (WebDriver driver, By userType){
+        if (userType == anonymousUserComments){
+            TestBase.logger.info("Getting amount of comments by anonymous users");
+        }else {
+            TestBase.logger.info("Getting amount of comments by registered users");
+        }
+
+        navigationManager.openCommentsByUserType(driver, userType);
+        int commentsPageNumber = getCommentsPageAmount(driver);
+        int commentCount = getAmountOfRealCommentsPerPage(driver);
+
+        if (commentsPageNumber>0){
+            for (int i = 0; i<commentsPageNumber-1;i++){
+                TestBase.logger.info("Opening next comment page");
+                navigationManager.openNextCommentPage();
+                commentCount = commentCount+ getAmountOfRealCommentsPerPage(driver);
+            }
+        }
+        return commentCount;
+    }
 
 
-        driver.findElement(userType).click();
-        Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
+    public int getAmountOfRealCommentsPerPage(WebDriver driver){
+
+        Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
         openHiddenComments(driver);
         Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
 
@@ -151,10 +169,11 @@ public class CommentManager {
         return commentAmountNumber;
     }
 
+
     private void openHiddenComments (WebDriver driver){
 
         try{
-            WebElement hiddenComments = driver.findElement(By.cssSelector(".comments-list-replies .load-more-comments-btn"));
+            WebElement hiddenComments = driver.findElement(By.cssSelector(" .load-more-comments-btn-link"));
             while( hiddenComments.isDisplayed()){
                 TestBase.logger.info("Found hidden comments. Opening...");
                 hiddenComments.click();
@@ -165,6 +184,37 @@ public class CommentManager {
             TestBase.logger.info("No hidden comments!");
         }
 
+    }
+
+    public int getCommentsPageAmount(WebDriver driver){
+
+       // int amountOfCommentPages = 0;
+
+       // try {
+           // Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
+            //WebElement commentsPages = driver.findElement(By.className("comments-pager-arrow-last"));
+            //WebElement hiddenCommentsPages = driver.findElement(By.className("comments-pager-spacer"));
+
+            //if (commentsPages.isDisplayed()) {
+              //  if (hiddenCommentsPages.isDisplayed()){
+                //    navigationManager.openNextCommentPage();
+                //}
+                Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
+                List <WebElement> amountCommentOfPages = driver.findElements(By.className("comments-pager-page"));
+               int amountOfCommentPages = amountCommentOfPages.size() / 2;
+               // DriverManager.desktopDriver.findElement(anonymousUserComments).click();
+
+                if (amountOfCommentPages==0){
+                    TestBase.logger.info("Only one page of comments");
+        } else {
+                    TestBase.logger.info("There are "+amountOfCommentPages+" pages of comments");
+                }
+            //}
+
+       // } catch (NoSuchElementException e) {
+        //    TestBase.logger.info("Only one page of comments");
+        //}
+        return amountOfCommentPages;
     }
 
 

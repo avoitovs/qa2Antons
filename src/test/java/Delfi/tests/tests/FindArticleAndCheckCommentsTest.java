@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -36,7 +37,7 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
 
         Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
 
-        navigationManager.openArticleByTitle("Собраны подписи за передачу земли под многоквартирными домами в ");
+        navigationManager.openArticleByTitle("Декларации руководства Rīgas namu pārvaldnieks: зарплаты до 70 000 евро");
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 
@@ -51,6 +52,33 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
         assertionManager.commentAmountAssertion(articleCommentsAmount,commentManager.compareRealComments(DriverManager.desktopDriver));
 
     }
+
+    @Test
+    public void te () {
+
+        navigationManager.openHomePage(DriverManager.desktopDriver);
+
+        Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
+
+        navigationManager.openArticleByTitle("Декларации руководства Rīgas namu pārvaldnieks: зарплаты до 70 000 евро в год и накопления");
+
+        Uninterruptibles.sleepUninterruptibly(2, TimeUnit.SECONDS); // fcking advertisment popup
+
+        navigationManager.openCommentSection(DriverManager.desktopDriver);
+
+        Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
+
+
+
+       int qwe = commentManager.getAmountOfRealCommentsPerUserType(DriverManager.desktopDriver,commentManager.anonymousUserComments);
+
+        System.out.println(qwe);
+
+    }
+
+
+
+
 
 
 }
