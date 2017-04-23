@@ -185,6 +185,7 @@ public class CommentManager {
             while( hiddenComments.isDisplayed()){
                 TestBase.logger.info("Found hidden comments. Opening...");
                 hiddenComments.click();
+                Uninterruptibles.sleepUninterruptibly(2,TimeUnit.SECONDS);
             }
 
         } catch (NoSuchElementException e) {

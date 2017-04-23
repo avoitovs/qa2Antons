@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by antons on 18/04/2017.
+ * This test is intended to check amount of real comments with comment counter in the article by tester's choice (Type name of the article).
  */
 public class FindArticleAndCheckCommentsTest extends TestBase {
 

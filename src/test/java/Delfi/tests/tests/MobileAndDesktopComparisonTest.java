@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.List;
 
 /**
- * Created by antons on 15/04/2017.
+ * This test is intended to compare desktop and mobile version of delfi.lv website by checking first five articles (titles and comment count)
  */
 public class MobileAndDesktopComparisonTest extends TestBase {
 

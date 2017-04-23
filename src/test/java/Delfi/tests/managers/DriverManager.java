@@ -15,6 +15,7 @@ public class DriverManager {
     public static FirefoxDriver desktopDriver;
     public static WebDriver mobileDriver;
 
+    // Creating desktop web driver
     public void setUpFFDesktop() {
         TestBase.logger.info("Preparing FF desktop browser");
         System.setProperty("webdriver.gecko.driver", "/Users/antons/Downloads/WebDrivers/geckodriver");
@@ -28,6 +29,7 @@ public class DriverManager {
         driver.quit();
     }
 
+    // Creating mobile web driver
     public void setUpFFMobile (){
         TestBase.logger.info("Preparing FF mobile browser");
         System.setProperty("webdriver.gecko.driver", "/Users/antons/Downloads/WebDrivers/geckodriver");

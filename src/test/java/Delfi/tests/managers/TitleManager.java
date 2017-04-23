@@ -15,19 +15,21 @@ public class TitleManager {
     public TitleManager() {
     }
 
-    public static By firstArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[1]/h3/a[1]");
-    public static By secondArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[2]/h3/a[1]");
-    public static By thirdArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[1]/h3/a[1]");
-    public static By fourthArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[2]/h3/a[1]");
-    public static By fifthArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[3]/h3/a[1]");
+    private static By firstArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[1]/h3/a[1]");
+    private static By secondArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[2]/h3/a[1]");
+    private static By thirdArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[1]/h3/a[1]");
+    private static By fourthArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[2]/h3/a[1]");
+    private static By fifthArticleTitleDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[3]/h3/a[1]");
 
 
-    public static By firstArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[2]/div/a[1]");
-    public static By secondArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[3]/div/a[1]");
-    public static By thirdArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[4]/div/a[1]");
-    public static By fourthArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[6]/div/a[1]");
-    public static By fifthArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[7]/div/a[1]");
+    private static By firstArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[2]/div/a[1]");
+    private static By secondArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[3]/div/a[1]");
+    private static By thirdArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[4]/div/a[1]");
+    private static By fourthArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[6]/div/a[1]");
+    private static By fifthArticleTitleMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[7]/div/a[1]");
 
+
+    // Creating an array of first five titles selectors for desktop version
     public static By [] getDesktopTitleSelectors (){
         TestBase.logger.info("Saving first five titles Desktop version");
         By [] desktopTitleSelectors = new By[5];
@@ -39,6 +41,7 @@ public class TitleManager {
         return desktopTitleSelectors;
     }
 
+    // Creating an array of first five titles selectors for mobile version
     public static By [] getMobileTitleSelectors (){
         TestBase.logger.info("Saving first five titles Mobile version");
         By [] mobileTitleSelectors = new By[5];
@@ -51,7 +54,7 @@ public class TitleManager {
     }
 
 
-
+    // Creating list of first five articles tiles
     public List getListOfTitles(By[] titleSelectors, WebDriver driver){
         TestBase.logger.info("Saving first five titles");
         String firstArticleTitle = driver.findElement(titleSelectors[0]).getText();
