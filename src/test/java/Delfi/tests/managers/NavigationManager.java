@@ -1,6 +1,8 @@
 package Delfi.tests.managers;
 
 import com.google.common.util.concurrent.Uninterruptibles;
+import core.DriverManager;
+import core.NavigationManagerr;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -15,6 +17,7 @@ public class NavigationManager {
     private static String baseURL = "http://rus.delfi.lv";
     protected static By commentCounter =  By.className("comment-count");
     private static By firstArticle = By.className("top2012-title");
+    NavigationManagerr navigationManagerr = new NavigationManagerr();
 
 
     public By getCommentCounter() {
@@ -24,18 +27,17 @@ public class NavigationManager {
 
     public void clickOnFirstArticle(WebDriver driver) {
         TestBase.logger.info("Clicking on first link");
-        driver.findElement(firstArticle).click();
-
+        navigationManagerr.click(driver,firstArticle);
     }
 
     public void openCommentSection(WebDriver driver) {
         TestBase.logger.info("Opening comment section");
-        driver.findElement(commentCounter).click();
+        navigationManagerr.click(driver,commentCounter);
     }
 
     public void openHomePage(WebDriver driver) {
         TestBase.logger.info("Opening home page");
-        driver.get(baseURL);
+        navigationManagerr.goTo(driver,baseURL);
     }
 
     public void openArticleByTitle (String title){
@@ -44,12 +46,12 @@ public class NavigationManager {
     }
 
     protected void openCommentsByUserType(WebDriver driver, By userType) {
-        driver.findElement(userType).click();
+        navigationManagerr.click(driver,userType);
         Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
     }
 
     public void openNextCommentPage(){
-        DriverManager.desktopDriver.findElement(By.className("comments-pager-arrow-last")).click();
+        navigationManagerr.click(DriverManager.desktopDriver,By.className("comments-pager-arrow-last"));
         Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
     }
 

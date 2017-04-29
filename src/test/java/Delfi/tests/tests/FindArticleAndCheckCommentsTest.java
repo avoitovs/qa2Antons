@@ -1,6 +1,6 @@
 package Delfi.tests.tests;
 
-import Delfi.tests.managers.DriverManager;
+import core.DriverManager;
 import Delfi.tests.managers.TestBase;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.junit.After;
@@ -37,7 +37,7 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
 
         Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
 
-        navigationManager.openArticleByTitle("TV3: После муниципальных выборов Винькеле и Чигане могут создать");
+        navigationManager.openArticleByTitle("В закопанной машине найдены останки бизнесмена, пропавшего 17 лет назад");
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 

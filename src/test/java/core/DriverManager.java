@@ -1,5 +1,6 @@
-package Delfi.tests.managers;
+package core;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,10 +15,11 @@ public class DriverManager {
 
     public static FirefoxDriver desktopDriver;
     public static WebDriver mobileDriver;
+    public static final Logger logger = Logger.getLogger(DriverManager.class);
 
     // Creating desktop web driver
     public void setUpFFDesktop() {
-        TestBase.logger.info("Preparing FF desktop browser");
+        logger.info("Preparing FF desktop browser");
         System.setProperty("webdriver.gecko.driver", "/Users/antons/Downloads/WebDrivers/geckodriver");
         desktopDriver = new FirefoxDriver();
         desktopDriver.manage().window().maximize();
@@ -25,13 +27,13 @@ public class DriverManager {
     }
 
     public void tearDown(WebDriver driver) {
-        TestBase.logger.info("Closing browser");
+        logger.info("Closing browser");
         driver.quit();
     }
 
     // Creating mobile web driver
     public void setUpFFMobile (){
-        TestBase.logger.info("Preparing FF mobile browser");
+        logger.info("Preparing FF mobile browser");
         System.setProperty("webdriver.gecko.driver", "/Users/antons/Downloads/WebDrivers/geckodriver");
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("general.useragent.override", "iPhone");

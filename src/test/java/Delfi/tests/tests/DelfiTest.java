@@ -1,6 +1,6 @@
 package Delfi.tests.tests;
 
-import Delfi.tests.managers.DriverManager;
+import core.DriverManager;
 import Delfi.tests.managers.TestBase;
 import org.junit.After;
 import org.junit.Before;
