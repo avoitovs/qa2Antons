@@ -1,12 +1,10 @@
 package Delfi.tests.tests;
 
 import Delfi.tests.managers.CommentManager;
-import core.DriverManager;
+import core.Driver;
 import Delfi.tests.managers.TestBase;
-import Delfi.tests.managers.TitleManager;
 import org.junit.Test;
-
-import java.util.List;
+import java.util.Map;
 
 /**
  * This test is intended to compare desktop and mobile version of delfi.lv website by checking first five articles (titles and comment count)
@@ -14,32 +12,35 @@ import java.util.List;
 public class MobileAndDesktopComparisonTest extends TestBase {
 
 
+
     @Test
     public void desktopAndMobileComparisonTest() {
 
-        driverManager.setUpFFDesktop();
+        driver.setUpFFDesktop();
 
-        navigationManager.openHomePage(DriverManager.desktopDriver);
+        navigationManager.openHomePage(Driver.desktopDriver);
 
-        List<String> listOfTitlesDesktop = titleManager.getListOfTitles(TitleManager.getDesktopTitleSelectors(),DriverManager.desktopDriver);
+        Map desktopArticles = commentManager.getArticlesAndComments(Driver.desktopDriver,
+                                                                    CommentManager.desktopArticles,
+                                                                    CommentManager.desktopTitle,
+                                                                    CommentManager.desktopCommentCounter);
 
-        int [] arrayOfCommentsDesktop = commentManager.getArrayOfComments(CommentManager.getDesktopCommentSelectors(),DriverManager.desktopDriver);
 
-        driverManager.tearDown(DriverManager.desktopDriver);
+        driver.tearDown(Driver.desktopDriver);
 
-        driverManager.setUpFFMobile();
+        driver.setUpFFMobile();
 
-        navigationManager.openHomePage(DriverManager.mobileDriver);
+        navigationManager.openHomePage(Driver.mobileDriver);
 
-        List <String> listOfTitlesMobile = titleManager.getListOfTitles(TitleManager.getMobileTitleSelectors(),DriverManager.mobileDriver);
+        Map mobileArticles = commentManager.getArticlesAndComments(Driver.mobileDriver,
+                                                                    CommentManager.mobileArticles,
+                                                                    CommentManager.mobileTitles,
+                                                                    CommentManager.mobileCommentCounter);
 
-        int [] arrayOfCommentsMobile = commentManager.getArrayOfComments(CommentManager.getMobileCommentSelectors(),DriverManager.mobileDriver);
 
-        assertionManager.commentAmountAssertion(arrayOfCommentsDesktop, arrayOfCommentsMobile);
+        assertionManager.compareArticles(desktopArticles,mobileArticles);
 
-        assertionManager.titleAssertion(listOfTitlesDesktop,listOfTitlesMobile);
-
-        driverManager.tearDown(DriverManager.mobileDriver);
+        driver.tearDown(Driver.mobileDriver);
 
 
 

@@ -1,6 +1,6 @@
 package Delfi.tests.tests;
 
-import core.DriverManager;
+import core.Driver;
 import Delfi.tests.managers.TestBase;
 import org.junit.After;
 import org.junit.Before;
@@ -13,33 +13,33 @@ public class DelfiTest extends TestBase {
 
     @Before
     public void setup(){
-        driverManager.setUpFFDesktop();
+        driver.setUpFFDesktop();
     }
 
     @After
     public void tearDown (){
-        driverManager.tearDown(DriverManager.desktopDriver);
+        driver.tearDown(Driver.desktopDriver);
     }
 
 
     @Test
     public void delfiCommentTest() {
 
-        navigationManager.openHomePage(DriverManager.desktopDriver);
+        navigationManager.openHomePage(Driver.desktopDriver);
 
-        int mainPageCommentsNumber = commentManager.getMainPageCommentsNumber(DriverManager.desktopDriver);
+        int mainPageCommentsNumber = commentManager.getMainPageCommentsNumber(Driver.desktopDriver);
 
-        navigationManager.clickOnFirstArticle(DriverManager.desktopDriver);
+        navigationManager.clickOnFirstArticle(Driver.desktopDriver);
 
-        int articlePageCommentsNumber = commentManager.getArticlePageCommentsNumber(DriverManager.desktopDriver);
+        int articlePageCommentsNumber = commentManager.getArticlePageCommentsNumber(Driver.desktopDriver);
 
-        assertionManager.commentAmountAssertion(mainPageCommentsNumber, articlePageCommentsNumber);
+        assertionManager.compareArticles(mainPageCommentsNumber, articlePageCommentsNumber);
 
-        navigationManager.openCommentSection(DriverManager.desktopDriver);
+        navigationManager.openCommentSection(Driver.desktopDriver);
 
-        int totalAmountOfComments = commentManager.getTotalAmountOfCommentsFromCounter(DriverManager.desktopDriver);
+        int totalAmountOfComments = commentManager.getTotalAmountOfCommentsFromCounter(Driver.desktopDriver);
 
-        assertionManager.commentAmountAssertion(articlePageCommentsNumber, totalAmountOfComments);
+        assertionManager.compareArticles(articlePageCommentsNumber, totalAmountOfComments);
 
     }
 

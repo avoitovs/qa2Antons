@@ -1,6 +1,6 @@
 package Delfi.tests.tests;
 
-import core.DriverManager;
+import core.Driver;
 import Delfi.tests.managers.TestBase;
 import com.google.common.util.concurrent.Uninterruptibles;
 import org.junit.After;
@@ -18,14 +18,14 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
     @Before
     public void setup(){
 
-        driverManager.setUpFFDesktop();
+        driver.setUpFFDesktop();
 
     }
 
     @After
     public void tearDown (){
 
-        driverManager.tearDown(DriverManager.desktopDriver);
+        driver.tearDown(Driver.desktopDriver);
 
     }
 
@@ -33,23 +33,23 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
     @Test
     public void articleTest (){
 
-        navigationManager.openHomePage(DriverManager.desktopDriver);
+        navigationManager.openHomePage(Driver.desktopDriver);
 
         Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
 
-        navigationManager.openArticleByTitle("В закопанной машине найдены останки бизнесмена, пропавшего 17 лет назад");
+        navigationManager.openArticleByTitle("Проверяется информация о деятельности Латвийской федерации русского");
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 
-        int articleCommentsAmount = commentManager.getArticlePageCommentsNumber(DriverManager.desktopDriver);
+        int articleCommentsAmount = commentManager.getArticlePageCommentsNumber(Driver.desktopDriver);
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 
-        navigationManager.openCommentSection(DriverManager.desktopDriver);
+        navigationManager.openCommentSection(Driver.desktopDriver);
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 
-        assertionManager.commentAmountAssertion(articleCommentsAmount,commentManager.getTotalAmountOfRealComments(DriverManager.desktopDriver));
+        assertionManager.compareArticles(articleCommentsAmount,commentManager.getTotalAmountOfRealComments(Driver.desktopDriver));
 
     }
 

@@ -1,12 +1,16 @@
 package Delfi.tests.managers;
 
+
 import com.google.common.util.concurrent.Uninterruptibles;
+import core.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,70 +21,41 @@ public class CommentManager {
 
     NavigationManager navigationManager = new NavigationManager();
 
-
-    private static By firstArticleCommentDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[1]/h3/a[2]");
-    private static By secondArticleCommentDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[1]/div[2]/h3/a[2]");
-    private static By thirdArticleCommentDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[1]/h3/a[2]");
-    private static By fourthArticleCommentDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[2]/h3/a[2]");
-    private static By fifthArticleCommentDesktop = By.xpath("//*[@id='column1-top']/div[2]/div[2]/div[3]/h3/a[2]");
-
-
-    private static By firstArticleCommentMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[2]/div/a[2]");
-    private static By secondArticleCommentMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[3]/div/a[2]");
-    private static By thirdArticleCommentMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[4]/div/a[2]");
-    private static By fourthArticleCommentMobile =By.xpath("//*[@id='wrapper']/div[2]/div/div[6]/div/a[2]");
-    private static By fifthArticleCommentMobile = By.xpath("//*[@id='wrapper']/div[2]/div/div[7]/div/a[2]");
-
-
     private final By registeredUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[1]/span");
     private final By anonymousUserComments = By.xpath("//*[@id='comments-listing']/div[3]/a[2]/span");
 
 
-    // Creating array of first five articles selectors for desktop version
-    public static By[] getDesktopCommentSelectors(){
-        TestBase.logger.info("Saving first five comments for Desktop version");
-        By [] desktopCommentSelectors = new By[5];
-        desktopCommentSelectors[0]= firstArticleCommentDesktop;
-        desktopCommentSelectors[1]=secondArticleCommentDesktop;
-        desktopCommentSelectors[2]=thirdArticleCommentDesktop;
-        desktopCommentSelectors[3]=fourthArticleCommentDesktop;
-        desktopCommentSelectors[4]=fifthArticleCommentDesktop;
-    return desktopCommentSelectors;
-    }
-
-    // Creating array of first five articles selectors for mobile version
-    public static By[]  getMobileCommentSelectors(){
-        TestBase.logger.info("Saving first five comments for Mobile version");
-        By [] mobileCommentSelectors = new By[5];
-        mobileCommentSelectors[0]= firstArticleCommentMobile;
-        mobileCommentSelectors[1]=secondArticleCommentMobile;
-        mobileCommentSelectors[2]=thirdArticleCommentMobile;
-        mobileCommentSelectors[3]=fourthArticleCommentMobile;
-        mobileCommentSelectors[4]=fifthArticleCommentMobile;
-        return mobileCommentSelectors;
-    }
-
-    // Creating array of first five articles comments number
-    public int[] getArrayOfComments(By [] commentSelector, WebDriver driver) {
-        TestBase.logger.info("Getting array with comments on desktop version");
-
-        TestBase.logger.info("Saving first five articles comment count Desktop version:");
-        int firstArticleComments = getAmountOfComments(commentSelector[0], driver);
-        int secondArticleComments = getAmountOfComments(commentSelector[1], driver);
-        int thirdArticleComments = getAmountOfComments(commentSelector[2], driver);
-        int fourthArticleComments = getAmountOfComments(commentSelector[3], driver);
-        int fifthArticleComments = getAmountOfComments(commentSelector[4], driver);
+    public static final By desktopArticles = By.xpath("//h3[contains(@class, 'top2012-title')]");
+    public static final By desktopTitle = By.className("top2012-title");
+    public static final By desktopCommentCounter = By.className("comment-count");
+    public static final By mobileArticles = By.className("md-mosaic-title");
+    public static final By mobileTitles = By.className("md-scrollpos");
+    public static final By mobileCommentCounter = By.className("commentCount");
 
 
-        TestBase.logger.info("Creating array of comments amount");
-        int[] arrayOfComments = new int[]
-                {firstArticleComments,
-                secondArticleComments,
-                thirdArticleComments,
-                fourthArticleComments,
-                fifthArticleComments};
 
-        return arrayOfComments;
+    public Map getArticlesAndComments (WebDriver driver, By article, By title, By commentCounter) {
+
+        Driver.logger.info("Getting page articles and it's comment count...");
+
+        List<WebElement> articles = driver.findElements(article);
+
+        Map<String, String> articlesAndComments = new HashMap<String, String>();
+
+        for (int i = 0; i < 5; i++) {
+            if (articles.get(i).findElements(commentCounter).isEmpty()) {
+                articlesAndComments.put(articles.get(i).findElement(title).getText(), "0");
+            } else {
+                articlesAndComments.put(articles.get(i).findElement(title).getText(),
+                        articles.get(i).findElement(commentCounter).getText());
+            }
+        }
+
+        for (Map.Entry entry : articlesAndComments.entrySet()) {
+            Driver.logger.info(entry.getKey() + ": " + entry.getValue());
+        }
+
+        return articlesAndComments;
     }
 
 
@@ -168,7 +143,7 @@ public class CommentManager {
     public int getAmountOfRealCommentsPerPage(WebDriver driver){
 
         openHiddenComments(driver);
-        Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
+
 
         List<WebElement> commentAmount = driver.findElements(By.className("comment-date"));
         int commentAmountNumber = commentAmount.size();

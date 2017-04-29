@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by antons on 13/04/2017.
  */
-public class DriverManager {
+public class Driver {
 
     public static FirefoxDriver desktopDriver;
     public static WebDriver mobileDriver;
-    public static final Logger logger = Logger.getLogger(DriverManager.class);
+    public static final Logger logger = Logger.getLogger(Driver.class);
 
     // Creating desktop web driver
     public void setUpFFDesktop() {

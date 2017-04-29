@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 /**
  * Created by antons on 28/04/2017.
  */
-public class NavigationManagerr {
+public class Navigation {
 
     public void goTo (WebDriver driver, String url){
 

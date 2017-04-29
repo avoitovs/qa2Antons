@@ -1,7 +1,7 @@
 package CV;
 
-import core.DriverManager;
-import core.NavigationManagerr;
+import core.Driver;
+import core.Navigation;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,8 +13,8 @@ import org.openqa.selenium.By;
  */
 public class ForgotPasswordTest {
 
-    DriverManager driverManager = new DriverManager();
-    NavigationManagerr navigationManager = new NavigationManagerr();
+    Driver driver = new Driver();
+    Navigation navigationManager = new Navigation();
     FakeEmail fakeEmail = new FakeEmail();
     Registration registration = new Registration();
     NavigationHelper navigationHelper = new NavigationHelper();
@@ -23,15 +23,15 @@ public class ForgotPasswordTest {
     @Before
     public void setUp (){
 
-        driverManager.setUpFFDesktop();
+        driver.setUpFFDesktop();
 
     }
 
     @After
     public void tearDown(){
 
-        driverManager.tearDown(DriverManager.desktopDriver);
-        driverManager.tearDown(DriverManager.mobileDriver);
+        driver.tearDown(Driver.desktopDriver);
+        driver.tearDown(Driver.mobileDriver);
 
     }
 
@@ -41,7 +41,7 @@ public class ForgotPasswordTest {
 
         String email = fakeEmail.generateFakeEmail();
 
-        navigationManager.goTo(DriverManager.desktopDriver,"http://www.cv.lv");
+        navigationManager.goTo(Driver.desktopDriver,"http://www.cv.lv");
 
         registration.newUserRegistration(email);
 
@@ -76,7 +76,7 @@ public class ForgotPasswordTest {
     @Test
     public void te(){
 
-        navigationManager.goTo(DriverManager.desktopDriver,"http://www.cv.lv");
+        navigationManager.goTo(Driver.desktopDriver,"http://www.cv.lv");
 
         navigationHelper.login("wivewitayu@honor-8.com","d673n923nnkFGJ");
     }
@@ -85,22 +85,22 @@ public class ForgotPasswordTest {
 
 
     public void submitNewPassword() {
-        DriverManager.logger.info("Submit new password...");
+        Driver.logger.info("Submit new password...");
 
         for (int j = 0;j<6;j++) {
-            navigationManager.click(DriverManager.desktopDriver, By.cssSelector("input[value='Saglabāt']"));
+            navigationManager.click(Driver.desktopDriver, By.cssSelector("input[value='Saglabāt']"));
         }
-        DriverManager.logger.info("Done!");
+        Driver.logger.info("Done!");
         navigationHelper.logOut();
     }
 
 
 
     private void checkAccount() {
-        String actualName = DriverManager.desktopDriver.findElement(By.xpath("//*[@id='topnav_login']/table/tbody/tr/td/strong")).getText();
+        String actualName = Driver.desktopDriver.findElement(By.xpath("//*[@id='topnav_login']/table/tbody/tr/td/strong")).getText();
 
         Assert.assertEquals("Wrong name on the page!", Registration.firstName+" "+Registration.lastName,actualName);
-        DriverManager.logger.info("Successfully confirmed!");
+        Driver.logger.info("Successfully confirmed!");
     }
 
 }
