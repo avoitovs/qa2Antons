@@ -9,9 +9,6 @@ import org.apache.log4j.Logger;
  */
 public class TestBase  {
 
-
-    protected static final Logger logger = Logger.getLogger(DelfiTest.class);
-
     protected final NavigationManager navigationManager = new NavigationManager();
     protected final Driver driver = new Driver();
     protected final CommentManager commentManager= new CommentManager();

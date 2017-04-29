@@ -26,22 +26,22 @@ public class NavigationManager {
 
 
     public void clickOnFirstArticle(WebDriver driver) {
-        TestBase.logger.info("Clicking on first link");
+        Driver.logger.info("Clicking on first link");
         navigation.click(driver,firstArticle);
     }
 
     public void openCommentSection(WebDriver driver) {
-        TestBase.logger.info("Opening comment section");
+        Driver.logger.info("Opening comment section");
         navigation.click(driver,commentCounter);
     }
 
     public void openHomePage(WebDriver driver) {
-        TestBase.logger.info("Opening home page");
+        Driver.logger.info("Opening home page");
         navigation.goTo(driver,baseURL);
     }
 
     public void openArticleByTitle (String title){
-        TestBase.logger.info("Opening article with title: "+title);
+        Driver.logger.info("Opening article with title: "+title);
         Driver.desktopDriver.findElementByPartialLinkText(title).click();
     }
 
