@@ -13,7 +13,7 @@ public class AssertionManager {
 
     public void compareArticles(int firstCommentNumber, int secondCommentNumber) {
         Assert.assertEquals( "Comments amount are not equal!", firstCommentNumber, secondCommentNumber, 0);
-        TestBase.logger.info("Comments amount is correct!");
+        Driver.logger.info("Comments amount is correct!");
     }
 
     public void compareArticles(Map desktopArticles, Map mobileArticles){

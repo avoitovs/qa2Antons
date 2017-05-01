@@ -57,7 +57,6 @@ public class NavigationHelper {
         navigationManager.click(Driver.desktopDriver, By.className("btn_green_submit"));
         Driver.logger.info("Entered!");
 
-        Uninterruptibles.sleepUninterruptibly(20,TimeUnit.SECONDS);
     }
 
 

@@ -35,9 +35,9 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
 
         navigationManager.openHomePage(Driver.desktopDriver);
 
-        Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
+       // Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
 
-        navigationManager.openArticleByTitle("Проверяется информация о деятельности Латвийской федерации русского");
+        navigationManager.openArticleByTitle("На время велопраздника в Риге 1 мая ограничат движение");
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 

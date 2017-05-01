@@ -11,13 +11,13 @@ import org.openqa.selenium.By;
  */
 public class FakeEmail {
 
-    Driver driver = new Driver();
-    Navigation navigationManager = new Navigation();
+   private Driver driver = new Driver();
+   private Navigation navigationManager = new Navigation();
 
-    public static final String baseURL = "https://temp-mail.org/en/";
+    private static final String baseURL = "https://temp-mail.org/en/";
 
 
-    public String generateFakeEmail (){
+    protected String generateFakeEmail (){
 
         Driver.logger.info("Creating fake email...");
         driver.setUpFFMobile();
@@ -28,7 +28,7 @@ public class FakeEmail {
         return email;
     }
 
-    public void openMessage (By emailSubject){
+    protected void openMessage (By emailSubject){
 
         Driver.logger.info("Waiting for incoming email...");
         navigationManager.longWaitFor(Driver.mobileDriver,emailSubject);
@@ -36,7 +36,7 @@ public class FakeEmail {
         navigationManager.click(Driver.mobileDriver,emailSubject);
     }
 
-    public String getLinkFromEmail(By whatLink){
+    protected String getLinkFromEmail(By whatLink){
 
         Driver.logger.info("Getting link...");
         String link = Driver.mobileDriver.findElement(whatLink).getAttribute("href");
@@ -45,7 +45,7 @@ public class FakeEmail {
         return link;
     }
 
-    public String getPassword (){
+    protected String getPassword (){
         Driver.logger.info("Getting password...");
         String password = Driver.mobileDriver.findElement(By.cssSelector(".pm-text > br")).getText();
 

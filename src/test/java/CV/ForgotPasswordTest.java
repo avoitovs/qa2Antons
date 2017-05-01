@@ -1,5 +1,6 @@
 package CV;
 
+import com.google.common.util.concurrent.Uninterruptibles;
 import core.Driver;
 import core.Navigation;
 import org.junit.After;
@@ -8,17 +9,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by antons on 28/04/2017.
  */
 public class ForgotPasswordTest {
 
-    Driver driver = new Driver();
-    Navigation navigationManager = new Navigation();
-    FakeEmail fakeEmail = new FakeEmail();
-    Registration registration = new Registration();
-    NavigationHelper navigationHelper = new NavigationHelper();
-    PasswordRecoveryPage passwordRecoveryPage = new PasswordRecoveryPage();
+   private Driver driver = new Driver();
+   private Navigation navigationManager = new Navigation();
+   private FakeEmail fakeEmail = new FakeEmail();
+   private Registration registration = new Registration();
+   private NavigationHelper navigationHelper = new NavigationHelper();
+   private PasswordRecoveryPage passwordRecoveryPage = new PasswordRecoveryPage();
 
     @Before
     public void setUp (){
@@ -79,12 +82,16 @@ public class ForgotPasswordTest {
         navigationManager.goTo(Driver.desktopDriver,"http://www.cv.lv");
 
         navigationHelper.login("wivewitayu@honor-8.com","d673n923nnkFGJ");
+
+        Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
+
+        checkAccount();
     }
 
 
 
 
-    public void submitNewPassword() {
+    private void submitNewPassword() {
         Driver.logger.info("Submit new password...");
 
         for (int j = 0;j<6;j++) {

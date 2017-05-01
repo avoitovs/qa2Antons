@@ -61,13 +61,13 @@ public class CommentManager {
 
     // Getting comments number from article page
     public int getArticlePageCommentsNumber(WebDriver driver) {
-        TestBase.logger.info("Getting amount of comments on article page");
+        Driver.logger.info("Getting amount of comments on article page");
         return getAmountOfComments(navigationManager.getCommentCounter(),driver);
     }
 
     // Getting comments number from main page
     public int getMainPageCommentsNumber(WebDriver driver) {
-        TestBase.logger.info("Get amount of comments under article on main page");
+        Driver.logger.info("Get amount of comments under article on main page");
         return getAmountOfComments(navigationManager.getCommentCounter(),driver);
     }
 
@@ -76,30 +76,30 @@ public class CommentManager {
         int registeredCommentsNumber = getRegisteredCommentsNumber(driver);
         int anonymousCommentsNumber = getAnonymousCommentsNumber(driver);
 
-        TestBase.logger.info("Getting total amount of comments");
+        Driver.logger.info("Getting total amount of comments");
         int totalAmountOfComments = anonymousCommentsNumber+registeredCommentsNumber;
-        TestBase.logger.info("Total amount of comments is:"+totalAmountOfComments);
+        Driver.logger.info("Total amount of comments is:"+totalAmountOfComments);
         return totalAmountOfComments;
     }
 
     // Getting amount of anonymous comments from counter
     private int getAnonymousCommentsNumber(WebDriver driver) {
-        TestBase.logger.info("Getting amount of anonymous user comments");
+        Driver.logger.info("Getting amount of anonymous user comments");
         return getAmountOfComments(anonymousUserComments,driver);
     }
 
     // Getting amount of registered comments from counter
     private int getRegisteredCommentsNumber(WebDriver driver) {
-        TestBase.logger.info("Getting amount of registered user comments");
+        Driver.logger.info("Getting amount of registered user comments");
         return getAmountOfComments(registeredUserComments,driver);
     }
 
     // Get amount of comments from counter
-    public int getAmountOfComments (By byWhat,WebDriver driver){
+    private int getAmountOfComments (By byWhat,WebDriver driver){
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
-        TestBase.logger.info("Number of comments is: "+pageCommentsNumber);
+        Driver.logger.info("Number of comments is: "+pageCommentsNumber);
         return pageCommentsNumber;
     }
 
@@ -111,18 +111,18 @@ public class CommentManager {
         int registeredComments = getAmountOfRealCommentsPerUserType(driver,registeredUserComments);
 
         int total = anonymousComments+registeredComments;
-        TestBase.logger.info("Total amount of comments is: "+total);
+        Driver.logger.info("Total amount of comments is: "+total);
         return total;
 
     }
 
     // Getting comment count by counting individual messages from all pages of one user type
-    public int getAmountOfRealCommentsPerUserType (WebDriver driver, By userType){
+    private int getAmountOfRealCommentsPerUserType (WebDriver driver, By userType){
 
         if (userType == anonymousUserComments){
-            TestBase.logger.info("Getting amount of comments by anonymous users");
+            Driver.logger.info("Getting amount of comments by anonymous users");
         }else {
-            TestBase.logger.info("Getting amount of comments by registered users");
+            Driver.logger.info("Getting amount of comments by registered users");
         }
 
         navigationManager.openCommentsByUserType(driver, userType);
@@ -131,7 +131,7 @@ public class CommentManager {
 
         if (commentsPageNumber>0){
             for (int i = 0; i<commentsPageNumber-1;i++){
-                TestBase.logger.info("Opening next comment page");
+                Driver.logger.info("Opening next comment page");
                 navigationManager.openNextCommentPage();
                 commentCount = commentCount+ getAmountOfRealCommentsPerPage(driver);
             }
@@ -140,14 +140,14 @@ public class CommentManager {
     }
 
     // Getting comment count by counting individual messages from ONE page
-    public int getAmountOfRealCommentsPerPage(WebDriver driver){
+    private int getAmountOfRealCommentsPerPage(WebDriver driver){
 
         openHiddenComments(driver);
 
 
         List<WebElement> commentAmount = driver.findElements(By.className("comment-date"));
         int commentAmountNumber = commentAmount.size();
-        TestBase.logger.info("The amount is: "+commentAmountNumber);
+        Driver.logger.info("The amount is: "+commentAmountNumber);
 
         return commentAmountNumber;
     }
@@ -158,27 +158,27 @@ public class CommentManager {
         try{
             WebElement hiddenComments = driver.findElement(By.cssSelector(" .load-more-comments-btn-link"));
             while( hiddenComments.isDisplayed()){
-                TestBase.logger.info("Found hidden comments. Opening...");
+                Driver.logger.info("Found hidden comments. Opening...");
                 hiddenComments.click();
                 Uninterruptibles.sleepUninterruptibly(2,TimeUnit.SECONDS);
             }
 
         } catch (NoSuchElementException e) {
-            TestBase.logger.info("No hidden comments!");
+            Driver.logger.info("No hidden comments!");
         }
 
     }
 
     // Getting amount of comments pages
-    public int getCommentsPageAmount(WebDriver driver){
+    private int getCommentsPageAmount(WebDriver driver){
 
         List <WebElement> amountCommentOfPages = driver.findElements(By.className("comments-pager-page"));
         int amountOfCommentPages = amountCommentOfPages.size() / 2;
 
         if (amountOfCommentPages==0){
-            TestBase.logger.info("Only one page of comments");
+            Driver.logger.info("Only one page of comments");
         } else {
-            TestBase.logger.info("There are "+amountOfCommentPages+" pages of comments");
+            Driver.logger.info("There are "+amountOfCommentPages+" pages of comments");
         }return amountOfCommentPages;
     }
 

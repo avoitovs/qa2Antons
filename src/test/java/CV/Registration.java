@@ -22,14 +22,19 @@ public class Registration {
         closePopUp();
 
         Driver.desktopDriver.findElementByLinkText("darba meklētājs").click();
+
         Driver.logger.info("Entering first name: "+firstName);
         Driver.desktopDriver.findElementById("first_name").sendKeys(firstName);
+
         Driver.logger.info("Entering last name: "+lastName);
         Driver.desktopDriver.findElementById("last_name").sendKeys(lastName);
+
         Driver.logger.info("Entering email: "+email);
         Driver.desktopDriver.findElementById("epost").sendKeys(email);
+
         Driver.logger.info("Entering phone number: "+phoneNumber);
         Driver.desktopDriver.findElementById("contact_tel").sendKeys(phoneNumber);
+
         Driver.logger.info("Creating new account...");
         Driver.desktopDriver.findElementByClassName("blue_submit").click();
     }
