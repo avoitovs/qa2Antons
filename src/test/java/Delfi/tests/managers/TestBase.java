@@ -1,8 +1,6 @@
 package Delfi.tests.managers;
 
-import Delfi.tests.tests.DelfiTest;
 import core.Driver;
-import org.apache.log4j.Logger;
 
 /**
  * Created by antons on 12/04/2017.

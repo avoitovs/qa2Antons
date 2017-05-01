@@ -15,10 +15,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class PasswordRecoveryPage {
 
-    public final String newPassword = "d673n923nnkFGJ";
-    Navigation navigationManager = new Navigation();
+    protected final String newPassword = "d673n923nnkFGJ";
+    private Navigation navigationManager = new Navigation();
 
-    public void sendPasswordRecoveryEmail(String email) {
+    protected void sendPasswordRecoveryEmail(String email) {
         navigationManager.waitFor(Driver.desktopDriver, By.id("email"));
 
         Driver.logger.info("Entering email: "+email);
@@ -28,20 +28,20 @@ public class PasswordRecoveryPage {
         navigationManager.click(Driver.desktopDriver,By.className("blue_submit"));
     }
 
-    public void checkIfRecoveryWasSent() {
+    protected void checkIfRecoveryWasSent() {
         Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
         Assert.assertEquals("Parole ir veiksmīgi nosūtīta!", Driver.desktopDriver.findElementById("passwordmessage").getText());
         Driver.logger.info("Email with password recovery successfully sent!");
     }
 
-    public void checkEmail (String email){
+    protected void checkEmail (String email){
 
-        if (Driver.desktopDriver.findElement(By.linkText(email)).isDisplayed());{
+        if (Driver.desktopDriver.findElement(By.linkText(email)).isDisplayed()){
             Driver.logger.info("Email is correct! "+email);
         }
     }
 
-    public void enterNewPassword (){
+    protected void enterNewPassword (){
         Driver.logger.info("Entering new passwords: "+newPassword);
 
         List<WebElement> list = Driver.desktopDriver.findElements(By.cssSelector("input[type='password']"));

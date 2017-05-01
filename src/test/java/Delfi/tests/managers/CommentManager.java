@@ -95,7 +95,7 @@ public class CommentManager {
     }
 
     // Get amount of comments from counter
-    public int getAmountOfComments (By byWhat,WebDriver driver){
+    private int getAmountOfComments (By byWhat,WebDriver driver){
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
@@ -117,7 +117,7 @@ public class CommentManager {
     }
 
     // Getting comment count by counting individual messages from all pages of one user type
-    public int getAmountOfRealCommentsPerUserType (WebDriver driver, By userType){
+    private int getAmountOfRealCommentsPerUserType (WebDriver driver, By userType){
 
         if (userType == anonymousUserComments){
             Driver.logger.info("Getting amount of comments by anonymous users");
@@ -140,7 +140,7 @@ public class CommentManager {
     }
 
     // Getting comment count by counting individual messages from ONE page
-    public int getAmountOfRealCommentsPerPage(WebDriver driver){
+    private int getAmountOfRealCommentsPerPage(WebDriver driver){
 
         openHiddenComments(driver);
 
@@ -170,7 +170,7 @@ public class CommentManager {
     }
 
     // Getting amount of comments pages
-    public int getCommentsPageAmount(WebDriver driver){
+    private int getCommentsPageAmount(WebDriver driver){
 
         List <WebElement> amountCommentOfPages = driver.findElements(By.className("comments-pager-page"));
         int amountOfCommentPages = amountCommentOfPages.size() / 2;
