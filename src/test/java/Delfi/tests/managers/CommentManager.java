@@ -180,15 +180,16 @@ public class CommentManager {
     // Getting amount of comments pages
     private int getCommentsPageAmount(WebDriver driver){
 
-        List <WebElement> amountCommentOfPages = driver.findElements(By.cssSelector(".comment-list-header .comments-pager-page"));
+        List <WebElement> listOfCommentPages = driver.findElements(By.cssSelector(".comment-list-header .comments-pager-page"));
 
-        int amountOfCommentPages = Integer.parseInt(amountCommentOfPages.get(amountCommentOfPages.size()-1).getText());
-
-        if (amountOfCommentPages==0){
+        int numberOfPages = 0;
+        try {
+            numberOfPages = Integer.parseInt(listOfCommentPages.get(listOfCommentPages.size() - 1).getText());
+            Driver.logger.info("There are " + numberOfPages + " pages of comments");
+        } catch (ArrayIndexOutOfBoundsException e){
             Driver.logger.info("Only one page of comments");
-        } else {
-            Driver.logger.info("There are "+amountOfCommentPages+" pages of comments");
-        }return amountOfCommentPages;
+        }
+        return numberOfPages;
     }
 
 

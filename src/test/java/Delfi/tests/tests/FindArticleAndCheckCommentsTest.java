@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class FindArticleAndCheckCommentsTest extends TestBase {
 
-    private final String title = "Зиле: цель Путина — \"вызвать эрозию\" во всех европейских органах";
+    private final String title = "Джамала призвала не дать России \"испортить\"";
 
     @Before
     public void setup(){
