@@ -7,13 +7,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.util.concurrent.TimeUnit;
 
 /**
  * This test is intended to check amount of real comments with comment counter in the article by tester's choice (Type name of the article).
  */
 public class FindArticleAndCheckCommentsTest extends TestBase {
+
+    private final String title = "Зиле: цель Путина — \"вызвать эрозию\" во всех европейских органах";
 
     @Before
     public void setup(){
@@ -35,9 +36,7 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
 
         navigationManager.openHomePage(Driver.desktopDriver);
 
-       // Uninterruptibles.sleepUninterruptibly(5,TimeUnit.SECONDS);
-
-        navigationManager.openArticleByTitle("На время велопраздника в Риге 1 мая ограничат движение");
+        navigationManager.openArticleByTitle(title);
 
         Uninterruptibles.sleepUninterruptibly(3,TimeUnit.SECONDS);
 
@@ -52,6 +51,9 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
         assertionManager.compareArticles(articleCommentsAmount,commentManager.getTotalAmountOfRealComments(Driver.desktopDriver));
 
     }
+
+
+
 
 
 }

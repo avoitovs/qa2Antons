@@ -108,7 +108,9 @@ public class CommentManager {
     public int getTotalAmountOfRealComments(WebDriver driver){
 
         int anonymousComments = getAmountOfRealCommentsPerUserType(driver,anonymousUserComments);
+        Driver.logger.info("Total amount of anonymous comments is: "+anonymousComments);
         int registeredComments = getAmountOfRealCommentsPerUserType(driver,registeredUserComments);
+        Driver.logger.info("Total amount of registered comments is: "+registeredComments);
 
         int total = anonymousComments+registeredComments;
         Driver.logger.info("Total amount of comments is: "+total);
@@ -155,25 +157,32 @@ public class CommentManager {
     // Opening hidden comments (threads)
     private void openHiddenComments (WebDriver driver){
 
-        try{
-            WebElement hiddenComments = driver.findElement(By.cssSelector(" .load-more-comments-btn-link"));
-            while( hiddenComments.isDisplayed()){
-                Driver.logger.info("Found hidden comments. Opening...");
-                hiddenComments.click();
+        List<WebElement> listOfHiddenComments = Driver.desktopDriver.findElements(By.className("load-more-comments-btn-link"));
+
+        if (listOfHiddenComments.size() == 0){
+            Driver.logger.info("No threads found!");
+        }else{
+        Driver.logger.info("Found "+listOfHiddenComments.size()+" threads.");
+        }
+
+        for (WebElement thread : listOfHiddenComments){
+
+            while(thread.isDisplayed()){
+                Driver.logger.info("Opening thread");
+                thread.click();
                 Uninterruptibles.sleepUninterruptibly(2,TimeUnit.SECONDS);
             }
 
-        } catch (NoSuchElementException e) {
-            Driver.logger.info("No hidden comments!");
         }
-
     }
+
 
     // Getting amount of comments pages
     private int getCommentsPageAmount(WebDriver driver){
 
-        List <WebElement> amountCommentOfPages = driver.findElements(By.className("comments-pager-page"));
-        int amountOfCommentPages = amountCommentOfPages.size() / 2;
+        List <WebElement> amountCommentOfPages = driver.findElements(By.cssSelector(".comment-list-header .comments-pager-page"));
+
+        int amountOfCommentPages = Integer.parseInt(amountCommentOfPages.get(amountCommentOfPages.size()-1).getText());
 
         if (amountOfCommentPages==0){
             Driver.logger.info("Only one page of comments");
