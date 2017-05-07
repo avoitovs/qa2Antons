@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class FindArticleAndCheckCommentsTest extends TestBase {
 
-    private final String title = "Джамала призвала не дать России \"испортить\"";
+    private final String title = "Стартует весенняя Рижская неделя ресторанов (полный список)";
 
     @Before
     public void setup(){
@@ -51,8 +51,6 @@ public class FindArticleAndCheckCommentsTest extends TestBase {
         assertionManager.compareArticles(articleCommentsAmount,commentManager.getTotalAmountOfRealComments(Driver.desktopDriver));
 
     }
-
-
 
 
 

@@ -4,7 +4,6 @@ package Delfi.tests.managers;
 import com.google.common.util.concurrent.Uninterruptibles;
 import core.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -96,6 +95,7 @@ public class CommentManager {
 
     // Get amount of comments from counter
     private int getAmountOfComments (By byWhat,WebDriver driver){
+
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
