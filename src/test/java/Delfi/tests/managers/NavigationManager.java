@@ -15,7 +15,7 @@ public class NavigationManager {
 
 
     private static String baseURL = "http://rus.delfi.lv";
-    private static By commentCounter =  By.className("comment-count");
+    private static By commentCounter =  By.cssSelector(".article-title .comment-count");
     private static By firstArticle = By.className("top2012-title");
     Navigation navigation = new Navigation();
 

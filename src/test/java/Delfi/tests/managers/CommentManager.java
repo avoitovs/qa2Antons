@@ -4,7 +4,6 @@ package Delfi.tests.managers;
 import com.google.common.util.concurrent.Uninterruptibles;
 import core.Driver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -96,6 +95,7 @@ public class CommentManager {
 
     // Get amount of comments from counter
     private int getAmountOfComments (By byWhat,WebDriver driver){
+
         WebElement pageComments = driver.findElement(byWhat);
         String commentsNumber = pageComments.getText();
         int pageCommentsNumber = Integer.parseInt(commentsNumber.substring(1,commentsNumber.length()-1));
@@ -108,7 +108,9 @@ public class CommentManager {
     public int getTotalAmountOfRealComments(WebDriver driver){
 
         int anonymousComments = getAmountOfRealCommentsPerUserType(driver,anonymousUserComments);
+        Driver.logger.info("Total amount of anonymous comments is: "+anonymousComments);
         int registeredComments = getAmountOfRealCommentsPerUserType(driver,registeredUserComments);
+        Driver.logger.info("Total amount of registered comments is: "+registeredComments);
 
         int total = anonymousComments+registeredComments;
         Driver.logger.info("Total amount of comments is: "+total);
@@ -155,31 +157,39 @@ public class CommentManager {
     // Opening hidden comments (threads)
     private void openHiddenComments (WebDriver driver){
 
-        try{
-            WebElement hiddenComments = driver.findElement(By.cssSelector(" .load-more-comments-btn-link"));
-            while( hiddenComments.isDisplayed()){
-                Driver.logger.info("Found hidden comments. Opening...");
-                hiddenComments.click();
+        List<WebElement> listOfHiddenComments = Driver.desktopDriver.findElements(By.className("load-more-comments-btn-link"));
+
+        if (listOfHiddenComments.size() == 0){
+            Driver.logger.info("No threads found!");
+        }else{
+        Driver.logger.info("Found "+listOfHiddenComments.size()+" threads.");
+        }
+
+        for (WebElement thread : listOfHiddenComments){
+
+            while(thread.isDisplayed()){
+                Driver.logger.info("Opening thread");
+                thread.click();
                 Uninterruptibles.sleepUninterruptibly(2,TimeUnit.SECONDS);
             }
 
-        } catch (NoSuchElementException e) {
-            Driver.logger.info("No hidden comments!");
         }
-
     }
+
 
     // Getting amount of comments pages
     private int getCommentsPageAmount(WebDriver driver){
 
-        List <WebElement> amountCommentOfPages = driver.findElements(By.className("comments-pager-page"));
-        int amountOfCommentPages = amountCommentOfPages.size() / 2;
+        List <WebElement> listOfCommentPages = driver.findElements(By.cssSelector(".comment-list-header .comments-pager-page"));
 
-        if (amountOfCommentPages==0){
+        int numberOfPages = 0;
+        try {
+            numberOfPages = Integer.parseInt(listOfCommentPages.get(listOfCommentPages.size() - 1).getText());
+            Driver.logger.info("There are " + numberOfPages + " pages of comments");
+        } catch (ArrayIndexOutOfBoundsException e){
             Driver.logger.info("Only one page of comments");
-        } else {
-            Driver.logger.info("There are "+amountOfCommentPages+" pages of comments");
-        }return amountOfCommentPages;
+        }
+        return numberOfPages;
     }
 
 
