@@ -1,6 +1,7 @@
-package backEndTesting;
+package WeatherRequestTest;
 
-import backEndTesting.model.Response;
+import WeatherRequestTest.model.Response;
+import WeatherRequestTest.requesters.WeatherRequester;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,7 +19,9 @@ public class WeatherTest {
         //get response from server
         WeatherRequester requester = new WeatherRequester();
 
-        Response response = requester.getWeather();
+       // Response response = requester.getWeather();
+
+        Response response= requester.getWeatherwithRestTemplates();
 
         //check response
 

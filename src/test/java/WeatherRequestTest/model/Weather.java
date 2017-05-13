@@ -1,4 +1,4 @@
-package backEndTesting.model;
+package WeatherRequestTest.model;
 
 /**
  * Created by antons on 07/05/2017.

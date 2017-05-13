@@ -1,4 +1,4 @@
-package backEndTesting.model;
+package WeatherRequestTest.model;
 
 import java.math.BigDecimal;
 
