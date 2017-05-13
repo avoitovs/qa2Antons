@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class FindArticleAndCheckCommentsTest extends TestBase {
 
-    private final String title = "Стартует весенняя Рижская неделя ресторанов (полный список)";
+    private final String title = "ВИДЕО: В Риге \"Мерс\" врезался в скорую, пытаясь пролезть за ней через пробку";
 
     @Before
     public void setup(){
