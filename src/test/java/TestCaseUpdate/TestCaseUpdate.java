@@ -25,8 +25,8 @@ public class TestCaseUpdate {
 
     private static String baseURL = "http://jira.evolutiongaming.com";
     private static String testCaseNumber = "TC-2529";
-    private String username = "avoitovs";
-    private String password = "Delfin4ik";
+    private String username = "username";
+    private String password = "password";
     private static By step = By.className("ztextarea-step");
     private static By data = By.className("ztextarea-data");
     private static By result = By.className("ztextarea-result");
