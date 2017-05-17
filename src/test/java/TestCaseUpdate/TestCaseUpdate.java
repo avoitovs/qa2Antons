@@ -1,7 +1,6 @@
 package TestCaseUpdate;
 
-import TestCaseUpdate.Games.DreamCatcher;
-import TestCaseUpdate.Games.Step;
+import TestCaseUpdate.Games.*;
 import com.google.common.util.concurrent.Uninterruptibles;
 import core.Driver;
 import core.Navigation;
@@ -9,8 +8,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -54,19 +51,56 @@ public class TestCaseUpdate {
 
         openTestCase(testCaseNumber);
 
-        addListOfSteps();
-
-        Uninterruptibles.sleepUninterruptibly(15,TimeUnit.SECONDS);
+        addMOWSteps();
+        addCSPSteps();
+        addDBRSteps();
+        addETHSteps();
+        addTRPorTCPSteps();
+        addUTHSteps();
 
     }
 
 
 
-    private void addListOfSteps (){
+    private void addMOWSteps(){
         DreamCatcher dreamCatcher = new DreamCatcher();
         List<Step> mow = dreamCatcher.getSteps();
-        for (Step step : mow){
-           addStep(step.getStep(),step.getData(),step.getResult());
+        iterateSteps(mow);
+    }
+
+    private void addDBRSteps(){
+        DoubleBallRoulette doubleBallRoulette = new DoubleBallRoulette();
+        List<Step> dbr = doubleBallRoulette.getSteps();
+        iterateSteps(dbr);
+    }
+
+    private void addUTHSteps(){
+        UltimateTexasHoldem ultimateTexasHoldem = new UltimateTexasHoldem();
+        List<Step> uth = ultimateTexasHoldem.getSteps();
+        iterateSteps(uth);
+    }
+
+    private void addETHSteps(){
+        ExtremeTexasHoldem extremeTexasHoldem = new ExtremeTexasHoldem();
+        List<Step> eth = extremeTexasHoldem.getSteps();
+        iterateSteps(eth);
+    }
+
+    private void addCSPSteps(){
+        CaribbeanStudPoker caribbeanStudPoker = new CaribbeanStudPoker();
+        List<Step> csp = caribbeanStudPoker.getSteps();
+        iterateSteps(csp);
+    }
+
+    private void addTRPorTCPSteps(){
+        TripleOrThreeCardPoker tripleOrThreeCardPoker = new TripleOrThreeCardPoker();
+        List<Step> trp = tripleOrThreeCardPoker.getSteps();
+        iterateSteps(trp);
+    }
+
+    private void iterateSteps (List<Step> game){
+        for (Step step : game){
+            addStep(step.getStep(),step.getData(),step.getResult());
         }
     }
 
@@ -78,7 +112,7 @@ public class TestCaseUpdate {
         Driver.desktopDriver.findElement(data).sendKeys(dataText);
         Driver.desktopDriver.findElement(result).sendKeys(resultText);
         Driver.desktopDriver.findElement(By.className("restfultable-operations-wrapper")).click();
-        Uninterruptibles.sleepUninterruptibly(1,TimeUnit.SECONDS);
+        Uninterruptibles.sleepUninterruptibly(50,TimeUnit.MILLISECONDS);
 
     }
 
