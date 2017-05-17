@@ -17,11 +17,12 @@ public class Driver {
     public static WebDriver mobileDriver;
     public static final Logger logger = Logger.getLogger(Driver.class);
     private static final String webDriverLocation = "/Users/antons/Downloads/WebDrivers/geckodriver";
+    private static final String work = "C:\\Users\\avoitovs\\Downloads\\driver\\geckodriver.exe";
 
     // Creating desktop web driver
     public void setUpFFDesktop() {
         logger.info("Preparing FF desktop browser");
-        System.setProperty("webdriver.gecko.driver", webDriverLocation);
+        System.setProperty("webdriver.gecko.driver", work);
         desktopDriver = new FirefoxDriver();
         desktopDriver.manage().window().maximize();
         desktopDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
