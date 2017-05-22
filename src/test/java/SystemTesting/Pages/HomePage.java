@@ -35,7 +35,7 @@ public class HomePage {
         List<User> users = new ArrayList<User>();
         for (WebElement user : listOfUsers){
             users.add(new User(
-                    userWrapper.getName(),
+                    userWrapper.getName(user),
                     userWrapper.getSurname(),
                     userWrapper.getPhone(),
                     userWrapper.getEmail(),
@@ -58,7 +58,7 @@ public class HomePage {
         Driver.desktopDriver.get("http://qaguru.lv:8080/qa2/");
         List<User> list = getListOfUsers();
         for (User user : list){
-            System.out.println(user.getPersonID());
+            System.out.println(user.getName());
         }
 
         driver.tearDown(Driver.desktopDriver);

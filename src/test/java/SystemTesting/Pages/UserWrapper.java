@@ -2,6 +2,7 @@ package SystemTesting.Pages;
 
 import core.Driver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 
 /**
@@ -17,8 +18,8 @@ public class UserWrapper {
     private By personID = By.className("personId");
     private By score = By.className("score");
 
-    public String getName(){
-        String userName = Driver.desktopDriver.findElement(name).getText();
+    public String getName(WebElement user){
+        String userName = user.findElement(name).getText();
         return userName;
     }
 
