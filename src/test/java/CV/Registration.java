@@ -19,7 +19,7 @@ public class Registration {
         Driver.logger.info("Registration of the new user...");
         Driver.desktopDriver.findElementByLinkText("Reģistrēties").click();
 
-       // closePopUp();
+        closePopUp();
 
         Driver.desktopDriver.findElementByLinkText("darba meklētājs").click();
 

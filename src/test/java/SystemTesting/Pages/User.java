@@ -1,5 +1,7 @@
 package SystemTesting.Pages;
 
+import java.math.BigDecimal;
+
 /**
  * Created by avoitovs on 5/22/2017.
  */
@@ -10,9 +12,9 @@ public class User {
   private String email;
   private String gender;
   private String personID;
-  private String score;
+  private BigDecimal score;
 
-    public User(String name, String surname, String phone, String email, String gender, String personID, String score) {
+    public User(String name, String surname, String phone, String email, String gender, String personID, BigDecimal score) {
         this.name = name;
         this.surname = surname;
         this.phone = phone;
@@ -47,7 +49,7 @@ public class User {
         return personID;
     }
 
-    public String getScore() {
+    public BigDecimal getScore() {
         return score;
     }
 }

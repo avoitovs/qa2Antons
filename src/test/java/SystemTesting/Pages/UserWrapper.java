@@ -1,8 +1,9 @@
 package SystemTesting.Pages;
 
-import core.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import java.math.BigDecimal;
 
 
 /**
@@ -23,34 +24,39 @@ public class UserWrapper {
         return userName;
     }
 
-    public String getSurname(){
-        String userSurname = Driver.desktopDriver.findElement(surname).getText();
+    public String getSurname(WebElement user){
+        String userSurname = user.findElement(surname).getText();
         return userSurname;
     }
 
-    public String getPhone(){
-        String userPhone = Driver.desktopDriver.findElement(phone).getText();
+    public String getPhone(WebElement user){
+        String userPhone = user.findElement(phone).getText();
         return userPhone;
     }
 
-    public String getEmail(){
-        String userEmail = Driver.desktopDriver.findElement(email).getText();
+    public String getEmail(WebElement user){
+        String userEmail = user.findElement(email).getText();
         return userEmail;
     }
 
-    public String getGender(){
-        String userGender = Driver.desktopDriver.findElement(gender).getText();
+    public String getGender(WebElement user){
+        String userGender = user.findElement(gender).getText();
         return userGender;
     }
 
-    public String getPersonID(){
-        String userID = Driver.desktopDriver.findElement(personID).getText();
+    public String getPersonID(WebElement user){
+        String userID = user.findElement(personID).getText();
         return userID;
     }
 
-    public String getScore(){
-        String userScore = Driver.desktopDriver.findElement(score).getText();
-        return userScore;
+    public BigDecimal getScore(WebElement user){
+        String userScoreText = user.findElement(score).getText();
+        try {
+            BigDecimal userScore = new BigDecimal(userScoreText);
+            return userScore;
+        }catch (NumberFormatException e){
+            return null;
+        }
     }
 
 

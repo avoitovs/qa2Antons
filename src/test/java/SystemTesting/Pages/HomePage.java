@@ -1,31 +1,47 @@
 package SystemTesting.Pages;
 
+
 import core.Driver;
-import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 /**
  * Created by avoitovs on 5/22/2017.
  */
 public class HomePage {
+
+    List<User> listOfUsers;
+
+    public HomePage() {
+
+        this.listOfUsers = getListOfUsers();
+    }
+
+
     UserWrapper userWrapper = new UserWrapper();
 
     private By addScoreButton = By.className("score");
     private By addUserButton = By.className("addUserLink");
     private By user = By.className("userEntry");
 
-    public AddScorePage addScore (){
-        Driver.desktopDriver.findElement(addScoreButton).click();
-        return new AddScorePage();
+    public AddScorePage addScoreForTheUser (int id){
+        if (listOfUsers.get(id).getScore()!=null){
+            Driver.logger.info("User already has score!");
+            return null;
+        } else {
+            List<WebElement> list = Driver.desktopDriver.findElements(user);
+            Driver.logger.info("Adding score for "+ (id+1) +" user");
+            list.get(id).findElement(addScoreButton).click();
+            return new AddScorePage(id);
+        }
+
     }
 
     public AddUserPage addUser () {
+        Driver.logger.info("Opening new user registration form...");
         Driver.desktopDriver.findElement(addUserButton).click();
         return new AddUserPage();
     }
@@ -36,34 +52,18 @@ public class HomePage {
         for (WebElement user : listOfUsers){
             users.add(new User(
                     userWrapper.getName(user),
-                    userWrapper.getSurname(),
-                    userWrapper.getPhone(),
-                    userWrapper.getEmail(),
-                    userWrapper.getGender(),
-                    userWrapper.getPersonID(),
-                    userWrapper.getScore()
+                    userWrapper.getSurname(user),
+                    userWrapper.getPhone(user),
+                    userWrapper.getEmail(user),
+                    userWrapper.getGender(user),
+                    userWrapper.getPersonID(user),
+                    userWrapper.getScore(user)
             ));
-
         }
-
         return users;
     }
 
 
-    @Test
-    public void test(){
-
-        Driver driver = new Driver();
-        driver.setUpFFDesktop();
-        Driver.desktopDriver.get("http://qaguru.lv:8080/qa2/");
-        List<User> list = getListOfUsers();
-        for (User user : list){
-            System.out.println(user.getName());
-        }
-
-        driver.tearDown(Driver.desktopDriver);
-
-    }
 
 
 
