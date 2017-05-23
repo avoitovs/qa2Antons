@@ -2,7 +2,9 @@ package SystemTesting.Pages;
 
 
 import core.Driver;
+import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +16,21 @@ import java.util.List;
 public class HomePage {
 
     List<User> listOfUsers;
+    int amountOfRegisteredUsers;
 
     public HomePage() {
-
         this.listOfUsers = getListOfUsers();
+        this.amountOfRegisteredUsers = listOfUsers.size();
+        Assert.assertTrue("Home page is not opened!", homePageIsOpened());
+    }
+
+    private Boolean homePageIsOpened(){
+        try{
+            Driver.desktopDriver.findElement(By.className("userList")).isDisplayed();
+        }catch (NoSuchElementException e){
+            return false;
+        }
+        return true;
     }
 
 
@@ -33,7 +46,7 @@ public class HomePage {
             return null;
         } else {
             List<WebElement> list = Driver.desktopDriver.findElements(user);
-            Driver.logger.info("Adding score for "+ (id+1) +" user");
+            Driver.logger.info("Opening score page for "+ (id+1) +" user");
             list.get(id).findElement(addScoreButton).click();
             return new AddScorePage(id);
         }

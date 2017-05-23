@@ -23,9 +23,10 @@ public class def {
         Driver.desktopDriver.get("http://qaguru.lv:8080/qa2/");
         HomePage homePage = new HomePage();
 
-        AddScorePage addScorePage = homePage.addScoreForTheUser(18);
+
+        AddScorePage addScorePage = homePage.addScoreForTheUser(2);
         addScorePage.fillAndSendScoreForm("qa","qa","qa","12");
-        Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
+   //     Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
         driver.tearDown(Driver.desktopDriver);
 
     }
