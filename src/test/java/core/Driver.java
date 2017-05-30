@@ -22,7 +22,7 @@ public class Driver {
     // Creating desktop web driver
     public void setUpFFDesktop() {
         logger.info("Preparing FF desktop browser");
-        System.setProperty("webdriver.gecko.driver", work);
+        System.setProperty("webdriver.gecko.driver", webDriverLocation);
         desktopDriver = new FirefoxDriver();
         desktopDriver.manage().window().maximize();
         desktopDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

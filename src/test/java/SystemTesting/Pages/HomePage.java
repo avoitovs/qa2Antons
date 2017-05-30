@@ -34,10 +34,10 @@ public class HomePage {
     }
 
 
-    UserWrapper userWrapper = new UserWrapper();
+    private UserWrapper userWrapper = new UserWrapper();
 
     private By addScoreButton = By.className("score");
-    private By addUserButton = By.className("addUserLink");
+    private By addUserButton = By.linkText("Add User");
     private By user = By.className("userEntry");
 
     public AddScorePage addScoreForTheUser (int id){
@@ -75,8 +75,18 @@ public class HomePage {
         }
         return users;
     }
+/*
+    public User findUser (){
+
+        User user;
+        // code how to find user;
 
 
+
+        return user;
+    }
+
+*/
 
 
 
