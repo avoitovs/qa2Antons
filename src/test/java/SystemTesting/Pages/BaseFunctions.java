@@ -8,11 +8,15 @@ import org.openqa.selenium.WebDriver;
  */
 public class BaseFunctions {
 
-
-
+    public WebDriver driver;
 
     public BaseFunctions() {
-        WebDriver driver = Driver.desktopDriver;
+        this.driver = Driver.desktopDriver;
+    }
+
+    public void openHomePage(){
+        Driver.logger.info("Opening home page...");
+        Driver.desktopDriver.get("http://qaguru.lv:8080/qa2/");
     }
 
 

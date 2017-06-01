@@ -3,19 +3,27 @@ package SystemTesting.Pages;
 import core.Driver;
 import org.openqa.selenium.By;
 
+import javax.jws.soap.SOAPBinding;
+
 /**
  * Created by avoitovs on 5/22/2017.
  */
 public class AddScorePage {
 
-    private int id;
+    private User user;
+    private String age;
+    private String city;
+    private String country;
+    private String childCount;
 
-    public int getId() {
-        return id;
-    }
 
-    public AddScorePage(int id) {
-        this.id = id;
+    public AddScorePage(User user, String age, String city, String country, String childCount) {
+        this.user=user;
+        this.age = age;
+        this.city=city;
+        this.country=country;
+        this.childCount = childCount;
+        fillAndSendScoreForm();
     }
 
     private By ageLocator = By.name("age");
@@ -24,8 +32,8 @@ public class AddScorePage {
     private By childCountLocator = By.name("childCount");
     private By addButtonLocator = By.xpath("//input[@value='Add Score']");
 
-    public HomePage fillAndSendScoreForm(CharSequence age, CharSequence city, CharSequence country, CharSequence childCount){
-        Driver.logger.info("Adding score for user number "+(id+1));
+    private HomePage fillAndSendScoreForm(){
+        Driver.logger.info("Adding score for user "+user.getName()+" "+user.getSurname());
 
         Driver.logger.info("Typing age: "+age);
         Driver.desktopDriver.findElement(ageLocator).sendKeys(age);

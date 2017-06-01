@@ -6,8 +6,11 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 
 /**
@@ -15,13 +18,14 @@ import java.util.List;
  */
 public class HomePage {
 
-    List<User> listOfUsers;
+    private List<User> listOfUsers;
     int amountOfRegisteredUsers;
 
     public HomePage() {
         this.listOfUsers = getListOfUsers();
         this.amountOfRegisteredUsers = listOfUsers.size();
         Assert.assertTrue("Home page is not opened!", homePageIsOpened());
+        Driver.logger.info("Home page is opened!");
     }
 
     private Boolean homePageIsOpened(){
@@ -38,29 +42,30 @@ public class HomePage {
 
     private By addScoreButton = By.className("score");
     private By addUserButton = By.linkText("Add User");
-    private By user = By.className("userEntry");
+    private By userLocator = By.className("userEntry");
 
-    public AddScorePage addScoreForTheUser (int id){
-        if (listOfUsers.get(id).getScore()!=null){
+    public AddScorePage addScoreForTheUser (User user, String age, String city, String country, String childCount){
+        if (user.getScore()!=null){
             Driver.logger.info("User already has score!");
             return null;
         } else {
-            List<WebElement> list = Driver.desktopDriver.findElements(user);
-            Driver.logger.info("Opening score page for "+ (id+1) +" user");
-            list.get(id).findElement(addScoreButton).click();
-            return new AddScorePage(id);
+            this.listOfUsers = getListOfUsers();
+            List<WebElement> list = Driver.desktopDriver.findElements(userLocator);
+            Driver.logger.info("Opening score page for user : "+user.getName()+" "+user.getSurname());
+            list.get(listOfUsers.indexOf(getExistingUser(user))).findElement(addScoreButton).click();
+            return new AddScorePage(user,age,city,country,childCount);
         }
 
     }
 
-    public AddUserPage addUser () {
+    public AddUserPage createNewUser(User user) {
         Driver.logger.info("Opening new user registration form...");
         Driver.desktopDriver.findElement(addUserButton).click();
-        return new AddUserPage();
+        return new AddUserPage(user);
     }
 
     public List<User> getListOfUsers (){
-        List<WebElement> listOfUsers = Driver.desktopDriver.findElements(user);
+        List<WebElement> listOfUsers = Driver.desktopDriver.findElements(userLocator);
         List<User> users = new ArrayList<User>();
         for (WebElement user : listOfUsers){
             users.add(new User(
@@ -76,17 +81,44 @@ public class HomePage {
         return users;
     }
 /*
-    public User findUser (){
-
-        User user;
-        // code how to find user;
-
-
-
-        return user;
+    public User getExistingUser(String name, String surname, String phone, String email, String personID){
+        Predicate<User> predicateName = u -> u.getName().equals(name);
+        Predicate<User> predicateSurname = u -> u.getSurname().equals(surname);
+        Predicate<User> predicatePhone = u -> u.getPhone().equals(phone);
+        Predicate<User> predicateEmail = u -> u.getEmail().equals(email);
+        Predicate<User> predicatePersonID = u -> u.getPersonID().equals(personID);
+        User object = listOfUsers.stream()
+                .filter(predicateName)
+                .filter(predicateSurname)
+                .filter(predicatePhone)
+                .filter(predicateEmail)
+                .filter(predicatePersonID)
+                .findFirst().get();
+        return object;
+    }
+*/
+    public User getExistingUser(User user){
+        Predicate<User> predicateName = u -> u.getName().equals(user.getName());
+        Predicate<User> predicateSurname = u -> u.getSurname().equals(user.getSurname());
+        Predicate<User> predicatePhone = u -> u.getPhone().equals(user.getPhone());
+        Predicate<User> predicateEmail = u -> u.getEmail().equals(user.getEmail());
+        Predicate<User> predicatePersonID = u -> u.getPersonID().equals(user.getPersonID());
+        Predicate<User> predicateGender = u -> u.getGender().equals(user.getGender());
+        User object = listOfUsers.stream()
+                .filter(predicateName)
+                .filter(predicateSurname)
+                .filter(predicatePhone)
+                .filter(predicateEmail)
+                .filter(predicatePersonID)
+                .filter(predicateGender)
+                .findFirst().get();
+        return object;
     }
 
-*/
+
+
+
+
 
 
 
