@@ -19,11 +19,11 @@ import java.util.function.Predicate;
 public class HomePage {
 
     private List<User> listOfUsers;
-    int amountOfRegisteredUsers;
+    //int amountOfRegisteredUsers;
 
     public HomePage() {
         this.listOfUsers = getListOfUsers();
-        this.amountOfRegisteredUsers = listOfUsers.size();
+       // this.amountOfRegisteredUsers = listOfUsers.size();
         Assert.assertTrue("Home page is not opened!", homePageIsOpened());
         Driver.logger.info("Home page is opened!");
     }
@@ -45,14 +45,15 @@ public class HomePage {
     private By userLocator = By.className("userEntry");
 
     public AddScorePage addScoreForTheUser (User user, String age, String city, String country, String childCount){
+        Driver.logger.info("Adding score for the user: "+user.getName()+" "+user.getSurname());
         if (user.getScore()!=null){
             Driver.logger.info("User already has score!");
             return null;
         } else {
-            this.listOfUsers = getListOfUsers();
             List<WebElement> list = Driver.desktopDriver.findElements(userLocator);
             Driver.logger.info("Opening score page for user : "+user.getName()+" "+user.getSurname());
-            list.get(listOfUsers.indexOf(getExistingUser(user))).findElement(addScoreButton).click();
+            this.listOfUsers = getListOfUsers();
+            list.get(listOfUsers.indexOf(getExistingUser(user))+1).findElement(addScoreButton).click();
             return new AddScorePage(user,age,city,country,childCount);
         }
 
@@ -98,6 +99,7 @@ public class HomePage {
     }
 */
     public User getExistingUser(User user){
+        //this.listOfUsers = getListOfUsers();
         Predicate<User> predicateName = u -> u.getName().equals(user.getName());
         Predicate<User> predicateSurname = u -> u.getSurname().equals(user.getSurname());
         Predicate<User> predicatePhone = u -> u.getPhone().equals(user.getPhone());

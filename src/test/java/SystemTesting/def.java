@@ -1,9 +1,6 @@
 package SystemTesting;
 
-import SystemTesting.Pages.AddScorePage;
-import SystemTesting.Pages.AddUserPage;
-import SystemTesting.Pages.HomePage;
-import SystemTesting.Pages.User;
+import SystemTesting.Pages.*;
 import com.google.common.util.concurrent.Uninterruptibles;
 import core.Driver;
 import org.junit.After;
@@ -17,16 +14,16 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by avoitovs on 5/22/2017.
  */
-public class def {
+public class def extends BaseFunctions{
 
     Driver driver = new Driver();
 
-    private String name = "";
-    private String surname = "Neznaju";
-    private String phone = "1231e23123";
-    private String email = "emailrkkkm" ;
+    private String name = "HItI";
+    private String surname = "HmnmnmnI";
+    private String phone = "HI";
+    private String email = "iihhs" ;
     private String gender = "female";
-    private String personID = "12-12";
+    private String personID = "begemot";
 
 
     private String city = "Riga";
@@ -52,7 +49,7 @@ public class def {
     public void test(){
 
         HomePage homePage = new HomePage();
-        User user = new User(name,
+        User virtualUser = new User(name,
                             surname,
                             phone,
                             email,
@@ -60,18 +57,16 @@ public class def {
                             personID,
                             score);
 
-        homePage.createNewUser(user);
+        homePage.createNewUser(virtualUser);
 
-        System.out.println(user.getScore());
+        User realUser = homePage.getExistingUser(virtualUser);
 
-        homePage.addScoreForTheUser(user,age,city,country,childCount);
+        homePage.addScoreForTheUser(realUser,age,city,country,childCount);
 
-        user = homePage.getExistingUser(user);
 
-        System.out.println(user.getScore());
-        Assert.assertTrue("bla bla",BigDecimal.valueOf(400)==user.getScore());
-        Uninterruptibles.sleepUninterruptibly(5, TimeUnit.SECONDS);
 
+        System.out.println(realUser.getScore());
+        Assert.assertTrue("bla bla",BigDecimal.valueOf(400)==realUser.getScore());
 
     }
     @Test

@@ -3,32 +3,22 @@ package SystemTesting.Pages;
 import core.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 
 
 /**
  * Created by avoitovs on 5/22/2017.
  */
-public class AddUserPage {
+public class AddUserPage extends BaseFunctions{
 
     private User user;
 
     public AddUserPage(User user) {
         this.user = user;
-        Assert.assertTrue("Add User page is not opened!",addUserPageIsOpened());
+        Assert.assertTrue("Add User page is not opened!",isPageOpened(addButtonLocator));
         createNewUser();
     }
 
-
-    private Boolean addUserPageIsOpened(){
-        try{
-            Driver.desktopDriver.findElement(nameLocator).isDisplayed();
-        }catch (NoSuchElementException e){
-            return false;
-        }
-        return true;
-    }
 
     private By nameLocator = By.name("name");
     private By surnameLocator = By.name("surname");

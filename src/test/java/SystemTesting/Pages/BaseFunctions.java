@@ -1,6 +1,8 @@
 package SystemTesting.Pages;
 
 import core.Driver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -8,15 +10,19 @@ import org.openqa.selenium.WebDriver;
  */
 public class BaseFunctions {
 
-    public WebDriver driver;
-
-    public BaseFunctions() {
-        this.driver = Driver.desktopDriver;
-    }
 
     public void openHomePage(){
         Driver.logger.info("Opening home page...");
         Driver.desktopDriver.get("http://qaguru.lv:8080/qa2/");
+    }
+
+    public Boolean isPageOpened(By locator){
+        try{
+            Driver.desktopDriver.findElement(locator).isDisplayed();
+        }catch (NoSuchElementException e){
+            return false;
+        }
+        return true;
     }
 
 

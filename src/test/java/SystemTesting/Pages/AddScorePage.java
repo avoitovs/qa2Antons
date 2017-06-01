@@ -1,14 +1,14 @@
 package SystemTesting.Pages;
 
 import core.Driver;
+import org.junit.Assert;
 import org.openqa.selenium.By;
-
-import javax.jws.soap.SOAPBinding;
+import org.openqa.selenium.NoSuchElementException;
 
 /**
  * Created by avoitovs on 5/22/2017.
  */
-public class AddScorePage {
+public class AddScorePage extends BaseFunctions {
 
     private User user;
     private String age;
@@ -23,6 +23,7 @@ public class AddScorePage {
         this.city=city;
         this.country=country;
         this.childCount = childCount;
+        Assert.assertTrue("Add User page is not opened!", isPageOpened(addButtonLocator));
         fillAndSendScoreForm();
     }
 
@@ -33,7 +34,7 @@ public class AddScorePage {
     private By addButtonLocator = By.xpath("//input[@value='Add Score']");
 
     private HomePage fillAndSendScoreForm(){
-        Driver.logger.info("Adding score for user "+user.getName()+" "+user.getSurname());
+        Driver.logger.info("Filling score form for user: "+user.getName()+" "+user.getSurname());
 
         Driver.logger.info("Typing age: "+age);
         Driver.desktopDriver.findElement(ageLocator).sendKeys(age);
