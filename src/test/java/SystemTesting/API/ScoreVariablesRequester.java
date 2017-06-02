@@ -1,7 +1,6 @@
 package SystemTesting.API;
 
-import SystemTesting.API.Model.Score.GetScoreVariablesResponse;
-import SystemTesting.Pages.Score;
+import SystemTesting.Model.Score;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;

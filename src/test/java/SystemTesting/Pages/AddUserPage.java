@@ -1,5 +1,6 @@
 package SystemTesting.Pages;
 
+import SystemTesting.Model.User;
 import core.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.By;

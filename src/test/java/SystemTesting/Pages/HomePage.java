@@ -1,6 +1,9 @@
 package SystemTesting.Pages;
 
 
+import SystemTesting.Model.Score;
+import SystemTesting.Model.User;
+import SystemTesting.Model.UserWrapper;
 import core.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -11,6 +14,7 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 /**
@@ -97,8 +101,18 @@ public class HomePage {
                 .filter(predicatePersonID)
                 .filter(predicateGender)
                 .findFirst().get();
-        Driver.logger.info("User has been created!");
+        Driver.logger.info("User has been found in the list!");
         return object;
+    }
+
+    public List<User> getAmountOfUsersWithScore (){
+        Driver.logger.info("Getting list of users with score...");
+        Predicate<User> predicateScore = u -> u.getScore()!=null;
+        List<User> objects = listOfUsers.stream()
+                .filter(predicateScore)
+                .collect(Collectors.toList());
+        Driver.logger.info("Total amount of users with score is: "+objects.size());
+        return objects;
     }
 
 

@@ -1,6 +1,6 @@
 package SystemTesting.API;
 
-import SystemTesting.Pages.Score;
+import SystemTesting.Model.Score;
 import core.Driver;
 
 import java.io.IOException;

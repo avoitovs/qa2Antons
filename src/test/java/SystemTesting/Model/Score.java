@@ -1,4 +1,4 @@
-package SystemTesting.Pages;
+package SystemTesting.Model;
 
 /**
  * Created by avoitovs on 6/2/2017.

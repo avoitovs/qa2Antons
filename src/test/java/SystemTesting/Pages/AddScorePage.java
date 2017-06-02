@@ -1,9 +1,10 @@
 package SystemTesting.Pages;
 
+import SystemTesting.Model.Score;
+import SystemTesting.Model.User;
 import core.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 
 /**
  * Created by avoitovs on 5/22/2017.

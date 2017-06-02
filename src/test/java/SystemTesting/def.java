@@ -2,7 +2,10 @@ package SystemTesting;
 
 import SystemTesting.API.GetListOfScoreVariablesUsingAPI;
 import SystemTesting.API.GetListOfUsersUsingAPI;
+import SystemTesting.Model.Score;
+import SystemTesting.Model.User;
 import SystemTesting.Pages.*;
+import SystemTesting.ScoreLogic.ScoreLogic;
 import core.Driver;
 import org.junit.After;
 import org.junit.Assert;
@@ -20,7 +23,7 @@ public class def extends BaseFunctions{
 
     private Driver driver = new Driver();
 
-    private String name = "Come";
+    private String name = "bj";
     private String surname = "On";
     private String phone = "Start";
     private String email = "Worwefwewedwewedwedwddeedk" ;
@@ -34,14 +37,14 @@ public class def extends BaseFunctions{
     private int childCount = 1;
     private BigDecimal score = null;
 
-    @Before
+  //  @Before
     public void setup(){
 
         driver.setUpFFDesktop();
         Driver.desktopDriver.get("http://qaguru.lv:8080/qa2/");
     }
 
-    @After
+   // @After
     public void tearDown (){
         driver.tearDown(Driver.desktopDriver);
     }
@@ -82,10 +85,33 @@ public class def extends BaseFunctions{
 
     @Test
     public void test3() throws IOException{
-        //HomePage homePage = new HomePage();
+
         GetListOfScoreVariablesUsingAPI scoreAPI = new GetListOfScoreVariablesUsingAPI();
         List<Score> scoreAPIList = scoreAPI.getListOfScoreVariablesAPI();
         System.out.println(scoreAPIList.get(5).getCity());
+    }
+
+    @Test
+    public void test4 () throws IOException{
+        HomePage homePage = new HomePage();
+        int size1 = homePage.getAmountOfUsersWithScore().size();
+
+        GetListOfScoreVariablesUsingAPI scoreAPI = new GetListOfScoreVariablesUsingAPI();
+        List<Score> scoreAPIList = scoreAPI.getListOfScoreVariablesAPI();
+
+        Driver.logger.info("Comparing amount of users with score from WEB and API...");
+        Assert.assertEquals("Amount of user's score are not equals!",size1,scoreAPIList.size());
+    }
+
+    @Test
+    public void test5(){
+        Score score = new Score(age,city,country,childCount);
+        ScoreLogic scoreLogic = new ScoreLogic(score);
+
+        Assert.assertEquals("Incorrectly calculated score!",BigDecimal.valueOf(400),scoreLogic.getExpectedTotalScore());
+
+
+
     }
 
 

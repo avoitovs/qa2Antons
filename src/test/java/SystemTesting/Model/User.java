@@ -1,4 +1,4 @@
-package SystemTesting.Pages;
+package SystemTesting.Model;
 
 
 import java.math.BigDecimal;

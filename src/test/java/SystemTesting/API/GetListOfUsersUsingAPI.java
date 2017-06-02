@@ -1,7 +1,7 @@
 package SystemTesting.API;
 
 
-import SystemTesting.Pages.User;
+import SystemTesting.Model.User;
 import core.Driver;
 
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package SystemTesting.API;
 
-import SystemTesting.Pages.User;
+import SystemTesting.Model.User;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
