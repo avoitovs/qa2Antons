@@ -1,5 +1,6 @@
 package SystemTesting;
 
+import SystemTesting.API.GetListOfScoreVariablesUsingAPI;
 import SystemTesting.API.GetListOfUsersUsingAPI;
 import SystemTesting.Pages.*;
 import core.Driver;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class def extends BaseFunctions{
 
-    Driver driver = new Driver();
+    private Driver driver = new Driver();
 
     private String name = "Come";
     private String surname = "On";
@@ -77,6 +78,14 @@ public class def extends BaseFunctions{
         List<User> userAPIlist = userAPI.getListOfUsersAPI();
         Assert.assertEquals("Amount of users are not equals!",userAPIlist.size(),homePage.getListOfUsers().size());
 
+    }
+
+    @Test
+    public void test3() throws IOException{
+        //HomePage homePage = new HomePage();
+        GetListOfScoreVariablesUsingAPI scoreAPI = new GetListOfScoreVariablesUsingAPI();
+        List<Score> scoreAPIList = scoreAPI.getListOfScoreVariablesAPI();
+        System.out.println(scoreAPIList.get(5).getCity());
     }
 
 
