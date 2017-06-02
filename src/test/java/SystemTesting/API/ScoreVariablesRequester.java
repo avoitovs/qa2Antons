@@ -1,6 +1,7 @@
 package SystemTesting.API;
 
 import SystemTesting.API.Model.Score.GetScoreVariablesResponse;
+import SystemTesting.Pages.Score;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +17,7 @@ public class ScoreVariablesRequester {
 
     private String URL = "http://navipoint.lv:8080/qa2/getScores";
 
-    public List<GetScoreVariablesResponse> getScoreVariables () throws IOException {
+    public List<Score> getScoreVariables () throws IOException {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(URL, String.class);
@@ -24,7 +25,7 @@ public class ScoreVariablesRequester {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        GetScoreVariablesResponse[] getScoreVariablesResponse = mapper.readValue(jsonResponse, GetScoreVariablesResponse[].class);
+        Score[] getScoreVariablesResponse = mapper.readValue(jsonResponse, Score[].class);
 
         return Arrays.asList(getScoreVariablesResponse);
     }

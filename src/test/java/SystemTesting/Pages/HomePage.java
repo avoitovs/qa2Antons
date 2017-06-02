@@ -44,7 +44,7 @@ public class HomePage {
     private By addUserButton = By.linkText("Add User");
     private By userLocator = By.className("userEntry");
 
-    public AddScorePage addScoreForTheUser (User user, String age, String city, String country, String childCount){
+    public AddScorePage addScoreForTheUser (User user, Score score){
         Driver.logger.info("Adding score for the user: "+user.getName()+" "+user.getSurname());
         if (user.getScore()!=null){
             Driver.logger.info("User already has score!");
@@ -53,7 +53,7 @@ public class HomePage {
             List<WebElement> list = Driver.desktopDriver.findElements(userLocator);
             Driver.logger.info("Opening score page for user : "+user.getName()+" "+user.getSurname());
             list.get(listOfUsers.indexOf(user)).findElement(addScoreButton).click();
-            return new AddScorePage(user,age,city,country,childCount);
+            return new AddScorePage(user,score);
         }
 
     }

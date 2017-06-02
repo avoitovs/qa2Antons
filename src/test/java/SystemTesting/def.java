@@ -22,15 +22,15 @@ public class def extends BaseFunctions{
     private String name = "Come";
     private String surname = "On";
     private String phone = "Start";
-    private String email = "Work" ;
+    private String email = "Worwefwewedwewedwedwddeedk" ;
     private String gender = "female";
     private String personID = "nigga";
 
 
     private String city = "Riga";
     private String country = "Latvia";
-    private String age = "22";
-    private String childCount = "1";
+    private int age = 22;
+    private int childCount = 1;
     private BigDecimal score = null;
 
     @Before
@@ -57,12 +57,13 @@ public class def extends BaseFunctions{
                             gender,
                             personID,
                             score);
+        Score score = new Score(age,city,country,childCount);
 
         homePage.createNewUser(virtualUser);
 
         User realUser = homePage.getExistingUser(virtualUser);
 
-        homePage.addScoreForTheUser(realUser,age,city,country,childCount);
+        homePage.addScoreForTheUser(realUser,score);
 
         realUser = homePage.getExistingUser(realUser);
 
@@ -75,7 +76,6 @@ public class def extends BaseFunctions{
         GetListOfUsersUsingAPI userAPI = new GetListOfUsersUsingAPI();
         List<User> userAPIlist = userAPI.getListOfUsersAPI();
         Assert.assertEquals("Amount of users are not equals!",userAPIlist.size(),homePage.getListOfUsers().size());
-
 
     }
 

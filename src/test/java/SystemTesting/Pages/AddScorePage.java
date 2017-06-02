@@ -11,18 +11,12 @@ import org.openqa.selenium.NoSuchElementException;
 public class AddScorePage extends BaseFunctions {
 
     private User user;
-    private String age;
-    private String city;
-    private String country;
-    private String childCount;
+    private Score score;
 
 
-    public AddScorePage(User user, String age, String city, String country, String childCount) {
+    public AddScorePage(User user, Score score) {
         this.user=user;
-        this.age = age;
-        this.city=city;
-        this.country=country;
-        this.childCount = childCount;
+        this.score = score;
         Assert.assertTrue("Add User page is not opened!", isPageOpened(addButtonLocator));
         fillAndSendScoreForm();
     }
@@ -36,14 +30,14 @@ public class AddScorePage extends BaseFunctions {
     private HomePage fillAndSendScoreForm(){
         Driver.logger.info("Filling score form for user: "+user.getName()+" "+user.getSurname());
 
-        Driver.logger.info("Typing age: "+age);
-        Driver.desktopDriver.findElement(ageLocator).sendKeys(age);
-        Driver.logger.info("Typing city: "+city);
-        Driver.desktopDriver.findElement(cityLocator).sendKeys(city);
-        Driver.logger.info("Typing country: "+country);
-        Driver.desktopDriver.findElement(countryLocator).sendKeys(country);
-        Driver.logger.info("Typing child count: "+childCount);
-        Driver.desktopDriver.findElement(childCountLocator).sendKeys(childCount);
+        Driver.logger.info("Typing age: "+score.getAge());
+        Driver.desktopDriver.findElement(ageLocator).sendKeys(String.valueOf(score.getAge()));
+        Driver.logger.info("Typing city: "+score.getCity());
+        Driver.desktopDriver.findElement(cityLocator).sendKeys(score.getCity());
+        Driver.logger.info("Typing country: "+score.getCountry());
+        Driver.desktopDriver.findElement(countryLocator).sendKeys(score.getCountry());
+        Driver.logger.info("Typing child count: "+score.getChildCount());
+        Driver.desktopDriver.findElement(childCountLocator).sendKeys(String.valueOf(score.getChildCount()));
         Driver.logger.info("Submitting...");
         Driver.desktopDriver.findElement(addButtonLocator).click();
         return new HomePage();
