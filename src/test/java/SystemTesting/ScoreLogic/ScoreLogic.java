@@ -1,9 +1,11 @@
 package SystemTesting.ScoreLogic;
 
 import SystemTesting.Model.Score;
-import org.junit.Assert;
+import core.Driver;
 
 import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by antons on 02/06/2017.
@@ -21,58 +23,85 @@ public class ScoreLogic {
     }
 
     public ScoreLogic(Score score) {
-        getExpectedAge(score.getAge());
+        getExpectedScoreAge(score.getAge());
         getExpectedScoreCity(score.getCity());
         getExpectedScoreCountry(score.getCountry());
         getExpectedScoreChildCount(score.getChildCount());
         calculateExpectedTotalScore();
     }
 
-    private void getExpectedAge (int age){
-        //Assert.assertTrue("User is younger than 18 years!",age<18);
-        if (age>=18 && age<=22){
+    private void getExpectedScoreAge(int age){
+        if (age>=18 & age<=22){
             this.expectedScoreAge = 200;
-        }else if (age>=23 && age<35){
+        }else if (age>=23 & age<35){
             this.expectedScoreAge = 300;
-        }else if (age>=35 && age<=50){
+        }else if (age>=35 & age<=50){
             this.expectedScoreAge = 250;
-        }else if (age>=51 && age<=60){
+        }else if (age>=51 & age<=60){
             this.expectedScoreAge = 200;
         }else if (age>=60){
             this.expectedScoreAge = 100;
+        }else if (age<18){
+            this.expectedScoreAge = 0;
+            Driver.logger.info("User is younger than 18 years old. Therefore, score should not be calculated!");
         }
     }
     private void getExpectedScoreCity (String city){
-       // Assert.assertTrue("Entered city is invalid!",city.contains();
         if (city.equals("Riga")){
             this.expectedScoreCity = 300;
+        }else if (ifForbiddenCharPresists(city)){
+            this.expectedScoreCity = 0;
+            Driver.logger.info("Entered city is invalid! Therefore, score should not be calculated!");
         }else {
             this.expectedScoreCity = 100;
         }
     }
 
     private void getExpectedScoreCountry (String country){
-        // Assert.assertTrue("Entered city is invalid!",city.contains();
         if (country.equals("Latvia")){
             this.expectedScoreCountry = 300;
+        }else if (ifForbiddenCharPresists(country)){
+            this.expectedScoreCountry = 0;
+            Driver.logger.info("Entered country is invalid! Therefore, score should not be calculated!");
         }else {
             this.expectedScoreCountry = 100;
         }
+
     }
 
     private void getExpectedScoreChildCount (int childCount){
-        Assert.assertFalse("Invalid child count!",childCount<0);
         if (childCount==1){
             this.expectedScoreChildCount = 300;
         }else if (childCount==2||childCount==3){
             this.expectedScoreChildCount = 200;
         }else if (childCount>3){
             this.expectedScoreChildCount = 100;
+        }else if (childCount<0){
+            this.expectedScoreChildCount = 0;
+            Driver.logger.info("Entered child count is invalid! Therefore, score should not be calculated!");
         }
     }
 
     private void calculateExpectedTotalScore(){
-        this.expectedTotalScore = new BigDecimal(expectedScoreAge+expectedScoreChildCount+expectedScoreCountry+expectedScoreCity);
+        if (expectedScoreAge==0||expectedScoreCity==0||expectedScoreCountry==0||expectedScoreChildCount==0) {
+            this.expectedTotalScore = null;
+            Driver.logger.info("Some fields are invalid! Therefore, score should not be calculated!");
+        }else {
+            this.expectedTotalScore = new BigDecimal(expectedScoreAge
+                    + expectedScoreChildCount
+                    + expectedScoreCountry
+                    + expectedScoreCity);
+        }
+    }
+
+    private boolean ifForbiddenCharPresists(String text){
+        Pattern digit = Pattern.compile("[0-9]");
+        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+
+        Matcher hasDigit = digit.matcher(text);
+        Matcher hasSpecial = special.matcher(text);
+
+        return hasDigit.find() && hasSpecial.find();
     }
 
 

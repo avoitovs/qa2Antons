@@ -34,7 +34,7 @@ public class def extends BaseFunctions{
     private String city = "Riga";
     private String country = "Latvia";
     private int age = 22;
-    private int childCount = 1;
+    private int childCount = -4;
     private BigDecimal score = null;
 
   //  @Before
