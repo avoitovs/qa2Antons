@@ -31,10 +31,10 @@ public class def extends BaseFunctions{
     private String personID = "nigga";
 
 
-    private String city = "Riga";
-    private String country = "Latvia";
+    private String city = "Riga9";
+    private String country = "Latv_ia";
     private int age = 22;
-    private int childCount = -4;
+    private int childCount = 2;
     private BigDecimal score = null;
 
   //  @Before

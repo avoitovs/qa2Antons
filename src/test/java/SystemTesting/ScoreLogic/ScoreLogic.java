@@ -49,7 +49,7 @@ public class ScoreLogic {
     private void getExpectedScoreCity (String city){
         if (city.equals("Riga")){
             this.expectedScoreCity = 300;
-        }else if (ifForbiddenCharPresists(city)){
+        }else if (ifForbiddenCharPersist(city)){
             this.expectedScoreCity = 0;
             Driver.logger.info("Entered city is invalid! Therefore, score should not be calculated!");
         }else {
@@ -60,7 +60,7 @@ public class ScoreLogic {
     private void getExpectedScoreCountry (String country){
         if (country.equals("Latvia")){
             this.expectedScoreCountry = 300;
-        }else if (ifForbiddenCharPresists(country)){
+        }else if (ifForbiddenCharPersist(country)){
             this.expectedScoreCountry = 0;
             Driver.logger.info("Entered country is invalid! Therefore, score should not be calculated!");
         }else {
@@ -94,14 +94,14 @@ public class ScoreLogic {
         }
     }
 
-    private boolean ifForbiddenCharPresists(String text){
+    private boolean ifForbiddenCharPersist(String text){
         Pattern digit = Pattern.compile("[0-9]");
-        Pattern special = Pattern.compile ("[!@#$%&*()_+=|<>?{}\\[\\]~-]");
+        Pattern special = Pattern.compile("(?=.*[\\d~!@#$%^&*()_+{}\\[\\]?<>|])");
 
         Matcher hasDigit = digit.matcher(text);
         Matcher hasSpecial = special.matcher(text);
 
-        return hasDigit.find() && hasSpecial.find();
+        return hasDigit.find() || hasSpecial.find();
     }
 
 
