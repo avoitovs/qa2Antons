@@ -1,5 +1,7 @@
 package SystemTesting;
 
+import SystemTesting.API.GetListOfUsersUsingAPI;
+import SystemTesting.API.Model.Clients.GetClientsResponse;
 import SystemTesting.Pages.*;
 import com.google.common.util.concurrent.Uninterruptibles;
 import core.Driver;
@@ -8,7 +10,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,12 +22,12 @@ public class def extends BaseFunctions{
 
     Driver driver = new Driver();
 
-    private String name = "HItI";
-    private String surname = "HmnmnmnI";
-    private String phone = "HI";
-    private String email = "iihhs" ;
+    private String name = "Come";
+    private String surname = "On";
+    private String phone = "Start";
+    private String email = "Work" ;
     private String gender = "female";
-    private String personID = "begemot";
+    private String personID = "nigga";
 
 
     private String city = "Riga";
@@ -63,15 +67,17 @@ public class def extends BaseFunctions{
 
         homePage.addScoreForTheUser(realUser,age,city,country,childCount);
 
+        realUser = homePage.getExistingUser(realUser);
 
-
-        System.out.println(realUser.getScore());
-        Assert.assertTrue("bla bla",BigDecimal.valueOf(400)==realUser.getScore());
+        Assert.assertEquals("Expected score does not match real",BigDecimal.valueOf(400),realUser.getScore());
 
     }
     @Test
-    public void test2(){
+    public void test2() throws IOException{
         HomePage homePage = new HomePage();
+        GetListOfUsersUsingAPI userAPI = new GetListOfUsersUsingAPI();
+        List<GetClientsResponse> userAPIlist = userAPI.getListOfUsersAPI();
+        Assert.assertEquals("Amount of users are not equals!",userAPIlist.size(),homePage.getListOfUsers().size());
 
 
     }

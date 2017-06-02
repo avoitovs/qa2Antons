@@ -52,8 +52,7 @@ public class HomePage {
         } else {
             List<WebElement> list = Driver.desktopDriver.findElements(userLocator);
             Driver.logger.info("Opening score page for user : "+user.getName()+" "+user.getSurname());
-            this.listOfUsers = getListOfUsers();
-            list.get(listOfUsers.indexOf(getExistingUser(user))+1).findElement(addScoreButton).click();
+            list.get(listOfUsers.indexOf(user)).findElement(addScoreButton).click();
             return new AddScorePage(user,age,city,country,childCount);
         }
 
@@ -67,7 +66,7 @@ public class HomePage {
 
     public List<User> getListOfUsers (){
         List<WebElement> listOfUsers = Driver.desktopDriver.findElements(userLocator);
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
         for (WebElement user : listOfUsers){
             users.add(new User(
                     userWrapper.getName(user),
@@ -81,25 +80,9 @@ public class HomePage {
         }
         return users;
     }
-/*
-    public User getExistingUser(String name, String surname, String phone, String email, String personID){
-        Predicate<User> predicateName = u -> u.getName().equals(name);
-        Predicate<User> predicateSurname = u -> u.getSurname().equals(surname);
-        Predicate<User> predicatePhone = u -> u.getPhone().equals(phone);
-        Predicate<User> predicateEmail = u -> u.getEmail().equals(email);
-        Predicate<User> predicatePersonID = u -> u.getPersonID().equals(personID);
-        User object = listOfUsers.stream()
-                .filter(predicateName)
-                .filter(predicateSurname)
-                .filter(predicatePhone)
-                .filter(predicateEmail)
-                .filter(predicatePersonID)
-                .findFirst().get();
-        return object;
-    }
-*/
+
     public User getExistingUser(User user){
-        //this.listOfUsers = getListOfUsers();
+        this.listOfUsers = getListOfUsers();
         Predicate<User> predicateName = u -> u.getName().equals(user.getName());
         Predicate<User> predicateSurname = u -> u.getSurname().equals(user.getSurname());
         Predicate<User> predicatePhone = u -> u.getPhone().equals(user.getPhone());
@@ -114,6 +97,7 @@ public class HomePage {
                 .filter(predicatePersonID)
                 .filter(predicateGender)
                 .findFirst().get();
+        Driver.logger.info("User has been created!");
         return object;
     }
 
