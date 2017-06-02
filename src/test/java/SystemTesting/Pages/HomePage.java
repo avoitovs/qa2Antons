@@ -87,7 +87,7 @@ public class HomePage {
         Predicate<User> predicateSurname = u -> u.getSurname().equals(user.getSurname());
         Predicate<User> predicatePhone = u -> u.getPhone().equals(user.getPhone());
         Predicate<User> predicateEmail = u -> u.getEmail().equals(user.getEmail());
-        Predicate<User> predicatePersonID = u -> u.getPersonID().equals(user.getPersonID());
+        Predicate<User> predicatePersonID = u -> u.getPersonId().equals(user.getPersonId());
         Predicate<User> predicateGender = u -> u.getGender().equals(user.getGender());
         User object = listOfUsers.stream()
                 .filter(predicateName)

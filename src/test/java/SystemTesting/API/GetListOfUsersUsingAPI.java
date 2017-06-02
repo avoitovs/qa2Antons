@@ -1,10 +1,9 @@
 package SystemTesting.API;
 
-import SystemTesting.API.Model.Clients.GetClientsResponse;
+
 import SystemTesting.Pages.User;
 import core.Driver;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
 import java.util.List;
 
@@ -13,7 +12,7 @@ import java.util.List;
  */
 public class GetListOfUsersUsingAPI {
 
-    private List<GetClientsResponse> listOfUsersAPI;
+    private List<User> listOfUsersAPI;
 
     public GetListOfUsersUsingAPI() throws IOException {
         Driver.logger.info("Getting user's list via API...");
@@ -21,7 +20,7 @@ public class GetListOfUsersUsingAPI {
         this.listOfUsersAPI  = requester.getAllClients();
     }
 
-    public List<GetClientsResponse> getListOfUsersAPI() {
+    public List<User> getListOfUsersAPI() {
         return listOfUsersAPI;
     }
 }

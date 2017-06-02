@@ -54,8 +54,8 @@ public class AddUserPage extends BaseFunctions{
         Driver.logger.info("Selecting gender: "+user.getGender());
         selectGender();
 
-        Driver.logger.info("Typing person ID: "+user.getPersonID());
-        Driver.desktopDriver.findElement(personIDLocator).sendKeys(user.getPersonID());
+        Driver.logger.info("Typing person ID: "+user.getPersonId());
+        Driver.desktopDriver.findElement(personIDLocator).sendKeys(user.getPersonId());
 
         Driver.logger.info("Submitting...");
         Driver.desktopDriver.findElement(addButtonLocator).click();
@@ -75,7 +75,7 @@ public class AddUserPage extends BaseFunctions{
             user.getSurname().equals("")||
             user.getPhone().equals("")||
             user.getEmail().equals("")||
-            user.getPersonID().equals("")){
+            user.getPersonId().equals("")){
 
             Assert.assertTrue("Empty field error message is not displayed!",
                     Driver.desktopDriver.findElement(someFieldsAreEmptyMessage).isDisplayed());

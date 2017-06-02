@@ -1,6 +1,6 @@
 package SystemTesting.API;
 
-import SystemTesting.API.Model.Clients.GetClientsResponse;
+import SystemTesting.Pages.User;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +17,7 @@ public class ClientsRequester {
 
     private String URL = "http://navipoint.lv:8080/qa2/getClients";
 
-    public List<GetClientsResponse> getAllClients () throws IOException {
+    public List<User> getAllClients () throws IOException {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.getForEntity(URL, String.class);
@@ -25,7 +25,7 @@ public class ClientsRequester {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        GetClientsResponse[] getClientsResponse = mapper.readValue(jsonResponse,GetClientsResponse[].class);
+        User[] getClientsResponse = mapper.readValue(jsonResponse,User[].class);
 
         return Arrays.asList(getClientsResponse);
     }

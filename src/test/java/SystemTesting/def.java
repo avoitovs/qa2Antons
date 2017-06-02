@@ -1,9 +1,7 @@
 package SystemTesting;
 
 import SystemTesting.API.GetListOfUsersUsingAPI;
-import SystemTesting.API.Model.Clients.GetClientsResponse;
 import SystemTesting.Pages.*;
-import com.google.common.util.concurrent.Uninterruptibles;
 import core.Driver;
 import org.junit.After;
 import org.junit.Assert;
@@ -13,7 +11,6 @@ import org.junit.Test;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by avoitovs on 5/22/2017.
@@ -76,7 +73,7 @@ public class def extends BaseFunctions{
     public void test2() throws IOException{
         HomePage homePage = new HomePage();
         GetListOfUsersUsingAPI userAPI = new GetListOfUsersUsingAPI();
-        List<GetClientsResponse> userAPIlist = userAPI.getListOfUsersAPI();
+        List<User> userAPIlist = userAPI.getListOfUsersAPI();
         Assert.assertEquals("Amount of users are not equals!",userAPIlist.size(),homePage.getListOfUsers().size());
 
 
