@@ -26,7 +26,7 @@ public class HomePage {
     //int amountOfRegisteredUsers;
 
     public HomePage() {
-        this.listOfUsers = getListOfUsers();
+        this.listOfUsers = getListOfUsersFromWeb();
        // this.amountOfRegisteredUsers = listOfUsers.size();
         Assert.assertTrue("Home page is not opened!", homePageIsOpened());
         Driver.logger.info("Home page is opened!");
@@ -68,7 +68,7 @@ public class HomePage {
         return new AddUserPage(user);
     }
 
-    public List<User> getListOfUsers (){
+    public List<User> getListOfUsersFromWeb(){
         List<WebElement> listOfUsers = Driver.desktopDriver.findElements(userLocator);
         List<User> users = new ArrayList<>();
         for (WebElement user : listOfUsers){
@@ -86,7 +86,7 @@ public class HomePage {
     }
 
     public User getExistingUser(User user){
-        this.listOfUsers = getListOfUsers();
+        this.listOfUsers = getListOfUsersFromWeb();
         Predicate<User> predicateName = u -> u.getName().equals(user.getName());
         Predicate<User> predicateSurname = u -> u.getSurname().equals(user.getSurname());
         Predicate<User> predicatePhone = u -> u.getPhone().equals(user.getPhone());

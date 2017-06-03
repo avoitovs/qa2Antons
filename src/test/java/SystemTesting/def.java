@@ -5,11 +5,9 @@ import SystemTesting.API.GetListOfUsersUsingAPI;
 import SystemTesting.Model.Score;
 import SystemTesting.Model.User;
 import SystemTesting.Pages.*;
-import SystemTesting.ScoreLogic.ScoreLogic;
+import SystemTesting.ScoreLogic.ExpectedScoreLogic;
 import core.Driver;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -31,8 +29,8 @@ public class def extends BaseFunctions{
     private String personID = "nigga";
 
 
-    private String city = "Riga9";
-    private String country = "Latv_ia";
+    private String city = "Riga";
+    private String country = "Latvia";
     private int age = 22;
     private int childCount = 2;
     private BigDecimal score = null;
@@ -79,7 +77,7 @@ public class def extends BaseFunctions{
         HomePage homePage = new HomePage();
         GetListOfUsersUsingAPI userAPI = new GetListOfUsersUsingAPI();
         List<User> userAPIlist = userAPI.getListOfUsersAPI();
-        Assert.assertEquals("Amount of users are not equals!",userAPIlist.size(),homePage.getListOfUsers().size());
+        Assert.assertEquals("Amount of users are not equals!",userAPIlist.size(),homePage.getListOfUsersFromWeb().size());
 
     }
 
@@ -106,10 +104,16 @@ public class def extends BaseFunctions{
     @Test
     public void test5(){
         Score score = new Score(age,city,country,childCount);
-        ScoreLogic scoreLogic = new ScoreLogic(score);
+        ExpectedScoreLogic expectedScoreLogic = new ExpectedScoreLogic(score);
 
-        Assert.assertEquals("Incorrectly calculated score!",BigDecimal.valueOf(400),scoreLogic.getExpectedTotalScore());
+        Assert.assertEquals("Incorrectly calculated score!",BigDecimal.valueOf(400), expectedScoreLogic.getExpectedTotalScore());
 
+
+
+    }
+
+    @Test
+    public void test6() throws IOException{
 
 
     }

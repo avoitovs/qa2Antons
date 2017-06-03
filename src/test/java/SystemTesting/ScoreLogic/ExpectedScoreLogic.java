@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 /**
  * Created by antons on 02/06/2017.
  */
-public class ScoreLogic {
+public class ExpectedScoreLogic {
 
     private BigDecimal expectedTotalScore;
     private int expectedScoreAge;
@@ -22,7 +22,7 @@ public class ScoreLogic {
         return expectedTotalScore;
     }
 
-    public ScoreLogic(Score score) {
+    public ExpectedScoreLogic(Score score) {
         getExpectedScoreAge(score.getAge());
         getExpectedScoreCity(score.getCity());
         getExpectedScoreCountry(score.getCountry());
