@@ -61,30 +61,36 @@ public class AddUserPage extends BaseFunctions{
         Driver.logger.info("Submitting...");
         Driver.desktopDriver.findElement(addButtonLocator).click();
 
-        if (ifSomeFieldsAreEmpty(user)){
-            Driver.logger.info("Error message appeared! Some fields are empty");
-           // System.exit(-2); ?????????
-            return null;
-        }
+        checkEmptyFieldErrorMessage();
+
 
         return new HomePage();
     }
 
-    private Boolean ifSomeFieldsAreEmpty(User user){
+    private void checkEmptyFieldErrorMessage(){
 
         if (user.getName().equals("")||
             user.getSurname().equals("")||
             user.getPhone().equals("")||
             user.getEmail().equals("")||
-            user.getPersonId().equals("")){
-
+            user.getPersonId().equals(""))
+        {
             Assert.assertTrue("Empty field error message is not displayed!",
-                    Driver.desktopDriver.findElement(someFieldsAreEmptyMessage).isDisplayed());
-            return true;
+                    isVisible(someFieldsAreEmptyMessage));
         }
-        return false;
     }
 
+  /*  private void isEmailCorrect (User user){
+        Pattern special = Pattern.compile("(.@)");
 
+        Matcher hasSpecial = special.matcher(user.getEmail());
+
+        Assert.assertTrue("Empty field error message is not displayed!",
+                isVisible(someFieldsAreEmptyMessage));
+
+        return hasSpecial.find();
+    }
+
+*/
 
 }

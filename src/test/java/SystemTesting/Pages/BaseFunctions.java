@@ -25,6 +25,15 @@ public class BaseFunctions {
         return true;
     }
 
+    public boolean isVisible (By locator){
+        try {
+            Driver.desktopDriver.findElement(locator).isDisplayed();
+        }catch (NoSuchElementException e){
+            return false;
+        }
+        return true;
+    }
+
 
 
 

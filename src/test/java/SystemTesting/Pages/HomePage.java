@@ -23,11 +23,9 @@ import java.util.stream.Collectors;
 public class HomePage {
 
     private List<User> listOfUsers;
-    //int amountOfRegisteredUsers;
 
     public HomePage() {
         this.listOfUsers = getListOfUsersFromWeb();
-       // this.amountOfRegisteredUsers = listOfUsers.size();
         Assert.assertTrue("Home page is not opened!", homePageIsOpened());
         Driver.logger.info("Home page is opened!");
     }
@@ -41,8 +39,6 @@ public class HomePage {
         return true;
     }
 
-
-    private UserWrapper userWrapper = new UserWrapper();
 
     private By addScoreButton = By.className("score");
     private By addUserButton = By.linkText("Add User");
@@ -69,6 +65,7 @@ public class HomePage {
     }
 
     public List<User> getListOfUsersFromWeb(){
+        UserWrapper userWrapper = new UserWrapper();
         List<WebElement> listOfUsers = Driver.desktopDriver.findElements(userLocator);
         List<User> users = new ArrayList<>();
         for (WebElement user : listOfUsers){
@@ -113,6 +110,26 @@ public class HomePage {
                 .collect(Collectors.toList());
         Driver.logger.info("Total amount of users with score is: "+objects.size());
         return objects;
+    }
+
+    public void checkForUserDuplicates(User user){
+        Driver.logger.info("Checking system for duplicates of the user: "+user.getName()+" "+user.getSurname());
+        Predicate<User> predicateName = u -> u.getName().equals(user.getName());
+        Predicate<User> predicateSurname = u -> u.getSurname().equals(user.getSurname());
+        Predicate<User> predicatePhone = u -> u.getPhone().equals(user.getPhone());
+        Predicate<User> predicateEmail = u -> u.getEmail().equals(user.getEmail());
+        Predicate<User> predicatePersonID = u -> u.getPersonId().equals(user.getPersonId());
+        Predicate<User> predicateGender = u -> u.getGender().equals(user.getGender());
+        List<User>  objects = listOfUsers.stream()
+                .filter(predicateName)
+                .filter(predicateSurname)
+                .filter(predicatePhone)
+                .filter(predicateEmail)
+                .filter(predicatePersonID)
+                .filter(predicateGender)
+                .collect(Collectors.toList());
+        Assert.assertFalse("Several users with same data has been found! ("+objects.size()+")",objects.size()>1);
+        Driver.logger.info("Only one user with such data was found!");
     }
 
 
