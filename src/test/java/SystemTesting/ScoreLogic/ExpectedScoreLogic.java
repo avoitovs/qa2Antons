@@ -1,16 +1,15 @@
 package SystemTesting.ScoreLogic;
 
 import SystemTesting.Model.Score;
+import SystemTesting.Pages.BaseFunctions;
 import core.Driver;
 
 import java.math.BigDecimal;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by antons on 02/06/2017.
  */
-public class ExpectedScoreLogic {
+public class ExpectedScoreLogic extends BaseFunctions {
 
     private BigDecimal expectedTotalScore;
     private int expectedScoreAge;
@@ -93,17 +92,6 @@ public class ExpectedScoreLogic {
                     + expectedScoreCity);
         }
     }
-
-    private boolean ifForbiddenCharPersist(String text){
-        Pattern digit = Pattern.compile("[0-9]");
-        Pattern special = Pattern.compile("(?=.*[\\d~!@#$%^&*()_+{}\\[\\]?<>|])");
-
-        Matcher hasDigit = digit.matcher(text);
-        Matcher hasSpecial = special.matcher(text);
-
-        return hasDigit.find() || hasSpecial.find();
-    }
-
 
 
 

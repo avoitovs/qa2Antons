@@ -16,9 +16,9 @@ public class TestCaseUpdate {
     AddGameHelper add = new AddGameHelper();
 
 
-    private static String testCaseNumber = "TC-2529";
-    private String username = "username";
-    private String password = "password";
+    private static String testCaseNumber = "TC-5205";
+    private String username = "kjekimovs";
+    private String password = "tyui9o0p";
 
 
 
@@ -44,10 +44,10 @@ public class TestCaseUpdate {
 
         add.addMOWSteps();
         add.addCSPSteps();
-        add.addDBRSteps();
+        //add.addDBRSteps();
         add.addETHSteps();
         add.addTRPorTCPSteps();
-        add.addUTHSteps();
+        //add.addUTHSteps();
 
     }
 

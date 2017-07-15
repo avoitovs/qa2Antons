@@ -102,7 +102,7 @@ public class HomePage {
         return object;
     }
 
-    public List<User> getAmountOfUsersWithScore (){
+    public List<User> getListOfUsersWithScore(){
         Driver.logger.info("Getting list of users with score...");
         Predicate<User> predicateScore = u -> u.getScore()!=null;
         List<User> objects = listOfUsers.stream()
