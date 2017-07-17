@@ -7,8 +7,18 @@ import java.util.List;
  */
 public class Dealer {
 
-private List<Cards> dealersCards;
-private int score;
+    private List<Cards> dealersCards;
+    private int score;
+    private boolean hasBlackjack;
+
+
+    public boolean getHasBlackjack() {
+        return hasBlackjack;
+    }
+
+    public void setHasBlackjack(boolean hasBlackjack) {
+        this.hasBlackjack = hasBlackjack;
+    }
 
     public int getScore() {
         return score;

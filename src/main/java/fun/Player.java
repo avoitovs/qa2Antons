@@ -13,7 +13,6 @@ public class Player {
     private int amountOfSeats;
     private List<BlackjackSeat> seats;
 
-
     public void setPlayersName(String playersName) {
         this.playersName = playersName;
     }

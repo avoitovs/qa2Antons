@@ -43,7 +43,7 @@ public class BlackjackDecision {
         }
 
     }
-    public void updateScore(Hand hand, Cards card){
+    private void updateScore(Hand hand, Cards card){
 
         if (card.equals(Cards.ACE_CLUBS)||
                 card.equals(Cards.ACE_DIAMOND)||

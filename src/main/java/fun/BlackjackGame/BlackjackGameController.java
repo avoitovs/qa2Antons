@@ -8,7 +8,8 @@ import java.util.Scanner;
  * Created by antons on 15/07/2017.
  */
 public class BlackjackGameController {
-    Scanner scanner = new Scanner(System.in);
+
+    private Scanner scanner = new Scanner(System.in);
 
 
     public void decisionMaking (Player player){
@@ -75,8 +76,23 @@ public class BlackjackGameController {
             Cards card = blackjackDecision.dealOneCard();
             dealer.getDealersCards().add(card);
             dealer.setScore(dealer.getScore()+card.getScore());
-            System.out.println("Dealer's hand: "+dealer.getDealersCards()+" Total score: "+dealer.getScore());
+            hasBlackjack(dealer);
+            if (dealer.getHasBlackjack()){
+                System.out.println("Dealer has blackjack!");
+                break;
+            }else {
+                System.out.println("Dealer's hand: "+dealer.getDealersCards()+" Total score: "+dealer.getScore());
+            }
         }
+
+    }
+
+    private void hasBlackjack (Dealer dealer){
+
+        if (dealer.getDealersCards().get(0).getScore()+
+                        dealer.getDealersCards().get(1).getScore()==21){
+            dealer.setHasBlackjack(true);
+        }else {dealer.setHasBlackjack(false);}
 
     }
 

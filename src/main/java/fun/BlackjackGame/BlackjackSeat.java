@@ -13,6 +13,16 @@ public class BlackjackSeat {
     private List<Cards> playersCard;
     private int score;
     private List<Hand> hands;
+    private boolean hasBlackjack;
+
+
+    public boolean getHasBlackjack() {
+        return hasBlackjack;
+    }
+
+    public void setHasBlackjack(boolean hasBlackjack) {
+        this.hasBlackjack = hasBlackjack;
+    }
 
     public List<Cards> getPlayersCard() {
         return playersCard;

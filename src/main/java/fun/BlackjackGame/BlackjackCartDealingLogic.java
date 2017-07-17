@@ -26,6 +26,8 @@ public class BlackjackCartDealingLogic {
 
             seat.setPlayersCard(playersCards);
 
+            hasBlackjack(seat);
+
             System.out.println("Player's cards on seat "+ seatNumber +": "+playersCards+" Total score: "+seat.getScore());
             seatNumber = seatNumber+1;
 
@@ -59,9 +61,17 @@ public class BlackjackCartDealingLogic {
         blackjackDecision.updateScore(seat,firstPlayerCard);
         blackjackDecision.updateScore(seat,secondPlayerCard);
 
-        //seat.setScore(firstPlayerCard.getScore()+secondPlayerCard.getScore());
-
         return playersCards;
+    }
+
+    private void hasBlackjack (BlackjackSeat seat){
+
+        if (seat.getScore()==21){
+            seat.setHasBlackjack(true);
+        } else {
+            seat.setHasBlackjack(false);
+        }
+
     }
 
 }

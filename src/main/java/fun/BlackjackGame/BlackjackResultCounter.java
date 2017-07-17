@@ -42,14 +42,20 @@ public class BlackjackResultCounter {
                 continue;
             }
 
-            if (seat.getScore()>dealer.getScore() & seat.getScore()<22 |
-                    seat.getScore()<22 & dealer.getScore()>21){
+            if ((seat.getScore()>dealer.getScore() & seat.getScore()<22) |
+                    (seat.getScore()<22 & dealer.getScore()>21)|
+                    (seat.getHasBlackjack() & !dealer.getHasBlackjack())){
                 System.out.println("Seat number "+seatNumber+" won!");
-            } else if (seat.getScore()==dealer.getScore()&&seat.getScore()<22){
+            } else if (seat.getScore()==dealer.getScore()&&seat.getScore()<22|
+                    seat.getHasBlackjack() & dealer.getHasBlackjack()){
                 System.out.println("Push for seat number "+seatNumber);
             } else {
+                if (dealer.getHasBlackjack() & !seat.getHasBlackjack()){
+                    System.out.println("Dealer won against seat "+seatNumber);
+                }
                 System.out.println("Dealer won against seat "+seatNumber);
             }
+
             seatNumber = seatNumber+1;
         }
 
