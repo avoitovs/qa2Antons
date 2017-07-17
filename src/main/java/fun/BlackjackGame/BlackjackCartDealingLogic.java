@@ -1,17 +1,18 @@
-package fun;
+package fun.BlackjackGame;
+
+import fun.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by antons on 15/07/2017.
  */
-public class CartDealingLogic {
+public class BlackjackCartDealingLogic {
     private Player player;
     private Dealer dealer;
 
-    public CartDealingLogic(Player player, Dealer dealer) {
+    public BlackjackCartDealingLogic(Player player, Dealer dealer) {
         this.player = player;
         this.dealer = dealer;
     }
@@ -19,7 +20,7 @@ public class CartDealingLogic {
     public void dealInitialCards (){
         int seatNumber = 1;
 
-        for (Seat seat : player.getSeats()){
+        for (BlackjackSeat seat : player.getSeats()){
 
             List<Cards> playersCards = dealInitialPlayersCards(seat);
 
@@ -40,21 +41,25 @@ public class CartDealingLogic {
         System.out.println("Dealer's face up card: "+dealersCards+" Total score: "+dealer.getScore());
         System.out.println();
 
-        GameController gameController = new GameController();
-        gameController.decisionMaking(player);
-        gameController.dealersDecision(dealer);
-        new ResultCounter(player,dealer);
+        BlackjackGameController blackjackGameController = new BlackjackGameController();
+        blackjackGameController.decisionMaking(player);
+        blackjackGameController.dealersDecision(dealer);
+        new BlackjackResultCounter(player,dealer);
         
     }
 
-    private List<Cards> dealInitialPlayersCards(Seat seat){
+    private List<Cards> dealInitialPlayersCards(BlackjackSeat seat){
 
         List<Cards> playersCards = new ArrayList<>();
         Cards firstPlayerCard = Cards.getRandomCard();
         playersCards.add(firstPlayerCard);
         Cards secondPlayerCard = Cards.getRandomCard();
         playersCards.add(secondPlayerCard);
-        seat.setScore(firstPlayerCard.getScore()+secondPlayerCard.getScore());
+        BlackjackDecision blackjackDecision =  new BlackjackDecision();
+        blackjackDecision.updateScore(seat,firstPlayerCard);
+        blackjackDecision.updateScore(seat,secondPlayerCard);
+
+        //seat.setScore(firstPlayerCard.getScore()+secondPlayerCard.getScore());
 
         return playersCards;
     }

@@ -1,4 +1,6 @@
-package fun;
+package fun.BlackjackGame;
+
+import fun.Player;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -6,12 +8,12 @@ import java.util.Scanner;
 /**
  * Created by antons on 15/07/2017.
  */
-public class GameInitializastion {
+public class BlackjackGameInitializastion {
 
     Scanner scanner = new Scanner(System.in);
     Player player;
 
-    public GameInitializastion(Player player) {
+    public BlackjackGameInitializastion(Player player) {
         this.player = player;
         getPlayersName();
         getAmountOfSeats();

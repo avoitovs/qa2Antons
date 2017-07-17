@@ -1,11 +1,14 @@
-package fun;
+package fun.BlackjackGame;
+
+import fun.Cards;
+import fun.Hand;
 
 import java.util.List;
 
 /**
  * Created by antons on 15/07/2017.
  */
-public class Seat {
+public class BlackjackSeat {
 
     private List<Cards> playersCard;
     private int score;
