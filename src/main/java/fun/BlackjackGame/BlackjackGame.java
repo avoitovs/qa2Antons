@@ -13,10 +13,7 @@ public class BlackjackGame {
 
         Player player = new Player();
         Dealer dealer = new Dealer();
-        new BlackjackGameInitializastion(player);
-        BlackjackCartDealingLogic dealingLogic = new BlackjackCartDealingLogic(player,dealer);
-        dealingLogic.dealInitialCards();
-
+        new BlackjackGameInitialization(player,dealer);
 
     }
 

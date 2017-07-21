@@ -1,7 +1,7 @@
 package fun.BlackjackGame;
 
 import fun.Cards;
-import fun.Hand;
+import fun.Dealer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,7 @@ import java.util.List;
 /**
  * Created by antons on 15/07/2017.
  */
-public class BlackjackDecision {
-    BlackjackCore core = new BlackjackCore();
-
+public class BlackjackDecision extends BlackjackCore {
 
 
     public Cards dealOneCard(){
@@ -21,8 +19,8 @@ public class BlackjackDecision {
     public void hit (BlackjackSeat seat){
         Cards card = dealOneCard();
         seat.getPlayersCard().add(card);
-        seat.setScore(core.scoreUpdate(seat));
-        System.out.println("Your hand: "+seat.getPlayersCard()+" Total score: "+seat.getScore());
+        seat.setScore(scoreUpdate(seat));
+        printPlayersCardsAndScore(seat);
 
     }
 
@@ -41,24 +39,69 @@ public class BlackjackDecision {
          cardsHandTwo.add(secondCardHandTwo);
 
 
-         Hand handOne = new Hand(cardsHandOne);
-         handOne.setScore(core.scoreUpdate(handOne));
+         BlackjackSplitHand handOne = new BlackjackSplitHand(cardsHandOne);
+         handOne.setScore(scoreUpdate(handOne));
 
-         Hand handTwo = new Hand(cardsHandTwo);
-         handTwo.setScore(core.scoreUpdate(handTwo));
+         BlackjackSplitHand handTwo = new BlackjackSplitHand(cardsHandTwo);
+         handTwo.setScore(scoreUpdate(handTwo));
 
-         List<Hand> hands = new ArrayList<>();
+         List<BlackjackSplitHand> hands = new ArrayList<>();
          hands.add(handOne);
          hands.add(handTwo);
          seat.setHands(hands);
      }
 
-     public void hitForSplit (Hand hand){
+     private void hitForSplit (BlackjackSplitHand hand){
          Cards card = dealOneCard();
          hand.getPlayersCard().add(card);
-         hand.setScore(core.scoreUpdate(hand));
-         System.out.println("Your hand: "+hand.getPlayersCard()+" Total score: "+hand.getScore());
+         hand.setScore(scoreUpdate(hand));
+         printPlayersCardsAndScore(hand);
 
      }
+
+    public void decisionMakingIfSplit (BlackjackSeat seat){
+        int handNumber = 1;
+
+        for (BlackjackSplitHand hand: seat.getHands()){
+            System.out.println("Your cards on hand "+handNumber+" are: "+hand.getPlayersCard()+" Total score: "+hand.getScore());
+            while (hand.getScore()<21){
+                System.out.println("Please make your decision for hand "+handNumber+" (Hit or Stand):");
+                String decision = scanner.next();
+                if (decision.equalsIgnoreCase("Hit")){
+                    new BlackjackDecision().hitForSplit(hand);
+                }else {break;}
+
+            }
+            handNumber=handNumber+1;
+        }
+    }
+
+    public void dealersDecision (Dealer dealer){
+        printSeparator();
+        while (dealer.getScore()<17){
+            BlackjackDecision blackjackDecision = new BlackjackDecision();
+            Cards card = blackjackDecision.dealOneCard();
+            dealer.getDealersCards().add(card);
+            dealer.setScore(scoreUpdate(dealer));
+            hasBlackjack(dealer);
+            if (dealer.getHasBlackjack()){
+                System.out.println("Dealer's hand: "+dealer.getDealersCards()+" Total score: "+dealer.getScore());
+                System.out.println("Dealer has blackjack!");
+                break;
+            }else {
+                System.out.println("Dealer's hand: "+dealer.getDealersCards()+" Total score: "+dealer.getScore());
+            }
+        }
+        printSeparator();
+    }
+
+    private void hasBlackjack (Dealer dealer){
+
+        if (dealer.getDealersCards().get(0).getScore()+
+                dealer.getDealersCards().get(1).getScore()==21){
+            dealer.setHasBlackjack(true);
+        }else {dealer.setHasBlackjack(false);}
+
+    }
 
 }

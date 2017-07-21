@@ -2,14 +2,16 @@ package fun.BlackjackGame;
 
 import fun.Cards;
 import fun.Dealer;
-import fun.Hand;
 
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by antons on 19/07/2017.
  */
 public class BlackjackCore {
+
+    public Scanner scanner = new Scanner(System.in);
 
 
     public int scoreUpdate (BlackjackSeat seat){
@@ -47,7 +49,7 @@ public class BlackjackCore {
         return temp;
     }
 
-    public int scoreUpdate (Hand hand){
+    public int scoreUpdate (BlackjackSplitHand hand){
 
         int temp = 0;
         List<Cards> listOfCards = hand.getPlayersCard();
@@ -114,6 +116,39 @@ public class BlackjackCore {
         }
 
         return temp;
+    }
+
+    public void printPlayersCardsAndScore (BlackjackSeat seat, int seatNumber){
+
+        System.out.println("Player's cards on seat "+ seatNumber +": "+seat.getPlayersCard()+" Total score: "+seat.getScore());
+
+    }
+
+    public void printDealersInitialCard (Dealer dealer){
+
+        System.out.println();
+        System.out.println("Dealer's face up card: "+dealer.getDealersCards()+" Total score: "+dealer.getScore());
+        System.out.println();
+
+    }
+
+    public void printPlayersCardsAndScore (BlackjackSeat seat){
+
+        System.out.println("Your hand: "+seat.getPlayersCard()+" Total score: "+seat.getScore());
+
+    }
+    public void printPlayersCardsAndScore (BlackjackSplitHand hand){
+
+        System.out.println("Your hand: "+hand.getPlayersCard()+" Total score: "+hand.getScore());
+
+    }
+
+    public void printSeparator (){
+
+        System.out.println();
+        System.out.println("---------------------------------------------------------------");
+        System.out.println();
+
     }
 
 }

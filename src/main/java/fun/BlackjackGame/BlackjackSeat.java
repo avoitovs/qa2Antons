@@ -1,7 +1,6 @@
 package fun.BlackjackGame;
 
 import fun.Cards;
-import fun.Hand;
 
 import java.util.List;
 
@@ -12,9 +11,17 @@ public class BlackjackSeat {
 
     private List<Cards> playersCard;
     private int score;
-    private List<Hand> hands;
+    private List<BlackjackSplitHand> hands;
     private boolean hasBlackjack;
+    private boolean win;
 
+    public boolean isWin() {
+        return win;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
+    }
 
     public boolean getHasBlackjack() {
         return hasBlackjack;
@@ -40,11 +47,11 @@ public class BlackjackSeat {
         this.score = score;
     }
 
-    public List<Hand> getHands() {
+    public List<BlackjackSplitHand> getHands() {
         return hands;
     }
 
-    public void setHands(List<Hand> hands) {
+    public void setHands(List<BlackjackSplitHand> hands) {
         this.hands = hands;
     }
 

@@ -1,13 +1,10 @@
 package fun.BlackjackGame;
 
 import fun.Dealer;
-import fun.Hand;
 import fun.Player;
 
-/**
- * Created by antons on 16/07/2017.
- */
-public class BlackjackResultCounter {
+
+public class BlackjackResultCounter extends BlackjackCore {
 
     private Player player;
     private Dealer dealer;
@@ -27,7 +24,7 @@ public class BlackjackResultCounter {
             if (seat.getHands()!=null){
                 System.out.println("On the seat number "+seatNumber+" :");
                 int handNumber = 1;
-                for (Hand hand : seat.getHands()){
+                for (BlackjackSplitHand hand : seat.getHands()){
                     if (hand.getScore()>dealer.getScore() & hand.getScore()<22 |
                             hand.getScore()<22 & dealer.getScore()>21){
                         System.out.println("          Player won on "+handNumber+" hand!");
@@ -52,14 +49,15 @@ public class BlackjackResultCounter {
             } else {
                 if (dealer.getHasBlackjack() & !seat.getHasBlackjack()){
                     System.out.println("Dealer won against seat "+seatNumber);
-                }
+                }else {
                 System.out.println("Dealer won against seat "+seatNumber);
+                }
             }
 
             seatNumber = seatNumber+1;
         }
 
-
+        printSeparator();
     }
 
 }

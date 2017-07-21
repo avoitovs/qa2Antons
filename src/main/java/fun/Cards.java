@@ -3,11 +3,11 @@ package fun;
 /**
  * All possible cards.
  * First parameter (TWO_HEARTS(2,2)) represents score value of the card.
- * Second parameter represents value itself (TEN,JACK,QUEEN, etc).
+ * Second parameter represents card itself (TEN,JACK,QUEEN, etc).
  */
 public enum Cards {
 
-   /* TWO_CLUBS(2,2),
+    TWO_CLUBS(2,2),
     TWO_SPADES(2,2),
     TWO_HEARTS(2,2),
     TWO_DIAMOND(2,2),
@@ -40,14 +40,14 @@ public enum Cards {
     EIGHT_CLUBS(8,8),
     EIGHT_SPADES(8,8),
     EIGHT_HEARTS(8,8),
-    EIGHT_DIAMOND(8,8),*/
+    EIGHT_DIAMOND(8,8),
 
     NINE_CLUBS(9,9),
     NINE_SPADES(9,9),
     NINE_HEARTS(9,9),
     NINE_DIAMOND(9,9),
 
-   /* TEN_CLUBS(10,10),
+    TEN_CLUBS(10,10),
     TEN_SPADES(10,10),
     TEN_HEARTS(10,10),
     TEN_DIAMOND(10,10),
@@ -65,7 +65,7 @@ public enum Cards {
     KING_CLUBS(10,13),
     KING_SPADES(10,13),
     KING_HEARTS(10,13),
-    KING_DIAMOND(10,13),*/
+    KING_DIAMOND(10,13),
 
     ACE_CLUBS(11,14),
     ACE_SPADES(11,14),

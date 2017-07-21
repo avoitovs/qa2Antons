@@ -1,15 +1,17 @@
-package fun;
+package fun.BlackjackGame;
+
+import fun.Cards;
 
 import java.util.List;
 
 /**
  * Created by antons on 15/07/2017.
  */
-public class Hand {
+public class BlackjackSplitHand {
     private List<Cards> playersCard;
     private int score;
 
-    public Hand(List<Cards> playersCard) {
+    public BlackjackSplitHand(List<Cards> playersCard) {
         this.playersCard = playersCard;
     }
 

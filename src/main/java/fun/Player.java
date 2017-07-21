@@ -1,5 +1,6 @@
 package fun;
 
+import fun.BlackjackGame.BlackjackRound;
 import fun.BlackjackGame.BlackjackSeat;
 
 import java.util.ArrayList;
@@ -12,9 +13,22 @@ public class Player {
     private String playersName;
     private int amountOfSeats;
     private List<BlackjackSeat> seats;
+    private List<BlackjackRound> blackjackRoundsHistory = new ArrayList<>();
+
+    public List<BlackjackRound> getBlackjackRoundsHistory() {
+        return blackjackRoundsHistory;
+    }
+
+    public void setBlackjackRoundsHistory(BlackjackRound blackjackRound) {
+        this.blackjackRoundsHistory.add(blackjackRound);
+    }
 
     public void setPlayersName(String playersName) {
         this.playersName = playersName;
+    }
+
+    public String getPlayersName() {
+        return playersName;
     }
 
     public void setAmountOfSeats(int amountOfSeats) {
@@ -28,6 +42,7 @@ public class Player {
     public void setSeats(List<BlackjackSeat> seats) {
         this.seats = seats;
     }
+
     public void setSeats(){
         List<BlackjackSeat> list = new ArrayList<>();
         for (int i =0;i<amountOfSeats;i++){
