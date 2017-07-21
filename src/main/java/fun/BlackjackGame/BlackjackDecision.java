@@ -10,6 +10,7 @@ import java.util.List;
  * Created by antons on 15/07/2017.
  */
 public class BlackjackDecision {
+    BlackjackCore core = new BlackjackCore();
 
 
 
@@ -20,45 +21,8 @@ public class BlackjackDecision {
     public void hit (BlackjackSeat seat){
         Cards card = dealOneCard();
         seat.getPlayersCard().add(card);
-        updateScore(seat,card);
+        seat.setScore(core.scoreUpdate(seat));
         System.out.println("Your hand: "+seat.getPlayersCard()+" Total score: "+seat.getScore());
-
-    }
-
-    public void updateScore(BlackjackSeat seat, Cards card){
-
-        if (card.equals(Cards.ACE_CLUBS)||
-                card.equals(Cards.ACE_DIAMOND)||
-                card.equals(Cards.ACE_HEARTS)||
-                card.equals(Cards.ACE_SPADES)){
-            if (seat.getScore()+card.getScore()>22){
-                card.setScore(1);
-                seat.setScore(seat.getScore()+card.getScore());
-                card.setScore(11);
-            }else if (seat.getScore()+card.getScore()<22){
-                seat.setScore(seat.getScore()+card.getScore());
-            }
-        } else {
-            seat.setScore(seat.getScore()+card.getScore());
-        }
-
-    }
-    private void updateScore(Hand hand, Cards card){
-
-        if (card.equals(Cards.ACE_CLUBS)||
-                card.equals(Cards.ACE_DIAMOND)||
-                card.equals(Cards.ACE_HEARTS)||
-                card.equals(Cards.ACE_SPADES)){
-            if (hand.getScore()+card.getScore()>22){
-                card.setScore(1);
-                hand.setScore(hand.getScore()+card.getScore());
-                card.setScore(11);
-            }else if (hand.getScore()+card.getScore()<22){
-                hand.setScore(hand.getScore()+card.getScore());
-            }
-        } else {
-            hand.setScore(hand.getScore()+card.getScore());
-        }
 
     }
 
@@ -78,12 +42,10 @@ public class BlackjackDecision {
 
 
          Hand handOne = new Hand(cardsHandOne);
-         updateScore(handOne,seat.getPlayersCard().get(0));
-         updateScore(handOne,secondCardHandOne);
+         handOne.setScore(core.scoreUpdate(handOne));
 
          Hand handTwo = new Hand(cardsHandTwo);
-         updateScore(handTwo,seat.getPlayersCard().get(1));
-         updateScore(handTwo,secondCardHandTwo);
+         handTwo.setScore(core.scoreUpdate(handTwo));
 
          List<Hand> hands = new ArrayList<>();
          hands.add(handOne);
@@ -94,7 +56,7 @@ public class BlackjackDecision {
      public void hitForSplit (Hand hand){
          Cards card = dealOneCard();
          hand.getPlayersCard().add(card);
-         updateScore(hand,card);
+         hand.setScore(core.scoreUpdate(hand));
          System.out.println("Your hand: "+hand.getPlayersCard()+" Total score: "+hand.getScore());
 
      }

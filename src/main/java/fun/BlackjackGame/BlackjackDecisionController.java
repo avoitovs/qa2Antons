@@ -7,9 +7,10 @@ import java.util.Scanner;
 /**
  * Created by antons on 15/07/2017.
  */
-public class BlackjackGameController {
+public class BlackjackDecisionController {
 
     private Scanner scanner = new Scanner(System.in);
+    BlackjackCore core = new BlackjackCore();
 
 
     public void decisionMaking (Player player){
@@ -20,7 +21,8 @@ public class BlackjackGameController {
              while (seat.getScore()<21){
 
 
-               if (seat.getPlayersCard().get(0).getValue()==seat.getPlayersCard().get(1).getValue()){
+               if ((seat.getPlayersCard().get(0).getValue()==seat.getPlayersCard().get(1).getValue())
+                       &(seat.getPlayersCard().size()==2)){
                System.out.println("Please make your decision (Hit, Stand, DoubleDown or Split) for seat "+seatNumber+" :");
                String decision = scanner.next();
                    if (decision.equalsIgnoreCase("Hit")){
@@ -58,7 +60,6 @@ public class BlackjackGameController {
         for (Hand hand: seat.getHands()){
             System.out.println("Your cards on hand "+handNumber+" are: "+hand.getPlayersCard()+" Total score: "+hand.getScore());
             while (hand.getScore()<21){
-                //System.out.println("Your cards on hand "+handNumber+" are: "+hand.getPlayersCard()+" Total score: "+hand.getScore());
                 System.out.println("Please make your decision for hand "+handNumber+" (Hit or Stand):");
                 String decision = scanner.next();
                 if (decision.equalsIgnoreCase("Hit")){
@@ -75,7 +76,7 @@ public class BlackjackGameController {
             BlackjackDecision blackjackDecision = new BlackjackDecision();
             Cards card = blackjackDecision.dealOneCard();
             dealer.getDealersCards().add(card);
-            dealer.setScore(dealer.getScore()+card.getScore());
+            dealer.setScore(core.scoreUpdate(dealer));
             hasBlackjack(dealer);
             if (dealer.getHasBlackjack()){
                 System.out.println("Dealer has blackjack!");
