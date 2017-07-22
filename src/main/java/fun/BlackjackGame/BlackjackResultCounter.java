@@ -28,14 +28,32 @@ public class BlackjackResultCounter extends BlackjackCore {
                     if (hand.getScore()>dealer.getScore() & hand.getScore()<22 |
                             hand.getScore()<22 & dealer.getScore()>21){
                         System.out.println("          Player won on "+handNumber+" hand!");
+
+
+                        playersPayoutPush(seat);
+
+
                     } else if (hand.getScore()==dealer.getScore()&&hand.getScore()<22){
                         System.out.println("          Push for "+handNumber+" hand!");
+
+
+                        player.getWallet().setBalance(getBalance()+(seat.getBet()/2));
+
+
                     } else {
                         System.out.println("          Dealer won against "+handNumber+" hand!");
                     }
                     handNumber = handNumber+1;
                 }
                 seatNumber=seatNumber+1;
+
+
+
+
+
+
+
+
                 continue;
             }
 
@@ -43,9 +61,13 @@ public class BlackjackResultCounter extends BlackjackCore {
                     (seat.getScore()<22 & dealer.getScore()>21)|
                     (seat.getHasBlackjack() & !dealer.getHasBlackjack())){
                 System.out.println("Seat number "+seatNumber+" won!");
+                if (seat.getHasBlackjack()){
+                    playersPayoutWinBJ(seat);
+                }else {playersPayoutWin(seat);}
             } else if (seat.getScore()==dealer.getScore()&&seat.getScore()<22|
                     seat.getHasBlackjack() & dealer.getHasBlackjack()){
                 System.out.println("Push for seat number "+seatNumber);
+                playersPayoutPush(seat);
             } else {
                 if (dealer.getHasBlackjack() & !seat.getHasBlackjack()){
                     System.out.println("Dealer won against seat "+seatNumber);
@@ -57,7 +79,28 @@ public class BlackjackResultCounter extends BlackjackCore {
             seatNumber = seatNumber+1;
         }
 
+        System.out.println("Your total balance is: "+player.getWallet().getBalance());
+
         printSeparator();
+    }
+
+
+
+    private void playersPayoutPush (BlackjackSeat seat){
+        player.getWallet().setBalance(getBalance()+seat.getBet());
+        System.out.println("You won : "+seat.getBet());
+    }
+    private void playersPayoutWin (BlackjackSeat seat){
+        player.getWallet().setBalance(getBalance()+(seat.getBet()*2));
+        System.out.println("You won : "+seat.getBet()*2);
+    }
+    private void playersPayoutWinBJ (BlackjackSeat seat){
+        player.getWallet().setBalance(getBalance()+(seat.getBet()*1.5)+seat.getBet());
+        System.out.println("You won : "+(seat.getBet()*1.5)+seat.getBet());
+    }
+
+    private double getBalance (){
+        return player.getWallet().getBalance();
     }
 
 }

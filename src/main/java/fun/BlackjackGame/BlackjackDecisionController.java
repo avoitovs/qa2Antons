@@ -30,9 +30,11 @@ public class BlackjackDecisionController extends BlackjackCore{
                    if (decision.equalsIgnoreCase("Hit")){
                        new BlackjackDecision().hit(seat);
                    }else if (decision.equalsIgnoreCase("DoubleDown")){
+                       doubleOrSplitBetDeduction(seat,player);
                        new BlackjackDecision().hit(seat);
                        break;
                    }else if (decision.equalsIgnoreCase("Split")) {
+                       doubleOrSplitBetDeduction(seat,player);
                        new BlackjackDecision().split(seat);
                        new BlackjackDecision().decisionMakingIfSplit(seat);
                        break;
@@ -44,6 +46,7 @@ public class BlackjackDecisionController extends BlackjackCore{
                 if (decision.equalsIgnoreCase("Hit")){
                     new BlackjackDecision().hit(seat);
                 }else if (decision.equalsIgnoreCase("DoubleDown")){
+                    doubleOrSplitBetDeduction(seat,player);
                     new BlackjackDecision().hit(seat);
                     break;
                 }else {break;}
@@ -70,6 +73,15 @@ public class BlackjackDecisionController extends BlackjackCore{
 
     private boolean playerHasOnlyTwoCards (BlackjackSeat seat){
         return  (seat.getPlayersCard().size()==2);
+    }
+
+
+    private void doubleOrSplitBetDeduction (BlackjackSeat seat,Player player){
+
+        player.getWallet().setBalance(player.getWallet().getBalance()-seat.getBet());
+        seat.setBet(seat.getBet()*2);
+        System.out.println("Your total balance after this decision is: "+player.getWallet().getBalance());
+
     }
 
 }

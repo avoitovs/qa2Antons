@@ -14,13 +14,22 @@ public class Player {
     private int amountOfSeats;
     private List<BlackjackSeat> seats;
     private List<BlackjackRound> blackjackRoundsHistory = new ArrayList<>();
+    private Wallet wallet;
+
+    public Player() {
+        this.wallet = new Wallet();
+    }
+
+    public Wallet getWallet() {
+        return wallet;
+    }
 
     public List<BlackjackRound> getBlackjackRoundsHistory() {
         return blackjackRoundsHistory;
     }
 
     public void setBlackjackRoundsHistory(BlackjackRound blackjackRound) {
-        this.blackjackRoundsHistory.add(blackjackRound);
+        blackjackRoundsHistory.add(blackjackRound);
     }
 
     public void setPlayersName(String playersName) {
@@ -37,10 +46,6 @@ public class Player {
 
     public List<BlackjackSeat> getSeats() {
         return seats;
-    }
-
-    public void setSeats(List<BlackjackSeat> seats) {
-        this.seats = seats;
     }
 
     public void setSeats(){

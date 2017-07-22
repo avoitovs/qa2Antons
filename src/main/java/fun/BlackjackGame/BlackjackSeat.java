@@ -14,6 +14,15 @@ public class BlackjackSeat {
     private List<BlackjackSplitHand> hands;
     private boolean hasBlackjack;
     private boolean win;
+    private double bet;
+
+    public double getBet() {
+        return bet;
+    }
+
+    public void setBet(double bet) {
+        this.bet = bet;
+    }
 
     public boolean isWin() {
         return win;

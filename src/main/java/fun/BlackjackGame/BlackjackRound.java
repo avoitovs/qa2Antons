@@ -21,6 +21,7 @@ public class BlackjackRound extends BlackjackCore {
 
     private void dealInitialCards (){
         int seatNumber = 1;
+        new BlackjackBetPlacement(player);
 
         printSeparator();
 

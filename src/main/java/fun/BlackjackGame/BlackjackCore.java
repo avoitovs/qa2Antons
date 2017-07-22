@@ -29,10 +29,7 @@ public class BlackjackCore {
 
         for (Cards card : listOfCards){
 
-            if (card.equals(Cards.ACE_CLUBS)||
-                    card.equals(Cards.ACE_DIAMOND)||
-                    card.equals(Cards.ACE_HEARTS)||
-                    card.equals(Cards.ACE_SPADES)){
+            if (card.getValue()==14){
                 if (seat.getScore()+card.getScore()>=22){
                     card.setScore(1);
                     temp = temp+card.getScore();
