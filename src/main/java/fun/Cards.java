@@ -7,7 +7,7 @@ package fun;
  */
 public enum Cards {
 
-    TWO_CLUBS(2,2),
+   /* TWO_CLUBS(2,2),
     TWO_SPADES(2,2),
     TWO_HEARTS(2,2),
     TWO_DIAMOND(2,2),
@@ -25,14 +25,14 @@ public enum Cards {
     FIVE_CLUBS(5,5),
     FIVE_SPADES(5,5),
     FIVE_HEARTS(5,5),
-    FIVE_DIAMOND(5,5),
+    FIVE_DIAMOND(5,5),*/
 
     SIX_CLUBS(6,6),
     SIX_SPADES(6,6),
     SIX_HEARTS(6,6),
     SIX_DIAMOND(6,6),
 
-    SEVEN_CLUBS(7,7),
+    /*SEVEN_CLUBS(7,7),
     SEVEN_SPADES(7,7),
     SEVEN_HEARTS(7,7),
     SEVEN_DIAMOND(7,7),
@@ -65,7 +65,7 @@ public enum Cards {
     KING_CLUBS(10,13),
     KING_SPADES(10,13),
     KING_HEARTS(10,13),
-    KING_DIAMOND(10,13),
+    KING_DIAMOND(10,13),*/
 
     ACE_CLUBS(11,14),
     ACE_SPADES(11,14),

@@ -5,6 +5,8 @@ import fun.Dealer;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by antons on 19/07/2017.
@@ -17,65 +19,67 @@ public class BlackjackCore {
     public int scoreUpdate (BlackjackSeat seat){
 
         int temp = 0;
-        List<Cards> listOfCards = seat.getPlayersCard();
 
-        if (listOfCards.size()==2) {
-            int score = listOfCards.get(0).getScore()+listOfCards.get(1).getScore();
-            if (score>21){
-                score=score-10;
-            }
-            return score;
+        Predicate<Cards> notAce = u -> u.getValue()!=14;
+        Predicate<Cards> Ace = u -> u.getValue()==14;
+
+        List<Cards> withoutAces = seat.getPlayersCard().stream()
+                .filter(notAce)
+                .collect(Collectors.toList());
+
+        for (Cards card : withoutAces){
+
+            temp = temp+card.getScore();
+
         }
 
-        for (Cards card : listOfCards){
+        List<Cards> withAces = seat.getPlayersCard().stream()
+                .filter(Ace)
+                .collect(Collectors.toList());
+        for (Cards card : withAces){
 
-            if (card.getValue()==14){
-                if (seat.getScore()+card.getScore()>=22){
-                    card.setScore(1);
-                    temp = temp+card.getScore();
-                    card.setScore(11);
-                }else if (seat.getScore()+card.getScore()<=21){
-                    temp = temp+card.getScore();
-                }
-            } else {
+            if (temp+card.getScore()>21){
+                card.setScore(1);
                 temp = temp+card.getScore();
+                card.setScore(11);
+            }else if (temp+card.getScore()<22) {
+                temp = temp + card.getScore();
             }
-
         }
 
         return temp;
     }
 
+
     public int scoreUpdate (BlackjackSplitHand hand){
 
         int temp = 0;
-        List<Cards> listOfCards = hand.getPlayersCard();
 
-        if (listOfCards.size()==2) {
-            int score = listOfCards.get(0).getScore()+listOfCards.get(1).getScore();
-            if (score>21){
-                score=score-10;
-            }
-            return score;
+        Predicate<Cards> notAce = u -> u.getValue()!=14;
+        Predicate<Cards> Ace = u -> u.getValue()==14;
+
+        List<Cards> withoutAces = hand.getPlayersCard().stream()
+                .filter(notAce)
+                .collect(Collectors.toList());
+
+        for (Cards card : withoutAces){
+
+            temp = temp+card.getScore();
+
         }
 
-        for (Cards card : listOfCards){
+        List<Cards> withAces = hand.getPlayersCard().stream()
+                .filter(Ace)
+                .collect(Collectors.toList());
+        for (Cards card : withAces){
 
-            if (card.equals(Cards.ACE_CLUBS)||
-                    card.equals(Cards.ACE_DIAMOND)||
-                    card.equals(Cards.ACE_HEARTS)||
-                    card.equals(Cards.ACE_SPADES)){
-                if (hand.getScore()+card.getScore()>=22){
-                    card.setScore(1);
-                    temp = temp+card.getScore();
-                    card.setScore(11);
-                }else if (hand.getScore()+card.getScore()<=21){
-                    temp = temp+card.getScore();
-                }
-            } else {
+            if (temp+card.getScore()>21){
+                card.setScore(1);
                 temp = temp+card.getScore();
+                card.setScore(11);
+            }else if (temp+card.getScore()<22) {
+                temp = temp + card.getScore();
             }
-
         }
 
         return temp;
@@ -83,33 +87,32 @@ public class BlackjackCore {
     public int scoreUpdate (Dealer dealer){
 
         int temp = 0;
-        List<Cards> listOfCards = dealer.getDealersCards();
 
-        if (listOfCards.size()==2) {
-            int score = listOfCards.get(0).getScore()+listOfCards.get(1).getScore();
-            if (score>21){
-                score=score-10;
-            }
-            return score;
+        Predicate<Cards> notAce = u -> u.getValue()!=14;
+        Predicate<Cards> Ace = u -> u.getValue()==14;
+
+        List<Cards> withoutAces = dealer.getDealersCards().stream()
+                .filter(notAce)
+                .collect(Collectors.toList());
+
+        for (Cards card : withoutAces){
+
+            temp = temp+card.getScore();
+
         }
 
-        for (Cards card : listOfCards){
+        List<Cards> withAces = dealer.getDealersCards().stream()
+                .filter(Ace)
+                .collect(Collectors.toList());
+        for (Cards card : withAces){
 
-            if (card.equals(Cards.ACE_CLUBS)||
-                    card.equals(Cards.ACE_DIAMOND)||
-                    card.equals(Cards.ACE_HEARTS)||
-                    card.equals(Cards.ACE_SPADES)){
-                if (dealer.getScore()+card.getScore()>=22){
-                    card.setScore(1);
-                    temp = temp+card.getScore();
-                    card.setScore(11);
-                }else if (dealer.getScore()+card.getScore()<=21){
-                    temp = temp+card.getScore();
-                }
-            } else {
+            if (temp+card.getScore()>21){
+                card.setScore(1);
                 temp = temp+card.getScore();
+                card.setScore(11);
+            }else if (temp+card.getScore()<22) {
+                temp = temp + card.getScore();
             }
-
         }
 
         return temp;
