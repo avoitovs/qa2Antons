@@ -13,7 +13,7 @@ public class BlackjackGame {
 
         Player player = new Player();
         Dealer dealer = new Dealer();
-        player.getWallet().setBalance(1000.00);
+        player.getWallet().setBalance(15.00);
         new BlackjackGameInitialization(player,dealer);
 
     }

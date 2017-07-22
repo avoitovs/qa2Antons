@@ -18,13 +18,16 @@ public class BlackjackBetPlacement extends BlackjackCore {
 
         System.out.println("Your total balance is: "+player.getWallet().getBalance());
 
+        int seatNumber = 1;
+
         for (BlackjackSeat seat : player.getSeats()){
 
-            System.out.println("Please enter bet amount to place on seat:");
+            System.out.println("Please enter bet amount to place on seat "+seatNumber+":");
             seat.setBet(scanner.nextDouble());
             player.getWallet().setBalance(player.getWallet().getBalance()-seat.getBet());
             System.out.println("Your total balance is: "+player.getWallet().getBalance());
-            printSeparator();
+            System.out.println("-------------");
+            seatNumber=seatNumber+1;
 
         }
 

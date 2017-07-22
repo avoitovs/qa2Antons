@@ -23,6 +23,8 @@ public class BlackjackRound extends BlackjackCore {
         int seatNumber = 1;
         new BlackjackBetPlacement(player);
 
+        System.out.println(" DEALING INITIAL CARDS...");
+
         printSeparator();
 
         for (BlackjackSeat seat : player.getSeats()){
