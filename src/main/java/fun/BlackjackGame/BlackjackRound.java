@@ -55,7 +55,7 @@ public class BlackjackRound extends BlackjackCore {
         playersCards.add(secondPlayerCard);
 
         seat.setPlayersCard(playersCards);
-        seat.setScore(scoreUpdate(seat));
+        seat.setScore(scoreUpdate(seat.getPlayersCard()));
         checkForBlackjack(seat);
 
     }

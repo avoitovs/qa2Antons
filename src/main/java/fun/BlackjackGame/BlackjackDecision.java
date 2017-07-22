@@ -19,7 +19,7 @@ public class BlackjackDecision extends BlackjackCore {
     public void hit (BlackjackSeat seat){
         Cards card = dealOneCard();
         seat.getPlayersCard().add(card);
-        seat.setScore(scoreUpdate(seat));
+        seat.setScore(scoreUpdate(seat.getPlayersCard()));
         printPlayersCardsAndScore(seat);
 
     }
@@ -40,10 +40,10 @@ public class BlackjackDecision extends BlackjackCore {
 
 
          BlackjackSplitHand handOne = new BlackjackSplitHand(cardsHandOne);
-         handOne.setScore(scoreUpdate(handOne));
+         handOne.setScore(scoreUpdate(handOne.getPlayersCard()));
 
          BlackjackSplitHand handTwo = new BlackjackSplitHand(cardsHandTwo);
-         handTwo.setScore(scoreUpdate(handTwo));
+         handTwo.setScore(scoreUpdate(handTwo.getPlayersCard()));
 
          List<BlackjackSplitHand> hands = new ArrayList<>();
          hands.add(handOne);
@@ -54,7 +54,7 @@ public class BlackjackDecision extends BlackjackCore {
      private void hitForSplit (BlackjackSplitHand hand){
          Cards card = dealOneCard();
          hand.getPlayersCard().add(card);
-         hand.setScore(scoreUpdate(hand));
+         hand.setScore(scoreUpdate(hand.getPlayersCard()));
          printPlayersCardsAndScore(hand);
 
      }
@@ -82,7 +82,7 @@ public class BlackjackDecision extends BlackjackCore {
             BlackjackDecision blackjackDecision = new BlackjackDecision();
             Cards card = blackjackDecision.dealOneCard();
             dealer.getDealersCards().add(card);
-            dealer.setScore(scoreUpdate(dealer));
+            dealer.setScore(scoreUpdate(dealer.getDealersCards()));
             hasBlackjack(dealer);
             if (dealer.getHasBlackjack()){
                 System.out.println("Dealer's hand: "+dealer.getDealersCards()+" Total score: "+dealer.getScore());

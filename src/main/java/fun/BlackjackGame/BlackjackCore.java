@@ -16,14 +16,14 @@ public class BlackjackCore {
     public Scanner scanner = new Scanner(System.in);
 
 
-    public int scoreUpdate (BlackjackSeat seat){
+    public int scoreUpdate (List<Cards> lisOfCards){
 
         int temp = 0;
 
         Predicate<Cards> notAce = u -> u.getValue()!=14;
         Predicate<Cards> Ace = u -> u.getValue()==14;
 
-        List<Cards> withoutAces = seat.getPlayersCard().stream()
+        List<Cards> withoutAces = lisOfCards.stream()
                 .filter(notAce)
                 .collect(Collectors.toList());
 
@@ -33,7 +33,7 @@ public class BlackjackCore {
 
         }
 
-        List<Cards> withAces = seat.getPlayersCard().stream()
+        List<Cards> withAces = lisOfCards.stream()
                 .filter(Ace)
                 .collect(Collectors.toList());
         for (Cards card : withAces){
@@ -50,73 +50,6 @@ public class BlackjackCore {
         return temp;
     }
 
-
-    public int scoreUpdate (BlackjackSplitHand hand){
-
-        int temp = 0;
-
-        Predicate<Cards> notAce = u -> u.getValue()!=14;
-        Predicate<Cards> Ace = u -> u.getValue()==14;
-
-        List<Cards> withoutAces = hand.getPlayersCard().stream()
-                .filter(notAce)
-                .collect(Collectors.toList());
-
-        for (Cards card : withoutAces){
-
-            temp = temp+card.getScore();
-
-        }
-
-        List<Cards> withAces = hand.getPlayersCard().stream()
-                .filter(Ace)
-                .collect(Collectors.toList());
-        for (Cards card : withAces){
-
-            if (temp+card.getScore()>21){
-                card.setScore(1);
-                temp = temp+card.getScore();
-                card.setScore(11);
-            }else if (temp+card.getScore()<22) {
-                temp = temp + card.getScore();
-            }
-        }
-
-        return temp;
-    }
-    public int scoreUpdate (Dealer dealer){
-
-        int temp = 0;
-
-        Predicate<Cards> notAce = u -> u.getValue()!=14;
-        Predicate<Cards> Ace = u -> u.getValue()==14;
-
-        List<Cards> withoutAces = dealer.getDealersCards().stream()
-                .filter(notAce)
-                .collect(Collectors.toList());
-
-        for (Cards card : withoutAces){
-
-            temp = temp+card.getScore();
-
-        }
-
-        List<Cards> withAces = dealer.getDealersCards().stream()
-                .filter(Ace)
-                .collect(Collectors.toList());
-        for (Cards card : withAces){
-
-            if (temp+card.getScore()>21){
-                card.setScore(1);
-                temp = temp+card.getScore();
-                card.setScore(11);
-            }else if (temp+card.getScore()<22) {
-                temp = temp + card.getScore();
-            }
-        }
-
-        return temp;
-    }
 
     public void printPlayersCardsAndScore (BlackjackSeat seat, int seatNumber){
 
