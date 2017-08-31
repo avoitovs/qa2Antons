@@ -15,21 +15,13 @@ public class BlackjackGameInitialization extends BlackjackCore {
     public BlackjackGameInitialization(Player player, Dealer dealer) {
         this.player = player;
         this.dealer=dealer;
-        getPlayersName();
+        System.out.println(player.getPlayersName()+", welcome to our blackjack game! ");
+        System.out.println("--------------------------");
         getAmountOfSeats();
         player.setBlackjackRoundsHistory(new BlackjackRound(player, dealer));
         playAgain();
     }
 
-    private void getPlayersName(){
-
-        System.out.println("WELCOME TO BLACKJACK GAME!");
-        System.out.println("--------------------------");
-        System.out.println("Please enter your name:");
-        player.setPlayersName(scanner.nextLine());
-        System.out.println("Hello "+player.getPlayersName()+", nice to see you!");
-        System.out.println();
-    }
 
     private void getAmountOfSeats (){
         System.out.println("How many seats you want to play:");
@@ -40,11 +32,18 @@ public class BlackjackGameInitialization extends BlackjackCore {
 
     private void playAgain(){
 
-        System.out.println(player.getPlayersName()+", would you like to play again?");
+        System.out.println(player.getPlayersName()+", would you like to play again? (Yes / No)");
         String cont = scanner.next();
         if (cont.equalsIgnoreCase("YES")){
+
+            if (player.getWallet().getBalance()!=0){
             player.setBlackjackRoundsHistory(new BlackjackRound(player, dealer));
-            playAgain();
+            playAgain();}
+            else {
+                System.out.println("Insufficient funds to start new round!");
+                System.out.println();
+                System.out.println("Thank you for the game! Have a nice day!");
+            }
         } else {
             System.out.println("Thank you for the game! Have a nice day!");
         }

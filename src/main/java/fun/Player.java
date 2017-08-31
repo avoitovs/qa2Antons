@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by antons on 15/07/2017.
  */
-public class Player {
+public class Player extends Core {
     private String playersName;
     private int amountOfSeats;
     private List<BlackjackSeat> seats;
@@ -18,6 +18,8 @@ public class Player {
 
     public Player() {
         this.wallet = new Wallet();
+        System.out.println("WELCOME TO ANTON'S CASINO!");
+        setPlayersName();
     }
 
     public Wallet getWallet() {
@@ -30,10 +32,6 @@ public class Player {
 
     public void setBlackjackRoundsHistory(BlackjackRound blackjackRound) {
         blackjackRoundsHistory.add(blackjackRound);
-    }
-
-    public void setPlayersName(String playersName) {
-        this.playersName = playersName;
     }
 
     public String getPlayersName() {
@@ -54,6 +52,15 @@ public class Player {
             list.add(new BlackjackSeat());
         }
         this.seats = list;
+    }
+
+    private void setPlayersName (){
+
+        System.out.println("Please enter your name:");
+        this.playersName = scanner.nextLine();
+        System.out.println("Hello "+playersName+", nice to see you!");
+        System.out.println();
+
     }
 
 

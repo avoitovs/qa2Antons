@@ -9,11 +9,13 @@ import fun.Player;
 public class BlackjackGame {
 
 
-    public static void main(String[] args) {
+    public BlackjackGame(Player player) {
+        startBlackjackGame(player);
+    }
 
-        Player player = new Player();
+    private void startBlackjackGame(Player player) {
+
         Dealer dealer = new Dealer();
-        player.getWallet().setBalance(15.00);
         new BlackjackGameInitialization(player,dealer);
 
     }

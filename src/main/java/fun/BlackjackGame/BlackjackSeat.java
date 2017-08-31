@@ -15,6 +15,24 @@ public class BlackjackSeat {
     private boolean hasBlackjack;
     private boolean win;
     private double bet;
+    private boolean insurance;
+
+
+    private boolean doubledBet;
+
+
+    public boolean isDoubledBet() {
+        return doubledBet;
+    }
+
+    public void setDoubledBet(boolean doubledBet) {
+        this.doubledBet = doubledBet;
+    }
+
+
+
+
+
 
     public double getBet() {
         return bet;
@@ -64,8 +82,11 @@ public class BlackjackSeat {
         this.hands = hands;
     }
 
+    public boolean isInsurance() {
+        return insurance;
+    }
 
-
-
-
+    public void setInsurance(boolean insurance) {
+        this.insurance = insurance;
+    }
 }

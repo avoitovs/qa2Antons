@@ -24,7 +24,8 @@ public class BlackjackDecisionController extends BlackjackCore{
 
 
                if (firstTwoCardsHasEqualValue(seat)
-                       &playerHasOnlyTwoCards(seat)){
+                       &playerHasOnlyTwoCards(seat)
+                       &!(player.getWallet().getBalance()<seat.getBet())){
                System.out.println("Please make your decision (Hit, Stand, DoubleDown or Split) for seat "+seatNumber+" :");
                String decision = scanner.next();
                    if (decision.equalsIgnoreCase("Hit")){
@@ -40,13 +41,15 @@ public class BlackjackDecisionController extends BlackjackCore{
                        break;
                    }else {break;}
 
-               } else if (playerHasOnlyTwoCards(seat)){
+               } else if (playerHasOnlyTwoCards(seat)
+                       &!(player.getWallet().getBalance()<seat.getBet())){
                 System.out.println("Please make your decision (Hit, Stand or DoubleDown) for seat "+seatNumber+" :");
                 String decision = scanner.next();
                 if (decision.equalsIgnoreCase("Hit")){
                     new BlackjackDecision().hit(seat);
                 }else if (decision.equalsIgnoreCase("DoubleDown")){
                     doubleOrSplitBetDeduction(seat,player);
+
                     new BlackjackDecision().hit(seat);
                     break;
                 }else {break;}
@@ -80,6 +83,7 @@ public class BlackjackDecisionController extends BlackjackCore{
 
         player.getWallet().setBalance(player.getWallet().getBalance()-seat.getBet());
         seat.setBet(seat.getBet()*2);
+        seat.setDoubledBet(true);
         System.out.println("Your total balance after this decision is: "+player.getWallet().getBalance());
 
     }

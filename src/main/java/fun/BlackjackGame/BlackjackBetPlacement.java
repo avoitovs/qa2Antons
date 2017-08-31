@@ -22,14 +22,49 @@ public class BlackjackBetPlacement extends BlackjackCore {
 
         for (BlackjackSeat seat : player.getSeats()){
 
-            System.out.println("Please enter bet amount to place on seat "+seatNumber+":");
-            seat.setBet(scanner.nextDouble());
-            player.getWallet().setBalance(player.getWallet().getBalance()-seat.getBet());
-            System.out.println("Your total balance is: "+player.getWallet().getBalance());
-            System.out.println("-------------");
-            seatNumber=seatNumber+1;
-
+            betPlacement(seat,seatNumber);
+            seatNumber = seatNumber+1;
         }
 
     }
+
+
+    private boolean isBetValid (Double bet){
+
+        if (player.getWallet().getBalance()-bet<0){
+
+            System.out.println("INVALID BET! Insufficient funds!");
+            return false;
+
+        }
+        if (bet<1){
+
+            System.out.println("INVALID BET! Bet is less than table minimum limit!");
+            return false;
+
+        }
+        return true;
+
+    }
+
+    private void betPlacement (BlackjackSeat seat, int seatNumber){
+
+        System.out.println("Please enter bet amount to place on seat "+seatNumber+":");
+        Double bet = scanner.nextDouble();
+        if (isBetValid(bet)){
+            seat.setBet(bet);
+            player.getWallet().setBalance(player.getWallet().getBalance()-seat.getBet());
+            printTotalBalance(player);
+            }
+        else {betPlacement(seat,seatNumber);}
+
+    }
+
+
+
+
+
+
+
+
 }

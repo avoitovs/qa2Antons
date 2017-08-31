@@ -1,20 +1,18 @@
 package fun.BlackjackGame;
 
 import fun.Cards;
+import fun.Core;
 import fun.Dealer;
+import fun.Player;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
  * Created by antons on 19/07/2017.
  */
-public class BlackjackCore {
-
-    public Scanner scanner = new Scanner(System.in);
-
+public class BlackjackCore extends Core {
 
     public int scoreUpdate (List<Cards> lisOfCards){
 
@@ -37,6 +35,15 @@ public class BlackjackCore {
                 .filter(Ace)
                 .collect(Collectors.toList());
         for (Cards card : withAces){
+
+
+            if (temp>9
+                    & withAces.size()>1){
+                card.setScore(1);               //if there are several aces and other cards have score more than 9
+                temp = temp+card.getScore();    // then all aces are treated as 1's
+                card.setScore(11);
+            continue;
+            }
 
             if (temp+card.getScore()>21){
                 card.setScore(1);
@@ -83,6 +90,12 @@ public class BlackjackCore {
         System.out.println();
 
     }
+
+    public void printTotalBalance(Player player){
+        System.out.println("Your total balance is: "+player.getWallet().getBalance());
+        System.out.println("-------------");
+    }
+
 
 }
 

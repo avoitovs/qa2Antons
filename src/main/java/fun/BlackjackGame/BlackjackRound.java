@@ -35,6 +35,8 @@ public class BlackjackRound extends BlackjackCore {
         }
 
         dealDealersInitialCard();
+        offerInsurance();
+
     }
 
     private void dealDealersInitialCard() {
@@ -46,6 +48,8 @@ public class BlackjackRound extends BlackjackCore {
 
         dealer.setDealersCards(dealersCards);
         printDealersInitialCard(dealer);
+
+
     }
 
     private void dealInitialPlayersCards(BlackjackSeat seat){
@@ -68,6 +72,36 @@ public class BlackjackRound extends BlackjackCore {
             seat.setHasBlackjack(true);
         } else {
             seat.setHasBlackjack(false);
+        }
+
+    }
+
+
+    private void offerInsurance(){
+
+        if (dealer.getDealersCards().get(0).getValue()==14) {
+
+
+            int seatNumber = 1;
+            System.out.println("Dealer's face up card is ACE");
+            for (BlackjackSeat seat : player.getSeats()) {
+
+                if (!(player.getWallet().getBalance() < seat.getBet())) {
+
+                    System.out.println("Would you like to get an insurance for seat number " + seatNumber + " ?");
+                    String insuranceDecision = scanner.nextLine();
+                    if (insuranceDecision.equalsIgnoreCase("yes")) {
+
+                        seat.setInsurance(true);
+                        player.getWallet().setBalance(player.getWallet().getBalance() - (seat.getBet() * 0.5));
+                        printTotalBalance(player);
+
+
+                    }
+                }
+                    seatNumber = seatNumber + 1;
+            }
+
         }
 
     }
