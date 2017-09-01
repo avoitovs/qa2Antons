@@ -15,11 +15,11 @@ public class BlackjackRound extends BlackjackCore {
         this.player = player;
         this.dealer = dealer;
         dealInitialCards();
-        new BlackjackDecisionController(player,dealer);
-        new BlackjackResultCounter(player,dealer);
+        new BlackjackDecisionController(player, dealer);
+        new BlackjackResultCounter(player, dealer);
     }
 
-    private void dealInitialCards (){
+    private void dealInitialCards() {
         int seatNumber = 1;
         new BlackjackBetPlacement(player);
 
@@ -27,11 +27,11 @@ public class BlackjackRound extends BlackjackCore {
 
         printSeparator();
 
-        for (BlackjackSeat seat : player.getSeats()){
+        for (BlackjackSeat seat : player.getSeats()) {
 
             dealInitialPlayersCards(seat);
-            printPlayersCardsAndScore(seat,seatNumber);
-            seatNumber = seatNumber+1;
+            printPlayersCardsAndScore(seat, seatNumber);
+            seatNumber = seatNumber + 1;
         }
 
         dealDealersInitialCard();
@@ -52,7 +52,7 @@ public class BlackjackRound extends BlackjackCore {
 
     }
 
-    private void dealInitialPlayersCards(BlackjackSeat seat){
+    private void dealInitialPlayersCards(BlackjackSeat seat) {
 
         List<Cards> playersCards = new ArrayList<>();
         Cards firstPlayerCard = Cards.getRandomCard();
@@ -66,9 +66,9 @@ public class BlackjackRound extends BlackjackCore {
 
     }
 
-    private void checkForBlackjack(BlackjackSeat seat){
+    private void checkForBlackjack(BlackjackSeat seat) {
 
-        if (seat.getScore()==21){
+        if (seat.getScore() == 21) {
             seat.setHasBlackjack(true);
         } else {
             seat.setHasBlackjack(false);
@@ -77,9 +77,9 @@ public class BlackjackRound extends BlackjackCore {
     }
 
 
-    private void offerInsurance(){
+    private void offerInsurance() {
 
-        if (dealer.getDealersCards().get(0).getValue()==14) {
+        if (dealer.getDealersCards().get(0).getValue() == 14) {
 
 
             int seatNumber = 1;
@@ -99,7 +99,7 @@ public class BlackjackRound extends BlackjackCore {
 
                     }
                 }
-                    seatNumber = seatNumber + 1;
+                seatNumber = seatNumber + 1;
             }
 
         }

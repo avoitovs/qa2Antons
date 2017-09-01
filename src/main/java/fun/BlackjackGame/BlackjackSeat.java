@@ -30,10 +30,6 @@ public class BlackjackSeat {
     }
 
 
-
-
-
-
     public double getBet() {
         return bet;
     }

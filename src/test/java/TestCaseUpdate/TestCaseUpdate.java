@@ -17,8 +17,8 @@ public class TestCaseUpdate {
 
 
     private static String testCaseNumber = "TC-5205";
-    private String username = "kjekimovs";
-    private String password = "tyui9o0p";
+    private String username = "";
+    private String password = "";
 
 
 

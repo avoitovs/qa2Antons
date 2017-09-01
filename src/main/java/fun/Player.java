@@ -46,23 +46,22 @@ public class Player extends Core {
         return seats;
     }
 
-    public void setSeats(){
+    public void setSeats() {
         List<BlackjackSeat> list = new ArrayList<>();
-        for (int i =0;i<amountOfSeats;i++){
+        for (int i = 0; i < amountOfSeats; i++) {
             list.add(new BlackjackSeat());
         }
         this.seats = list;
     }
 
-    private void setPlayersName (){
+    private void setPlayersName() {
 
         System.out.println("Please enter your name:");
         this.playersName = scanner.nextLine();
-        System.out.println("Hello "+playersName+", nice to see you!");
+        System.out.println("Hello " + playersName + ", nice to see you!");
         System.out.println();
 
     }
-
 
 
 }

@@ -38,14 +38,14 @@ public class def extends BaseFunctions {
     private int childCount = 2;
     private BigDecimal score = null;
 
-   // @Before
+    @Before
     public void setup() {
 
         driver.setUpFFDesktop();
         Driver.desktopDriver.get("http://qaguru.lv:8080/qa2/");
     }
 
-   // @After
+    @After
     public void tearDown() {
         driver.tearDown(Driver.desktopDriver);
     }

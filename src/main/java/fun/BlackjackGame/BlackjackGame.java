@@ -16,7 +16,7 @@ public class BlackjackGame {
     private void startBlackjackGame(Player player) {
 
         Dealer dealer = new Dealer();
-        new BlackjackGameInitialization(player,dealer);
+        new BlackjackGameInitialization(player, dealer);
 
     }
 
